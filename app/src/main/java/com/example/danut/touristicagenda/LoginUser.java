@@ -1,5 +1,6 @@
 package com.example.danut.touristicagenda;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,7 +16,14 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -27,22 +36,23 @@ public class LoginUser extends AppCompatActivity {
 
     private TextView tvEmailLogUser, tvPassLogUser;
 
-    //private FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth;
 
     private ProgressDialog progressDialog;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_user);
 
-        emailLogUser = (TextInputEditText) findViewById(R.id.etEmailLog);
-        passLogUser = (TextInputEditText) findViewById(R.id.etPassLog);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Login User");
 
-        //firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        emailLogUser = findViewById(R.id.etEmailLog);
+        passLogUser = findViewById(R.id.etPassLog);
 
         CheckBox rememberCheckBox = findViewById(R.id.rememberCB);
 
@@ -53,8 +63,7 @@ public class LoginUser extends AppCompatActivity {
             if (checkbox.equals("true")) {
                 Intent intent = new Intent(LoginUser.this, UserPage.class);
                 startActivity(intent);
-            }
-            else{
+            } else {
                 Toast.makeText(LoginUser.this, "Please Sign In", Toast.LENGTH_SHORT).show();
             }
         }
@@ -78,8 +87,8 @@ public class LoginUser extends AppCompatActivity {
             }
         });
 
-        Button buttonCancelLog = findViewById(R.id.btnCancelLog);
-        buttonCancelLog.setOnClickListener(new View.OnClickListener() {
+        Button btn_cancelLog = findViewById(R.id.btnCancelLog);
+        btn_cancelLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 emailLogUser.setText("");
@@ -87,14 +96,14 @@ public class LoginUser extends AppCompatActivity {
             }
         });
 
-//        Button buttonRegUser = findViewById(R.id.btnRegUser);
-//        buttonRegUser.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent regUser = new Intent(LoginUser.this, RegisterUser.class);
-//                startActivity(regUser);
-//            }
-//        });
+        Button btn_regUser = findViewById(R.id.btnRegisterLog);
+        btn_regUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent regUser = new Intent(LoginUser.this, RegisterUser.class);
+                startActivity(regUser);
+            }
+        });
 
         TextView tVForgotPass = findViewById(R.id.tvForgotPass);
         tVForgotPass.setOnClickListener(new View.OnClickListener() {
@@ -105,33 +114,44 @@ public class LoginUser extends AppCompatActivity {
             }
         });
 
-//        //log in User
-//        Button buttonUserLog = findViewById(R.id.btnUserLog);
-//        buttonUserLog.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (validateUserLogData()) {
-//
-//                    progressDialog.setMessage("Login User");
-//                    progressDialog.show();
-//
-//                    firebaseAuth.signInWithEmailAndPassword(email_logUser, pass_logUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                            if (task.isSuccessful()) {
-//                                //clear data
-//                                emailLogUser.setText("");
-//                                passLogUser.setText("");
-//                                checkEmailVerification();
-//                            } else {
-//                                progressDialog.dismiss();
-//                                Toast.makeText(LoginUser.this, "Log in failed, you entered a wrong Email or Password", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        });
+        //log in User
+        Button btn_loginUser = findViewById(R.id.btnUserLog);
+        btn_loginUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (validateUserLogData()) {
+
+                    progressDialog.setMessage("Login User");
+                    progressDialog.show();
+
+                    firebaseAuth.signInWithEmailAndPassword(email_logUser, pass_logUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+
+                                checkEmailVerification();
+
+                            } else {
+                                try {
+                                    throw Objects.requireNonNull(task.getException());
+                                } catch (FirebaseAuthInvalidUserException e) {
+                                    emailLogUser.setError("This email is not registered.");
+                                    emailLogUser.requestFocus();
+                                } catch (FirebaseAuthInvalidCredentialsException e) {
+                                    passLogUser.setError("Invalid Password");
+                                    passLogUser.requestFocus();
+                                } catch (Exception e) {
+                                    Toast.makeText(LoginUser.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            progressDialog.dismiss();
+                        }
+                    });
+                }
+            }
+        });
 
         tvEmailLogUser = findViewById(R.id.text_dummy_hint_emailLog);
         tvPassLogUser = findViewById(R.id.text_dummy_hint_password);
@@ -140,16 +160,16 @@ public class LoginUser extends AppCompatActivity {
         emailLogUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
+                if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             //Show white background behind floating Label
                             tvEmailLogUser.setVisibility(View.VISIBLE);
                         }
-                    },10);
+                    }, 10);
 
-                }else{
+                } else {
                     //Required to show/hide white background behind floating label during focus change
                     if (Objects.requireNonNull(emailLogUser.getText()).length() > 0)
                         tvEmailLogUser.setVisibility(View.VISIBLE);
@@ -182,45 +202,44 @@ public class LoginUser extends AppCompatActivity {
         });
     }
 
-//    private Boolean validateUserLogData() {
-//        boolean result = false;
-//
-//        email_logUser = Objects.requireNonNull(emailLogUser.getText()).toString().trim();
-//        pass_logUser = Objects.requireNonNull(passLogUser.getText()).toString().trim();
-//
-//        if (email_logUser.isEmpty()) {
-//            emailLogUser.setError("Enter your Login Email");
-//            emailLogUser.requestFocus();
-//        } else if (!Patterns.EMAIL_ADDRESS.matcher(email_logUser).matches()) {
-//            Toast.makeText(LoginUser.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
-//            emailLogUser.setError("Enter a valid Email Address");
-//            emailLogUser.requestFocus();
-//        } else if (pass_logUser.isEmpty()) {
-//            passLogUser.setError("Enter your Login Password");
-//            passLogUser.requestFocus();
-//        } else {
-//            result = true;
-//        }
-//        return result;
-//    }
+    private Boolean validateUserLogData() {
+        boolean result = false;
 
-//    //check if the email has been verified
-//    private void checkEmailVerification() {
-//        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        if (firebaseUser != null) {
-//            boolean emailFlag = firebaseUser.isEmailVerified();
-//
-//            progressDialog.dismiss();
-//
-//            if (emailFlag) {
-//                finish();
-//                Toast.makeText(LoginUser.this, "Login successful.", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(LoginUser.this, UserPage.class));
-//            } else {
-//                Toast.makeText(this, "Please verify your Email first", Toast.LENGTH_SHORT).show();
-//                firebaseAuth.signOut();
-//            }
-//        }
-//    }
+        email_logUser =(Objects.requireNonNull(emailLogUser.getText())).toString().trim();
+        pass_logUser = Objects.requireNonNull(passLogUser.getText()).toString().trim();
+
+        if (email_logUser.isEmpty()) {
+            emailLogUser.setError("Enter your Login Email");
+            emailLogUser.requestFocus();
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email_logUser).matches()) {
+            emailLogUser.setError("Enter a valid Email Address");
+            emailLogUser.requestFocus();
+        } else if (pass_logUser.isEmpty()) {
+            passLogUser.setError("Enter your Login Password");
+            passLogUser.requestFocus();
+        } else {
+            result = true;
+        }
+        return result;
+    }
+
+    //check if the email has been verified
+    private void checkEmailVerification() {
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (firebaseUser != null) {
+
+            if (firebaseUser.isEmailVerified()) {
+
+                Toast.makeText(LoginUser.this, "User successfully Log in!!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginUser.this, UserPage.class));
+                finish();
+            } else {
+                Toast.makeText(this, "Please verify your Email first.", Toast.LENGTH_SHORT).show();
+            }
+
+            progressDialog.dismiss();
+        }
+    }
 }

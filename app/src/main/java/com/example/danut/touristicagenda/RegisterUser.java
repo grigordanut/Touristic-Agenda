@@ -56,8 +56,8 @@ public class RegisterUser extends AppCompatActivity {
         //Upload data to Users database
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
-        Button btn_CancelReg = findViewById(R.id.btnCancelReg);
-        btn_CancelReg.setOnClickListener(new View.OnClickListener() {
+        Button btn_cancelReg = findViewById(R.id.btnCancelReg);
+        btn_cancelReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 firstNameReg.setText("");
@@ -68,8 +68,8 @@ public class RegisterUser extends AppCompatActivity {
             }
         });
 
-        Button btn_LogUser = findViewById(R.id.btnLogUser);
-        btn_LogUser.setOnClickListener(new View.OnClickListener() {
+        Button btn_logReg = findViewById(R.id.btnLogReg);
+        btn_logReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentLog = new Intent(RegisterUser.this, LoginUser.class);
@@ -78,8 +78,8 @@ public class RegisterUser extends AppCompatActivity {
             }
         });
 
-        Button btn_Register = findViewById(R.id.btnRegister);
-        btn_Register.setOnClickListener(new View.OnClickListener() {
+        Button btn_register = findViewById(R.id.btnRegister);
+        btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

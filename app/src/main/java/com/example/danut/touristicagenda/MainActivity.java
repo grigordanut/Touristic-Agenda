@@ -6,46 +6,61 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.os.Handler;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
-    private Button buttonCalculeazaMarmura;
+
+    private static final int DELAY_MILLISECONDS = 6000;
+
+    private ImageView imgView;
+    private Animation animationRotate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn_register = findViewById(R.id.btnRegister);
-        btn_register.setOnClickListener(new View.OnClickListener() {
+
+        imgView = (ImageView)findViewById(R.id.imageView);
+
+        //Rotate animation
+        Handler handlerRotate = new Handler();
+        handlerRotate.post(new Runnable() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RegisterUser.class));
+            public void run() {
+                animationRotate = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
+                imgView.startAnimation(animationRotate);
             }
         });
 
-        Button btn_login = findViewById(R.id.btnLogin);
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        //move animation
+        Handler handlerDelay = new Handler();
+        handlerDelay.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(MainActivity.this,LoginUser.class);
+                startActivity(i);
+            }
+        }, DELAY_MILLISECONDS);
+
+        imgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, LoginUser.class));
+                Intent intent = new Intent(MainActivity.this,LoginUser.class);
+                startActivity(intent);
             }
         });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override

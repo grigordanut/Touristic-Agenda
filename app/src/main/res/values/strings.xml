@@ -24,13 +24,13 @@
 
     <!--    Login User-->
     <string name="tv_loginPage">Enter your Log in details here</string>
-    <string name="et_emailLoginPage">Email Address</string>
-    <string name="et_passLoginPage">Password</string>
+    <string name="et_emailLog">Email Address</string>
+    <string name="et_passLog">Password</string>
     <string name="tv_forgotPassword">Forgotten Password</string>
-    <string name="btn_logLoginPage">Log In</string>
-    <string name="btn_cancelLoginPage">Cancel</string>
-    <string name="tv_signUpUser">New user please</string>
-    <string name="btn_signUpLoginPage">Sign Up</string>
+    <string name="btn_loginUser">Log In</string>
+    <string name="btn_cancelLog">Cancel</string>
+    <string name="tv_newUser">New user please</string>
+    <string name="btn_registerLogPage">Register</string>
 
     <!--    Main Page-->
     <string name="tv_mainPage">Welcome to Touristic Agenda</string>
@@ -47,15 +47,15 @@
 
     <!--    Register User-->
     <string name="tv_registerUser">Enter your register details here</string>
-    <string name="et_firstNameRegPage">First Name</string>
-    <string name="et_lastNameRegPage">Last Name</string>
-    <string name="et_emailRegPage">Email Address</string>
-    <string name="et_passRegPage">Password</string>
-    <string name="et_confPassRegPage">Confirm Password</string>
-    <string name="btn_registerRegPage">Save User</string>
-    <string name="btn_cancelRegPage">Cancel</string>
-    <string name="tv_userRegisteredRegPage">Already registered please</string>
-    <string name="btn_signInUserRegPage">Sign In</string>
+    <string name="et_firstNameReg">First Name</string>
+    <string name="et_lastNameReg">Last Name</string>
+    <string name="et_emailReg">Email Address</string>
+    <string name="et_passReg">Password</string>
+    <string name="et_confPassReg">Confirm Password</string>
+    <string name="btn_registerUser">Register</string>
+    <string name="btn_cancelReg">Cancel</string>
+    <string name="tv_registeredUser">Already registered please</string>
+    <string name="btn_logRegisterPage">Log In</string>
 
     <!--    Reset Password-->
     <string name="tv_ResetPassword">Reset Your Password</string>

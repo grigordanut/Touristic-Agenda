@@ -4,27 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/grad"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
-    tools:showIn="@layout/activity_main"
-    android:orientation="vertical">
+    tools:ignore="UseCompoundDrawables"
+    tools:showIn="@layout/activity_main">
 
-    <Button
-        android:id="@+id/btnRegister"
+    <TextView
+        android:id="@+id/textViewMainPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="60dp"
-        android:text="Register" />
+        android:layout_marginTop="5dp"
+        android:text="@string/tv_mainPage"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="26sp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnLogin"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="60dp"
-        android:text="Log in" />
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@drawable/agenda_new"
+        tools:ignore="ContentDescription" />
 
 </LinearLayout>
