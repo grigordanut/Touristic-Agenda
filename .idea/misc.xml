@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/danut/AndroidStudioProjects/CalculatorMarmura/app/src/main/res/drawable-v24/btn_background.xml" value="0.187" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/CalculatorMarmura/app/src/main/res/drawable-v24/btn_fading.xml" value="0.187" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/CalculatorMarmura/app/src/main/res/drawable-v24/btn_inverse_fading.xml" value="0.187" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/CalculatorMarmura/app/src/main/res/drawable-v24/button_round_corners.xml" value="0.187" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/CalculatorMarmura/app/src/main/res/drawable-v24/edit_text_round_corners.xml" value="0.187" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/CalculatorMarmura/app/src/main/res/drawable-v24/view_label_rounded_edit_text.xml" value="0.187" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/CalculatorMarmura/app/src/main/res/layout/activity_calculare.xml" value="0.25" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/CalculatorMarmura/app/src/main/res/layout/activity_login_user.xml" value="0.24583333333333332" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/CalculatorMarmura/app/src/main/res/layout/activity_register_user.xml" value="0.24583333333333332" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/CalculatorMarmura/app/src/main/res/layout/content_main.xml" value="0.24583333333333332" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/content_main.xml" value="0.25" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/menu/menu_main.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

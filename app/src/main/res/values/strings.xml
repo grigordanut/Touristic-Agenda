@@ -1,0 +1,108 @@
+<resources>
+    <string name="app_name">Touristic Agenda</string>
+    <string name="action_settings">Settings</string>
+
+    <!--    LayoutResources-->
+    <!--    Add Event-->
+    <string name="tv_addEvent">Welcome to add Events Page</string>
+    <string name="tv_orChose">Or</string>
+    <string name="et_eventName">Event Name</string>
+    <string name="et_eventAddress">Event Address</string>
+    <string name="tv_messageEvent">Message: </string>
+    <string name="btn_saveEvent">SAVE EVENT</string>
+
+    <!--    Change Password-->
+    <string name="tv_changePassword" translatable="false">Change Your Password</string>
+    <string name="et_enterOldPassword" translatable="false">Enter Old Password</string>
+    <string name="et_enterNewPassword" translatable="false">Enter New Password</string>
+    <string name="btn_updatePassword" translatable="false">Update Password</string>
+
+    <!--    Events Image-->
+    <string name="tv_eventsPage">Welcome to Events Page</string>
+    <string name="btn_addMoreEvents">Add More Events</string>
+    <string name="btn_backUerPage">Back User Page</string>
+
+    <!--    Login User-->
+    <string name="tv_loginPage">Enter your Log in details here</string>
+    <string name="et_emailLoginPage">Email Address</string>
+    <string name="et_passLoginPage">Password</string>
+    <string name="tv_forgotPassword">Forgotten Password</string>
+    <string name="btn_logLoginPage">Log In</string>
+    <string name="btn_cancelLoginPage">Cancel</string>
+    <string name="tv_signUpUser">New user please</string>
+    <string name="btn_signUpLoginPage">Sign Up</string>
+
+    <!--    Main Page-->
+    <string name="tv_mainPage">Welcome to Touristic Agenda</string>
+
+    <!--    Edit User Profile-->
+    <string name="tv_editUserProfile">Edit your Profile</string>
+    <string name="tv_fNameUserProfile">First Name: </string>
+    <string name="et_userFirstName">First Name: </string>
+    <string name="tv_lNameUserProfile">Last Name: </string>
+    <string name="et_userLastName">Last Name: </string>
+    <string name="tv_emailUserProfile">Email: </string>
+    <string name="et_userEmailAddress">Email: </string>
+    <string name="btn_saveChangesEditProfile">Save Changes</string>
+
+    <!--    Register User-->
+    <string name="tv_registerUser">Enter your register details here</string>
+    <string name="et_firstNameRegPage">First Name</string>
+    <string name="et_lastNameRegPage">Last Name</string>
+    <string name="et_emailRegPage">Email Address</string>
+    <string name="et_passRegPage">Password</string>
+    <string name="et_confPassRegPage">Confirm Password</string>
+    <string name="btn_registerRegPage">Save User</string>
+    <string name="btn_cancelRegPage">Cancel</string>
+    <string name="tv_userRegisteredRegPage">Already registered please</string>
+    <string name="btn_signInUserRegPage">Sign In</string>
+
+    <!--    Reset Password-->
+    <string name="tv_ResetPassword">Reset Your Password</string>
+    <string name="et_emailResetPassword">Enter your Email Address</string>
+    <string name="btn_resetPass">Reset Password</string>
+
+
+    <!--    Update Event-->
+    <string name="tv_updateEvent">Update Event</string>
+    <string name="tv_updateEventOr">Or</string>
+    <string name="tv_updateDate">Data: </string>
+    <string name="et_updateEventName">Name: </string>
+    <string name="et_updateEventAddress">Address: </string>
+    <string name="et_updateEventComments" translatable="false">Comments: </string>
+    <string name="btn_saveEventUpdate">Save Event Updated </string>
+
+    <!--    User Page-->
+    <string name="tv_userPage">Welcome</string>
+    <string name="btn_showEvents">Show Events</string>
+    <string name="btn_addNewEvent">Add New Event</string>
+    <string name="btn_showMap">Show Map</string>
+    <string name="btn_editProfile">Edit Profile</string>
+
+    <!--    Image Event-->
+    <string name="tv_eventDate">Date of Event:</string>
+    <string name="tv_eventName">Name of Event:</string>
+    <string name="tv_eventAddress">Place of Event:</string>
+    <string name="tv_eventMessage">Message:</string>
+    <string name="tv_findMyPlace">find my place</string>
+    <string name="tv_phoneNumber">Phone Number</string>
+
+    <!--Menu Resources-->
+    <!--    Menu Main-->
+    <string name="go_registerPage">Register Page</string>
+
+    <!--    Menu Register User-->
+    <string name="back_mainPage">Back to Main Page</string>
+
+    <!--    Menu User Change Password-->
+    <string name="menuUser_ChangePasswordGoBack" translatable="false">Go Back</string>
+
+    <!--    Menu User Edit Details-->
+    <string name="menuUser_EditGoBack" translatable="false">Go Back</string>
+
+    <!--    Menu User Page-->
+    <string name="menuUser_MainLogOut">Log Out</string>
+    <string name="menuUser_MainEditProfile">Edit Profile</string>
+    <string name="menuUserMain_ChangePassword">Change Password</string>
+
+</resources>

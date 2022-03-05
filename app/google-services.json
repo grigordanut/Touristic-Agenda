@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "674843789361",
+    "firebase_url": "https://touristic-agenda-a9855.firebaseio.com",
+    "project_id": "touristic-agenda-a9855",
+    "storage_bucket": "touristic-agenda-a9855.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674843789361:android:e7ac5a73f32f471e592d10",
+        "android_client_info": {
+          "package_name": "com.example.danut.calculatormarmura"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674843789361-2en6jpufg81f9t63jh28a12119p3006d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPf21TA7CAfqqKLeEqg3JlPv0Ww6t1GX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674843789361-2en6jpufg81f9t63jh28a12119p3006d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674843789361:android:272605def7a4c220592d10",
+        "android_client_info": {
+          "package_name": "com.example.touristicagenda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674843789361-2en6jpufg81f9t63jh28a12119p3006d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPf21TA7CAfqqKLeEqg3JlPv0Ww6t1GX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674843789361-2en6jpufg81f9t63jh28a12119p3006d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674843789361:android:c51ce774b1a29e0e592d10",
+        "android_client_info": {
+          "package_name": "grigor.example.touristicagenda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674843789361-2en6jpufg81f9t63jh28a12119p3006d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPf21TA7CAfqqKLeEqg3JlPv0Ww6t1GX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674843789361-2en6jpufg81f9t63jh28a12119p3006d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
