@@ -45,7 +45,7 @@ public class LoginUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_user);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Login User");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Login Users");
 
         progressDialog = new ProgressDialog(this);
 
@@ -87,15 +87,6 @@ public class LoginUser extends AppCompatActivity {
             }
         });
 
-        Button btn_cancelLog = findViewById(R.id.btnCancelLog);
-        btn_cancelLog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                emailLogUser.setText("");
-                passLogUser.setText("");
-            }
-        });
-
         Button btn_regUser = findViewById(R.id.btnRegisterLog);
         btn_regUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +105,7 @@ public class LoginUser extends AppCompatActivity {
             }
         });
 
-        //log in User
+        //log in Users
         Button btn_loginUser = findViewById(R.id.btnUserLog);
         btn_loginUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +113,7 @@ public class LoginUser extends AppCompatActivity {
 
                 if (validateUserLogData()) {
 
-                    progressDialog.setMessage("Login User");
+                    progressDialog.setMessage("Login Users");
                     progressDialog.show();
 
                     firebaseAuth.signInWithEmailAndPassword(email_logUser, pass_logUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -149,54 +140,6 @@ public class LoginUser extends AppCompatActivity {
                             progressDialog.dismiss();
                         }
                     });
-                }
-            }
-        });
-
-        tvEmailLogUser = findViewById(R.id.text_dummy_hint_emailLog);
-        tvPassLogUser = findViewById(R.id.text_dummy_hint_password);
-
-        //Email Address
-        emailLogUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            //Show white background behind floating Label
-                            tvEmailLogUser.setVisibility(View.VISIBLE);
-                        }
-                    }, 10);
-
-                } else {
-                    //Required to show/hide white background behind floating label during focus change
-                    if (Objects.requireNonNull(emailLogUser.getText()).length() > 0)
-                        tvEmailLogUser.setVisibility(View.VISIBLE);
-                    else
-                        tvEmailLogUser.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-
-        //Password
-        passLogUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            //Show white background behind floating label
-                            tvPassLogUser.setVisibility(View.VISIBLE);
-                        }
-                    }, 10);
-                } else {
-                    //Required to show/hide white background behind floating label during focus change
-                    if (Objects.requireNonNull(passLogUser.getText()).length() > 0)
-                        tvPassLogUser.setVisibility(View.VISIBLE);
-                    else
-                        tvPassLogUser.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -232,7 +175,7 @@ public class LoginUser extends AppCompatActivity {
 
             if (firebaseUser.isEmailVerified()) {
 
-                Toast.makeText(LoginUser.this, "User successfully Log in!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginUser.this, "Users successfully Log in!!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginUser.this, UserPage.class));
                 finish();
             } else {

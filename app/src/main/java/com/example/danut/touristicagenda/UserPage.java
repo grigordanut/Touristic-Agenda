@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,59 +27,54 @@ import java.util.Objects;
 
 public class UserPage extends AppCompatActivity {
 
+    //Access customer database
     private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+
     private DatabaseReference databaseReference;
     private ValueEventListener eventListenerUser;
 
-    private TextView tVUserPage;
+    private TextView tVUserName, tVUserKey;
 
+    private Users users_data;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("User Page");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Users Page");
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         //initialise the variables
-        tVUserPage = findViewById(R.id.tvUserPage);
+        tVUserName = findViewById(R.id.tvUserName);
+        tVUserKey = findViewById(R.id.tvUserKey);
 
         Button btn_addEvent = findViewById(R.id.btnAddEvent);
-        btn_addEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addEvent = new Intent(UserPage.this, AddEvent.class);
-                startActivity(addEvent);
-            }
-        });
 
         Button btn_showEvents = findViewById(R.id.btnShowEvents);
-        btn_showEvents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent showEvent = new Intent(UserPage.this, EventsImage.class);
-                startActivity(showEvent);
-            }
-        });
 
         //retrieve data from database into text views
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+
         eventListenerUser = databaseReference.addValueEventListener(new ValueEventListener() {
             @SuppressLint({"SetTextI18n", "NewApi"})
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 //retrieve data from database
-                for (final DataSnapshot dsUser : dataSnapshot.getChildren()) {
-                    FirebaseUser user_Db = firebaseAuth.getCurrentUser();
-                    final User user_data = dsUser.getValue(User.class);
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                    if (user_Db != null){
-                        assert user_data != null;
-                        if (user_Db.getUid().equals(dsUser.getKey())){
-                            tVUserPage.setText("Welcome: "+user_data.getUser_firstName()+" "+user_data.getUser_lastName());
-                        }
+                    users_data = postSnapshot.getValue(Users.class);
+
+                    assert users_data != null;
+                    assert firebaseUser != null;
+                    if (firebaseUser.getUid().equals(postSnapshot.getKey())) {
+                        tVUserName.setText("Welcome: " + users_data.getUser_firstName() + " " + users_data.getUser_lastName());
+                        tVUserKey.setText(firebaseUser.getUid());
                     }
                 }
             }
@@ -90,6 +84,27 @@ public class UserPage extends AppCompatActivity {
                 Toast.makeText(UserPage.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        btn_addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent addEvent = new Intent(UserPage.this, AddEvent.class);
+                addEvent.putExtra("USERKey", firebaseUser.getUid());
+                startActivity(addEvent);
+            }
+        });
+
+        btn_showEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent showEvent = new Intent(UserPage.this, EventsImage.class);
+                getIntent().putExtra("USERKey", firebaseUser.getUid());
+                startActivity(showEvent);
+            }
+        });
+
     }
 
     private void editProfile() {
@@ -142,7 +157,7 @@ public class UserPage extends AppCompatActivity {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(UserPage.this);
         alertDialogBuilder
-                .setTitle("Log out User")
+                .setTitle("Log out Users")
                 .setMessage("Are sure to Log Out?")
                 .setCancelable(false)
                 .setPositiveButton("Yes",

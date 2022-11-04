@@ -41,7 +41,7 @@ public class RegisterUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Register User");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Register Users");
 
         progressDialog = new ProgressDialog(this);
 
@@ -55,18 +55,6 @@ public class RegisterUser extends AppCompatActivity {
 
         //Upload data to Users database
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-
-        Button btn_cancelReg = findViewById(R.id.btnCancelReg);
-        btn_cancelReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firstNameReg.setText("");
-                lastNameReg.setText("");
-                emailReg.setText("");
-                passReg.setText("");
-                confPassReg.setText("");
-            }
-        });
 
         Button btn_logReg = findViewById(R.id.btnLogReg);
         btn_logReg.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +73,7 @@ public class RegisterUser extends AppCompatActivity {
 
                 if (validateUserRegData()) {
 
-                    progressDialog.setMessage("Register User Details!");
+                    progressDialog.setMessage("Register Users Details!");
                     progressDialog.show();
 
                     firebaseAuth.createUserWithEmailAndPassword(email_reg, pass_reg).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -117,8 +105,8 @@ public class RegisterUser extends AppCompatActivity {
 
         if (firebaseUser != null) {
             String user_Id = firebaseUser.getUid();
-            User user_data = new User(firstName_reg, lastName_reg, email_reg);
-            databaseReference.child(user_Id).setValue(user_data).addOnCompleteListener(RegisterUser.this, new OnCompleteListener<Void>() {
+            Users users_data = new Users(firstName_reg, lastName_reg, email_reg);
+            databaseReference.child(user_Id).setValue(users_data).addOnCompleteListener(RegisterUser.this, new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
 
@@ -126,7 +114,7 @@ public class RegisterUser extends AppCompatActivity {
 
                         firebaseUser.sendEmailVerification();
 
-                        Toast.makeText(RegisterUser.this, "User Successfully Registered.\nVerification Email has been sent!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterUser.this, "Users Successfully Registered.\nVerification Email has been sent!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RegisterUser.this, LoginUser.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);

@@ -22,20 +22,19 @@
     <string name="btn_addMoreEvents">Add More Events</string>
     <string name="btn_backUerPage">Back User Page</string>
 
-    <!--    Login User-->
+    <!--    Login Users-->
     <string name="tv_loginPage">Enter your Log in details here</string>
     <string name="et_emailLog">Email Address</string>
     <string name="et_passLog">Password</string>
+    <string name="cb_remember">Remember me</string>
     <string name="tv_forgotPassword">Forgotten Password</string>
     <string name="btn_loginUser">Log In</string>
-    <string name="btn_cancelLog">Cancel</string>
-    <string name="tv_newUser">New user please</string>
     <string name="btn_registerLogPage">Register</string>
 
     <!--    Main Page-->
     <string name="tv_mainPage">Welcome to Touristic Agenda</string>
 
-    <!--    Edit User Profile-->
+    <!--    Edit Users Profile-->
     <string name="tv_editUserProfile">Edit your Profile</string>
     <string name="tv_fNameUserProfile">First Name: </string>
     <string name="et_userFirstName">First Name: </string>
@@ -45,7 +44,7 @@
     <string name="et_userEmailAddress">Email: </string>
     <string name="btn_saveChangesEditProfile">Save Changes</string>
 
-    <!--    Register User-->
+    <!--    Register Users-->
     <string name="tv_registerUser">Enter your register details here</string>
     <string name="et_firstNameReg">First Name</string>
     <string name="et_lastNameReg">Last Name</string>
@@ -53,15 +52,12 @@
     <string name="et_passReg">Password</string>
     <string name="et_confPassReg">Confirm Password</string>
     <string name="btn_registerUser">Register</string>
-    <string name="btn_cancelReg">Cancel</string>
-    <string name="tv_registeredUser">Already registered please</string>
     <string name="btn_logRegisterPage">Log In</string>
 
     <!--    Reset Password-->
     <string name="tv_ResetPassword">Reset Your Password</string>
     <string name="et_emailResetPassword">Enter your Email Address</string>
     <string name="btn_resetPass">Reset Password</string>
-
 
     <!--    Update Event-->
     <string name="tv_updateEvent">Update Event</string>
@@ -72,7 +68,7 @@
     <string name="et_updateEventComments" translatable="false">Comments: </string>
     <string name="btn_saveEventUpdate">Save Event Updated </string>
 
-    <!--    User Page-->
+    <!--    Users Page-->
     <string name="tv_userPage">Welcome</string>
     <string name="btn_showEvents">Show Events</string>
     <string name="btn_addNewEvent">Add New Event</string>
@@ -91,18 +87,19 @@
     <!--    Menu Main-->
     <string name="go_registerPage">Register Page</string>
 
-    <!--    Menu Register User-->
+    <!--    Menu Register Users-->
     <string name="back_mainPage">Back to Main Page</string>
 
-    <!--    Menu User Change Password-->
+    <!--    Menu Users Change Password-->
     <string name="menuUser_ChangePasswordGoBack" translatable="false">Go Back</string>
 
-    <!--    Menu User Edit Details-->
+    <!--    Menu Users Edit Details-->
     <string name="menuUser_EditGoBack" translatable="false">Go Back</string>
 
-    <!--    Menu User Page-->
-    <string name="menuUser_MainLogOut">Log Out</string>
-    <string name="menuUser_MainEditProfile">Edit Profile</string>
-    <string name="menuUserMain_ChangePassword">Change Password</string>
+    <!--    Menu Users Page-->
+    <string name="menuUser_logOut">Log Out</string>
+    <string name="menuUser_editProfile">Edit Profile</string>
+    <string name="menuUserMain_changeEmail">Change Password</string>
+    <string name="menuUserMain_changePassword">Change Password</string>
 
 </resources>

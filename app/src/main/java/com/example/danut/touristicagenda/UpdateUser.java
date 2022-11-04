@@ -13,6 +13,6 @@ public class UpdateUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Update User");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Update Users");
     }
 }

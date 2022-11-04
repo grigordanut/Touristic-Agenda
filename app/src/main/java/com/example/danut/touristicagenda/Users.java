@@ -2,18 +2,18 @@ package com.example.danut.touristicagenda;
 
 import com.google.firebase.database.Exclude;
 
-public class User {
+public class Users {
 
     private String user_firstName;
     private String user_lastName;
     private String user_emailAddress;
     private String user_Key;
 
-    public User(){
+    public Users(){
 
     }
 
-    public User(String user_firstName, String user_lastName, String user_emailAddress) {
+    public Users(String user_firstName, String user_lastName, String user_emailAddress) {
         this.user_firstName = user_firstName;
         this.user_lastName = user_lastName;
         this.user_emailAddress = user_emailAddress;
