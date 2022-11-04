@@ -104,11 +104,15 @@ public class UserPage extends AppCompatActivity {
                 startActivity(showEvent);
             }
         });
-
     }
 
     private void editProfile() {
         startActivity(new Intent(UserPage.this, UpdateUser.class));
+        finish();
+    }
+
+    private void changeEmail() {
+        startActivity(new Intent(UserPage.this, ChangeEmail.class));
         finish();
     }
 
@@ -144,6 +148,10 @@ public class UserPage extends AppCompatActivity {
 
         if (item.getItemId() == R.id.editProfile) {
             editProfile();
+        }
+
+        if (item.getItemId() == R.id.changeEmail) {
+            changeEmail();
         }
 
         if (item.getItemId() == R.id.changePassword) {

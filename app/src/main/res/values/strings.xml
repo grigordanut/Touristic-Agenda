@@ -54,10 +54,10 @@
     <string name="btn_registerUser">Register</string>
     <string name="btn_logRegisterPage">Log In</string>
 
-    <!--    Reset Password-->
-    <string name="tv_ResetPassword">Reset Your Password</string>
-    <string name="et_emailResetPassword">Enter your Email Address</string>
-    <string name="btn_resetPass">Reset Password</string>
+    <!--    Activity Reset Password-->
+    <string name="tv_resetPassword">Enter your registered Email</string>
+    <string name="et_resetPasswordEmail">Please enter your Email Address</string>
+    <string name="btn_resetPassword">Reset Password</string>
 
     <!--    Update Event-->
     <string name="tv_updateEvent">Update Event</string>
@@ -99,7 +99,7 @@
     <!--    Menu Users Page-->
     <string name="menuUser_logOut">Log Out</string>
     <string name="menuUser_editProfile">Edit Profile</string>
-    <string name="menuUserMain_changeEmail">Change Password</string>
+    <string name="menuUserMain_changeEmail">Change Email</string>
     <string name="menuUserMain_changePassword">Change Password</string>
 
 </resources>
