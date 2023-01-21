@@ -19,7 +19,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
-            android:text="@string/tv_registerUser"
+            android:text="@string/tv_registerPage"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="24sp" />
@@ -37,7 +37,7 @@
                 android:id="@+id/etFirstNameReg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/et_firstNameReg"
+                android:hint="@string/et_fName"
                 android:inputType="textPersonName|textCapWords"
                 android:paddingStart="10dp"
                 android:textSize="22sp"
@@ -57,7 +57,7 @@
                 android:id="@+id/etLastNameReg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/et_lastNameReg"
+                android:hint="@string/et_lName"
                 android:inputType="textPersonName|textCapWords"
                 android:paddingStart="10dp"
                 android:textSize="22sp"
@@ -80,7 +80,7 @@
                 android:hint="@string/et_emailReg"
                 android:inputType="textEmailAddress"
                 android:paddingStart="10dp"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 tools:ignore="RtlSymmetry" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -149,7 +149,7 @@
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/btn_blue"
-            android:text="@string/btn_logRegisterPage"
+            android:text="@string/btn_logUserReg"
             android:textColor="#ffffff"
             android:textSize="22sp"
             android:textStyle="bold"

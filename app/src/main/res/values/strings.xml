@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Touristic Agenda</string>
     <string name="action_settings">Settings</string>
@@ -6,18 +7,46 @@
     <!--    Add Event-->
     <string name="tv_addEvent">Welcome to add Events Page</string>
     <string name="tv_orChose">Or</string>
+    <string name="btn_saveLocation">Save Location</string>
     <string name="et_eventName">Event Name</string>
-    <string name="et_eventAddress">Event Address</string>
-    <string name="tv_messageEvent">Message: </string>
+    <string name="et_eventAddress">Event Location</string>
+    <string name="tv_messageEvent">Message:</string>
     <string name="btn_saveEvent">SAVE EVENT</string>
 
-    <!--    Change Password-->
-    <string name="tv_changePassword" translatable="false">Change Your Password</string>
-    <string name="et_enterOldPassword" translatable="false">Enter Old Password</string>
-    <string name="et_enterNewPassword" translatable="false">Enter New Password</string>
-    <string name="btn_updatePassword" translatable="false">Update Password</string>
+    <!--    Activity User Change Email-->
+    <string name="tv_userChangeEmailAuth">Authenticate User Email</string>
+    <string name="et_userChangeEmailOldEmail">Old Email Address</string>
+    <string name="et_userChangeEmailPass">Enter your Password</string>
+    <string name="btn_userChangeEmailAuth">Authenticate User</string>
+    <string name="et_userChangeEmailNewEmail">Enter your new Email Address</string>
+    <string name="btn_userChangeEmail">Change Email</string>
 
-    <!--    Events Image-->
+    <!--    Activity User Change Password-->
+    <string name="tv_userChangePassAuth">Authenticate User Password</string>
+    <string name="et_userChangePassEmail">Email Address</string>
+    <string name="et_userChangePassOldPass">Enter your old Password</string>
+    <string name="btn_userChangePassAuth">Authenticate User</string>
+    <string name="et_userChangePassNewPass">Enter your new Password</string>
+    <string name="et_userChangePassConfNewPass">Confirm your new Password</string>
+    <string name="btn_userChangePassword">Change Password</string>
+
+    <!--    Change Password-->
+    <!--    <string name="tv_changePassword">Change Your Password</string>-->
+    <!--    <string name="et_enterOldPassword" translatable="false">Enter Old Password</string>-->
+    <!--    <string name="et_enterNewPassword" translatable="false">Enter New Password</string>-->
+    <!--    <string name="btn_updatePassword" translatable="false">Update Password</string>-->
+
+    <!--    Edit User Profile-->
+    <!--    <string name="tv_editUserProfile">Editează Profilul</string>-->
+    <!--    <string name="tv_fNameUserProfile">Prenume: </string>-->
+    <!--    <string name="et_userFirstName">Prenume: </string>-->
+    <!--    <string name="tv_lNameUserProfile">Nume: </string>-->
+    <!--    <string name="et_userLastName">Nume: </string>-->
+    <!--    <string name="tv_emailUserProfile">Email: </string>-->
+    <!--    <string name="et_userEmailAddress">Email: </string>-->
+    <!--    <string name="btn_saveChangesEditProfile">Save Changes</string>-->
+
+    Events Image
     <string name="tv_eventsPage">Welcome to Events Page</string>
     <string name="btn_addMoreEvents">Add More Events</string>
     <string name="btn_backUerPage">Back User Page</string>
@@ -27,37 +56,37 @@
     <string name="et_emailLog">Email Address</string>
     <string name="et_passLog">Password</string>
     <string name="cb_remember">Remember me</string>
-    <string name="tv_forgotPassword">Forgotten Password</string>
+    <string name="tv_forgotPass">Forgot Password</string>
     <string name="btn_loginUser">Log In</string>
-    <string name="btn_registerLogPage">Register</string>
+    <string name="btn_regUserLog">Register</string>
 
     <!--    Main Page-->
     <string name="tv_mainPage">Welcome to Touristic Agenda</string>
 
     <!--    Edit Users Profile-->
-    <string name="tv_editUserProfile">Edit your Profile</string>
-    <string name="tv_fNameUserProfile">First Name: </string>
-    <string name="et_userFirstName">First Name: </string>
-    <string name="tv_lNameUserProfile">Last Name: </string>
-    <string name="et_userLastName">Last Name: </string>
-    <string name="tv_emailUserProfile">Email: </string>
-    <string name="et_userEmailAddress">Email: </string>
-    <string name="btn_saveChangesEditProfile">Save Changes</string>
+    <!--    <string name="tv_editUserProfile">Edit your Profile</string>-->
+    <!--    <string name="tv_fNameUserProfile">First Name: </string>-->
+    <!--    <string name="et_userFirstName">First Name: </string>-->
+    <!--    <string name="tv_lNameUserProfile">Last Name: </string>-->
+    <!--    <string name="et_userLastName">Last Name: </string>-->
+    <!--    <string name="tv_emailUserProfile">Email: </string>-->
+    <!--    <string name="et_userEmailAddress">Email: </string>-->
+    <!--    <string name="btn_saveChangesEditProfile">Save Changes</string>-->
 
     <!--    Register Users-->
-    <string name="tv_registerUser">Enter your register details here</string>
-    <string name="et_firstNameReg">First Name</string>
-    <string name="et_lastNameReg">Last Name</string>
+    <string name="tv_registerPage">Enter your register details here</string>
+    <string name="et_fName">First Name</string>
+    <string name="et_lName">Last Name</string>
     <string name="et_emailReg">Email Address</string>
     <string name="et_passReg">Password</string>
     <string name="et_confPassReg">Confirm Password</string>
     <string name="btn_registerUser">Register</string>
-    <string name="btn_logRegisterPage">Log In</string>
+    <string name="btn_logUserReg">Log In</string>
 
     <!--    Activity Reset Password-->
-    <string name="tv_resetPassword">Enter your registered Email</string>
-    <string name="et_resetPasswordEmail">Please enter your Email Address</string>
-    <string name="btn_resetPassword">Reset Password</string>
+    <string name="tv_resetPass">Enter your registered Email</string>
+    <string name="et_resetPassEmail">Please enter your Email Address</string>
+    <string name="btn_resetPass">Reset Password</string>
 
     <!--    Update Event-->
     <string name="tv_updateEvent">Update Event</string>
@@ -87,11 +116,11 @@
     <!--    Menu Main-->
     <string name="go_registerPage">Register Page</string>
 
-    <!--    Menu Register Users-->
-    <string name="back_mainPage">Back to Main Page</string>
+    <!--    Menu User Change Email-->
+    <string name="userChangeEmail_goBack">Go Back</string>
 
-    <!--    Menu Users Change Password-->
-    <string name="menuUser_ChangePasswordGoBack" translatable="false">Go Back</string>
+    <!--    Menu User Change Password-->
+    <string name="userChangePassword_goBack">Go Back</string>
 
     <!--    Menu Users Edit Details-->
     <string name="menuUser_EditGoBack" translatable="false">Go Back</string>

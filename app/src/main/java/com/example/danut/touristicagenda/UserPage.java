@@ -34,7 +34,7 @@ public class UserPage extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ValueEventListener eventListenerUser;
 
-    private TextView tVUserName, tVUserKey;
+    private TextView tVUserName;
 
     private Users users_data;
 
@@ -51,7 +51,6 @@ public class UserPage extends AppCompatActivity {
 
         //initialise the variables
         tVUserName = findViewById(R.id.tvUserName);
-        tVUserKey = findViewById(R.id.tvUserKey);
 
         Button btn_addEvent = findViewById(R.id.btnAddEvent);
 
@@ -74,7 +73,6 @@ public class UserPage extends AppCompatActivity {
                     assert firebaseUser != null;
                     if (firebaseUser.getUid().equals(postSnapshot.getKey())) {
                         tVUserName.setText("Welcome: " + users_data.getUser_firstName() + " " + users_data.getUser_lastName());
-                        tVUserKey.setText(firebaseUser.getUid());
                     }
                 }
             }
@@ -88,7 +86,6 @@ public class UserPage extends AppCompatActivity {
         btn_addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent addEvent = new Intent(UserPage.this, AddEvent.class);
                 addEvent.putExtra("USERKey", firebaseUser.getUid());
                 startActivity(addEvent);

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "57959739166",
+    "firebase_url": "https://touristic-agenda-87d0b-default-rtdb.firebaseio.com",
     "project_id": "touristic-agenda-87d0b",
     "storage_bucket": "touristic-agenda-87d0b.appspot.com"
   },
@@ -8,6 +9,35 @@
     {
       "client_info": {
         "mobilesdk_app_id": "1:57959739166:android:8b96ed91337e3f6f7ca30f",
+        "android_client_info": {
+          "package_name": "com.example.danut.calculatormarmura"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "57959739166-4h3l9bb56at6rbqrata5c8u3lhg157v6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhXE1SnIRYXd4siIfLDsgO2_OzfC4A5mQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "57959739166-4h3l9bb56at6rbqrata5c8u3lhg157v6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57959739166:android:17d05f80e66572277ca30f",
         "android_client_info": {
           "package_name": "com.example.danut.touristicagenda"
         }

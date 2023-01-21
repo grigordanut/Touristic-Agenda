@@ -34,8 +34,6 @@ public class LoginUser extends AppCompatActivity {
 
     private String email_logUser, pass_logUser;
 
-    private TextView tvEmailLogUser, tvPassLogUser;
-
     private FirebaseAuth firebaseAuth;
 
     private ProgressDialog progressDialog;
