@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -29,8 +28,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginStart="100dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:textColorHint="#000000">
 
@@ -38,9 +37,9 @@
                 android:id="@+id/etEventDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:hint="Date of Event"
                 android:inputType="date"
                 android:paddingStart="10dp"
-                android:hint="Date of Event"
                 android:paddingEnd="10dp"
                 android:textAlignment="textEnd"
                 android:textColor="#000000"
@@ -66,14 +65,12 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="#ffffff"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
             android:text="@string/tv_orChose"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold"
-            tools:ignore="RtlHardcoded,RtlSymmetry" />
+            tools:ignore="RtlHardcoded" />
 
         <ImageButton
             android:id="@+id/btnTakePicture"
@@ -82,7 +79,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="@drawable/image_camera"
-            android:textSize="24sp"
             tools:ignore="ContentDescription" />
 
         <Button
@@ -171,11 +167,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
             android:layout_marginBottom="20dp"
+            android:background="@drawable/btn_fading"
             android:text="@string/btn_saveEvent"
-            android:textSize="24sp" />
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

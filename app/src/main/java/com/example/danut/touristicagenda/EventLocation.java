@@ -1,10 +1,13 @@
 package com.example.danut.touristicagenda;
 
+import com.google.firebase.database.Exclude;
+
 public class EventLocation {
 
     private double event_Latitude;
     private double event_Longitude;
     private String event_Location;
+    private String eventLocation_Key;
 
     public EventLocation() {
 
@@ -38,5 +41,15 @@ public class EventLocation {
 
     public void setEvent_Location(String event_Location) {
         this.event_Location = event_Location;
+    }
+
+    @Exclude
+    public String getEventLocation_Key() {
+        return eventLocation_Key;
+    }
+
+    @Exclude
+    public void setEventLocation_Key(String eventLocation_Key) {
+        this.eventLocation_Key = eventLocation_Key;
     }
 }

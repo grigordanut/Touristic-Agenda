@@ -45,6 +45,9 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
     private DatabaseReference databaseRefEvents;
     private ValueEventListener valueEvListenerEvents;
 
+    //Retrieve data from Events Location database
+    private DatabaseReference dbRefEventsLocation;
+
     private RecyclerView eventsRecyclerView;
     private EventsAdapter eventsAdapter;
 
@@ -61,6 +64,15 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
+
+        //retrieve data from Users database
+        databaseRefUser = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        //Initialize the database storage events
+        firebaseStEvents = FirebaseStorage.getInstance();
+        databaseRefEvents = FirebaseDatabase.getInstance().getReference().child("Events");
+
+        dbRefEventsLocation = FirebaseDatabase.getInstance().getReference().child("Locations");
 
         tVEvents = findViewById(R.id.tvEvents);
         tVNoEvents = findViewById(R.id.tvNumberEvents);
@@ -105,9 +117,6 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
 
     public void loadUserDetails() {
 
-        //retrieve data from Users database
-        databaseRefUser = FirebaseDatabase.getInstance().getReference("Users");
-
         databaseRefUser.addValueEventListener(new ValueEventListener() {
             @SuppressLint({"SetTextI18n", "NewApi"})
             @Override
@@ -119,8 +128,7 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
                     if (fb_User != null) {
                         assert user_Data != null;
                         if (fb_User.getUid().equals(postSnapshot.getKey())) {
-                            tVEvents.setText(String.format("List of Events: %s", user_Data.getUser_firstName() + " " + user_Data.getUser_lastName()));
-                            tVNoEvents.setText("No events added by: " + user_Data.getUser_firstName() + " " + user_Data.getUser_lastName());
+                            tVEvents.setText("List of Events: " + user_Data.getUser_firstName() + " " + user_Data.getUser_lastName());
                             user_Name = user_Data.getUser_firstName() + " " + user_Data.getUser_lastName();
                         }
                     }
@@ -136,29 +144,34 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
 
     private void loadEvents() {
 
-        //Initialize the database storage events
-        firebaseStEvents = FirebaseStorage.getInstance();
-
-        //Retrieve dada from Events database tables
-        databaseRefEvents = FirebaseDatabase.getInstance().getReference("Events");
-
         //retrieve data from firebase database
         valueEvListenerEvents = databaseRefEvents.addValueEventListener(new ValueEventListener() {
             @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                eventsList.clear();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Events events = postSnapshot.getValue(Events.class);
-                    assert events != null;
-                    if (events.getUser_Key().equals(currentUser.getUid())) {
-                        events.setEvent_Key(postSnapshot.getKey());
-                        eventsList.add(events);
-                        tVNoEvents.setText(eventsList.size() + " Events added by: " + user_Name);
+                if (dataSnapshot.exists()) {
+                    eventsList.clear();
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        Events events = postSnapshot.getValue(Events.class);
+                        assert events != null;
+                        if (events.getUser_Key().equals(currentUser.getUid())) {
+                            events.setEvent_Key(postSnapshot.getKey());
+                            eventsList.add(events);
+                            tVNoEvents.setText(eventsList.size() + " Events added by: " + user_Name);
+                        }
+                        else{
+                            tVNoEvents.setText("No Events added by: " + user_Name);
+                        }
+
+                        progressDialog.dismiss();
                     }
+
+                    eventsAdapter.notifyDataSetChanged();
                 }
 
-                eventsAdapter.notifyDataSetChanged();
+                else{
+                    tVNoEvents.setText("No Events registered");
+                }
 
                 progressDialog.dismiss();
             }
@@ -174,10 +187,7 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
     //Action of the menu onClick
     @Override
     public void onItemClick(int position) {
-        showOptionsMenu(position);
-    }
 
-    public void showOptionsMenu(int position) {
         final String[] options = {"Show events in Map", "Update this event", "Delete this Event"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.select_dialog_item, options);
         Events selected_Event = eventsList.get(position);
@@ -186,53 +196,36 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
         alertDialogBuilder
                 .setCancelable(false)
                 .setTitle("You selected: " + selected_Event.getEvent_Name() + " event" + "\nSelect an option:")
-                .setAdapter(adapter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                .setAdapter(adapter, (dialogInterface, i) -> {
 
-                        if (i == 0) {
-                            startActivity(new Intent(EventsImage.this, MapsActivity.class));
-                        }
+                    if (i == 0) {
+                        startActivity(new Intent(EventsImage.this, MapsActivity.class));
+                    }
 
-                        if (i == 1) {
-                            updateEvents(position);
-                        }
+                    if (i == 1) {
+                        Intent intent = new Intent(EventsImage.this, UpdateEvent.class);
 
-                        if (i == 2) {
-                            confirmDeletion(position);
-                        }
+                        Events selected_Event1 = eventsList.get(position);
+                        intent.putExtra("EDate", selected_Event1.getEvent_Date());
+                        intent.putExtra("EName", selected_Event1.getEvent_Name());
+                        intent.putExtra("EAddress", selected_Event1.getEvent_Address());
+                        intent.putExtra("EMessage", selected_Event1.getEvent_Message());
+                        intent.putExtra("EImage", selected_Event1.getEvent_Image());
+                        intent.putExtra("EKey", selected_Event1.getEvent_Key());
+                        startActivity(intent);
+                    }
 
+                    if (i == 2) {
+                        confirmDeletion(position);
                     }
                 })
-                .setNegativeButton("CLOSE", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
+                .setNegativeButton("CLOSE", (dialogInterface, i) -> dialogInterface.dismiss());
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
 
-    //Action of the menu Update and alert dialog
-    public void updateEvents(int position) {
-
-        Intent intent = new Intent(EventsImage.this, UpdateEvent.class);
-
-        Events selected_Event = eventsList.get(position);
-        intent.putExtra("EDate", selected_Event.getEvent_Date());
-        intent.putExtra("EName", selected_Event.getEvent_Name());
-        intent.putExtra("EAddress", selected_Event.getEvent_Address());
-        intent.putExtra("EMessage", selected_Event.getEvent_Message());
-        intent.putExtra("EImage", selected_Event.getEvent_Image());
-        //intent.putExtra("EKey", selected_Event.getEvent_Key());
-        startActivity(intent);
-    }
-
     //Action of the menu Delete and alert dialog
     public void confirmDeletion(int position) {
-
-        Events selected_Event = eventsList.get(position);
 
         AlertDialog.Builder builderAlert = new AlertDialog.Builder(EventsImage.this);
         builderAlert.setMessage("Are sure to delete this item?");
@@ -241,26 +234,27 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        Events selected_Event = eventsList.get(position);
 
-                        final String selectedKey = selected_Event.getEvent_Key();
+                        final String event_Key = selected_Event.getEvent_Key();
+
+                        final String location_Key = selected_Event.getEventLocationKey();
+
                         StorageReference imageReference = firebaseStEvents.getReferenceFromUrl(selected_Event.getEvent_Image());
                         imageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(@NonNull Void aVoid) {
-                                databaseRefEvents.child(selectedKey).removeValue();
-                                Toast.makeText(EventsImage.this, "The item has been deleted successfully ", Toast.LENGTH_SHORT).show();
+                                databaseRefEvents.child(event_Key).removeValue();
+                                dbRefEventsLocation.child(location_Key).removeValue();
+                                Toast.makeText(EventsImage.this, "The Event has been deleted successfully ", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
                 });
 
         builderAlert.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+                "CANCEL",
+                (dialog, id) -> dialog.cancel());
 
         AlertDialog alert11 = builderAlert.create();
         alert11.show();

@@ -48,8 +48,8 @@
 
     <!--    Events Image-->
     <string name="tv_eventsPage">Bine ati venit la pagina evenimente</string>
-    <string name="btn_addMoreEvents">Adaugare Evenimente</string>
-    <string name="btn_backUerPage">Pagina Utilizator</string>
+    <string name="btn_addMoreEvents">Adauga Evenimente</string>
+    <string name="btn_backUerPage">Inapoi Utilizator</string>
 
     <!--    Login User-->
     <string name="tv_loginPage">Introduceti detaliile de logare</string>
@@ -114,7 +114,5 @@
     <string name="tv_eventName">Numele Eventului:</string>
     <string name="tv_eventAddress">Locul Eventului:</string>
     <string name="tv_eventMessage">Mesaj:</string>
-    <string name="tv_findMyPlace">Gaseste locul meu</string>
-    <string name="tv_phoneNumber">Numarul de Telefon</string>
 
 </resources>

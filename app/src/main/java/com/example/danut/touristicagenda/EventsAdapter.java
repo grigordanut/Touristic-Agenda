@@ -42,7 +42,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ImageViewH
         holder.tvEventMessage.setText(uploadCurrent.getEvent_Message());
         Picasso.get()
                 .load(uploadCurrent.getEvent_Image())
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.image_app_icon)
                 .fit()
                 .centerCrop()
                 .into(holder.imageEvent);

@@ -46,10 +46,10 @@
     <!--    <string name="et_userEmailAddress">Email: </string>-->
     <!--    <string name="btn_saveChangesEditProfile">Save Changes</string>-->
 
-    Events Image
+    <!--    Events Image-->
     <string name="tv_eventsPage">Welcome to Events Page</string>
-    <string name="btn_addMoreEvents">Add More Events</string>
-    <string name="btn_backUerPage">Back User Page</string>
+    <string name="btn_addMoreEvents">Add Events</string>
+    <string name="btn_backUerPage">Back User</string>
 
     <!--    Login Users-->
     <string name="tv_loginPage">Enter your Log in details here</string>
@@ -95,7 +95,7 @@
     <string name="et_updateEventName">Name: </string>
     <string name="et_updateEventAddress">Address: </string>
     <string name="et_updateEventComments" translatable="false">Comments: </string>
-    <string name="btn_saveEventUpdate">Save Event Updated </string>
+    <string name="btn_saveEventUpdate">Save Event Updated</string>
 
     <!--    Users Page-->
     <string name="tv_userPage">Welcome</string>
@@ -109,8 +109,6 @@
     <string name="tv_eventName">Name of Event:</string>
     <string name="tv_eventAddress">Place of Event:</string>
     <string name="tv_eventMessage">Message:</string>
-    <string name="tv_findMyPlace">find my place</string>
-    <string name="tv_phoneNumber">Phone Number</string>
 
     <!--Menu Resources-->
     <!--    Menu Main-->

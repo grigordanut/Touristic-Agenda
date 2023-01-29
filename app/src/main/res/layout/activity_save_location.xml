@@ -80,7 +80,7 @@
             android:textColorHint="@android:color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etCity"
+                android:id="@+id/etCityLocation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Event Location"
@@ -91,4 +91,5 @@
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
+
 </ScrollView>

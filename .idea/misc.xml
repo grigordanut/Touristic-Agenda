@@ -41,11 +41,18 @@
         <entry key="..\:/Users/danut/AndroidStudioProjects/Touristic-Agenda/app/src/main/res/menu/menu_user_change_email.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/Touristic-Agenda/app/src/main/res/menu/menu_user_change_password.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/Touristic-Agenda/app/src/main/res/menu/menu_user_page.xml" value="0.25" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable-v24/bg_main_page.xml" value="0.138" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable-v24/et_round_corners.xml" value="0.2125" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable-v24/grad.xml" value="0.1475" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1835" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1835" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable/ic_launcher_icon_background.xml" value="0.121" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable/ic_launcher_round_background.xml" value="0.121" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout-v14/activity_add_event_new.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_add_event.xml" value="0.264" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_add_event_new.xml" value="0.25" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_change_email.xml" value="0.25" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_change_password.xml" value="0.21296296296296297" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_current_location.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_events_image.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_login_user.xml" value="0.23055555555555557" />
@@ -53,12 +60,18 @@
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_maps.xml" value="0.152" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_register_user.xml" value="0.23055555555555557" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_save_location.xml" value="0.234375" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_update_event.xml" value="0.25" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_update_event_image.xml" value="0.25" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_update_event_image_new.xml" value="0.25" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_update_user.xml" value="0.21296296296296297" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_user_page.xml" value="0.23055555555555557" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/content_main.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/fragment_maps_activity.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/image_event.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/menu/menu_main.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/menu/menu_user_page.xml" value="0.23055555555555557" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.121" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/mipmap-anydpi-v26/ic_launcher_icon.xml" value="0.12" />
       </map>
     </option>
   </component>

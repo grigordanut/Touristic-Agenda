@@ -12,6 +12,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -65,9 +66,14 @@ import java.util.Objects;
 public class AddEvent extends AppCompatActivity {
 
     FusedLocationProviderClient fusedLocationProviderClient;
-    private static final int REQUEST_CODE = 100;
 
-    static final int REQUEST_IMAGE_GET = 2;
+    private static final int PICK_PICTURE = 100;
+    private static final int TAKE_PICTURE = 101;
+
+    private static final int CAPTURE_CAMERA = 1000;
+    private static final int PERMISSION_CAMERA = 1001;
+
+    private static final int PERMISSION_LOCATION = 1002;
 
     //Add event details to Events database
     private StorageReference storageReferenceEvents;
@@ -90,8 +96,8 @@ public class AddEvent extends AppCompatActivity {
     private ImageView ivAddEvent;
     private Uri imageUri;
 
-    private Button btn_saveLocation, buttonSaveEvent;
-    private ImageButton buttonTakePicture;
+    private Button btn_saveLocation, btn_SaveEvent;
+    private ImageButton btn_TakePicture;
 
     private String event_Date, event_Name, event_Location, event_Message;
     private String location;
@@ -100,6 +106,7 @@ public class AddEvent extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private String user_Id = "";
+    private String location_Id = "";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -116,6 +123,8 @@ public class AddEvent extends AppCompatActivity {
         databaseReferenceEvents = FirebaseDatabase.getInstance().getReference("Events");
         databaseReferenceLocation = FirebaseDatabase.getInstance().getReference("Locations");
 
+        location_Id = databaseReferenceLocation.push().getKey();
+
         tVAddEvent = findViewById(R.id.tvAddEvent);
 
         eventDate = findViewById(R.id.etEventDate);
@@ -124,9 +133,9 @@ public class AddEvent extends AppCompatActivity {
         eventLocation = findViewById(R.id.etEventLocation);
         eventMessage = findViewById(R.id.etEventMessage);
 
-        buttonTakePicture = (ImageButton) findViewById(R.id.btnTakePicture);
+        btn_TakePicture = findViewById(R.id.btnTakePicture);
         btn_saveLocation = findViewById(R.id.btnSaveLocation);
-        buttonSaveEvent = (Button) findViewById(R.id.btnSaveEvent);
+        btn_SaveEvent = findViewById(R.id.btnSaveEvent);
 
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -134,6 +143,7 @@ public class AddEvent extends AppCompatActivity {
         eventDate.setText(insertDate);
 
         ivAddEvent = findViewById(R.id.imgViewAddEvent);
+
         ivAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,17 +151,24 @@ public class AddEvent extends AppCompatActivity {
             }
         });
 
-        if (ContextCompat.checkSelfPermission(AddEvent.this,
-                Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(AddEvent.this,
-                    new String[]{Manifest.permission.CAMERA}, 101);
-        }
-
-        buttonTakePicture.setOnClickListener(new View.OnClickListener() {
+        btn_TakePicture.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ObsoleteSdkInt")
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 101);
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.CAMERA) ==
+                            PackageManager.PERMISSION_DENIED ||
+                            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                                    PackageManager.PERMISSION_DENIED) {
+                        String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permission, TAKE_PICTURE);
+                    } else {
+                        openCamera();
+                    }
+                }
+                else {
+                    openCamera();
+                }
             }
         });
 
@@ -162,7 +179,7 @@ public class AddEvent extends AppCompatActivity {
             }
         });
 
-        buttonSaveEvent.setOnClickListener(new View.OnClickListener() {
+        btn_SaveEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (eventsUploadTask != null && eventsUploadTask.isInProgress()) {
@@ -174,38 +191,43 @@ public class AddEvent extends AppCompatActivity {
         });
     }
 
+    //open the phone Gallery
+    private void openGallery() {
+        Intent pick_Photo = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(pick_Photo, PICK_PICTURE);
+    }
+
+    //open camera from the phone
+    public void openCamera() {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "New picture");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera");
+        imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(cameraIntent, CAPTURE_CAMERA);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK){
-            assert data != null;
-            imageUri = data.getData();
-            Bitmap bitmap = null;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            ivAddEvent.setImageBitmap(bitmap);
-            Toast.makeText(getApplicationContext(), "Image picked from Gallery", Toast.LENGTH_SHORT).show();
+        switch (requestCode) {
+            case PICK_PICTURE:
+                if (resultCode == RESULT_OK) {
+                    assert data != null;
+                    imageUri = data.getData();
+                    ivAddEvent.setImageURI(imageUri);
+                    Toast.makeText(getApplicationContext(), "Image picked from Gallery", Toast.LENGTH_SHORT).show();
+                }
+                break;
 
-        }
-
-        else if(requestCode == 101){
-            assert data != null;
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            ivAddEvent.setImageBitmap(bitmap);
-            Toast.makeText(getApplicationContext(), "Image captured by camera", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    //open the phone Gallery
-    private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, REQUEST_IMAGE_GET);
+            case TAKE_PICTURE:
+                if (resultCode == RESULT_OK) {
+                    ivAddEvent.setImageURI(imageUri);
+                    Toast.makeText(getApplicationContext(), "Image captured by camera", Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 
@@ -217,14 +239,13 @@ public class AddEvent extends AppCompatActivity {
 
     //Upload a new Events into the Events table
     public void uploadEvent() {
-        progressDialog.dismiss();
 
         if (validateEventDetails()) {
 
             //Read entered Event data
             event_Date = Objects.requireNonNull(eventDate.getText()).toString().trim();
 
-            progressDialog.setTitle("The Event is uploading");
+            progressDialog.setTitle("The Event is uploading!");
             progressDialog.show();
             final StorageReference fileReference = storageReferenceEvents.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
             eventsUploadTask = fileReference.putFile(imageUri)
@@ -237,32 +258,30 @@ public class AddEvent extends AppCompatActivity {
                                     String events_Id = databaseReferenceEvents.push().getKey();
 
                                     Events events_Data = new Events(event_Date, event_Name, event_Location, event_Message,
-                                            uri.toString(), user_Id);
+                                            uri.toString(), user_Id, location_Id);
 
                                     assert events_Id != null;
                                     databaseReferenceEvents.child(events_Id).setValue(events_Data);
 
-                                    eventName.setText("");
-                                    eventLocation.setText("");
-                                    eventMessage.setText("");
-                                    ivAddEvent.setImageResource(R.drawable.image_event);
+//                                    eventName.setText("");
+//                                    eventLocation.setText("");
+//                                    eventMessage.setText("");
+//                                    ivAddEvent.setImageResource(R.drawable.image_event);
 
                                     saveLocationEvent();
 
                                     Intent add_Event = new Intent(AddEvent.this, UserPage.class);
                                     startActivity(add_Event);
 
-                                    Toast.makeText(AddEvent.this, "Upload Bicycle successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddEvent.this, "Upload Event successfully", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
                             });
-                            progressDialog.dismiss();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
                             Toast.makeText(AddEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -349,7 +368,7 @@ public class AddEvent extends AppCompatActivity {
         final TextInputEditText eTLatitude = promptsView.findViewById(R.id.etLatitude);
         final TextInputEditText eTLongitude = promptsView.findViewById(R.id.etLongitude);
         final TextInputEditText eTAddress = promptsView.findViewById(R.id.etAddress);
-        final TextInputEditText eTEventLocation = promptsView.findViewById(R.id.etCity);
+        final TextInputEditText eTCityLocation = promptsView.findViewById(R.id.etCityLocation);
 
         if (ContextCompat.checkSelfPermission(AddEvent.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -367,7 +386,7 @@ public class AddEvent extends AppCompatActivity {
                             eTLatitude.setText(String.valueOf(addresses.get(0).getLatitude()));
                             eTLongitude.setText(String.valueOf(addresses.get(0).getLongitude()));
                             eTAddress.setText(addresses.get(0).getAddressLine(0));
-                            eTEventLocation.setText(addresses.get(0).getLocality());
+                            eTCityLocation.setText(addresses.get(0).getLocality());
 
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -389,7 +408,7 @@ public class AddEvent extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         latitude = Double.parseDouble(Objects.requireNonNull(eTLatitude.getText()).toString().trim());
                         longitude = Double.parseDouble(Objects.requireNonNull(eTLongitude.getText()).toString().trim());
-                        location = Objects.requireNonNull(eTEventLocation.getText()).toString().trim();
+                        location = Objects.requireNonNull(eTCityLocation.getText()).toString().trim();
                         eventLocation.setText(location);
                     }
                 })
@@ -409,19 +428,15 @@ public class AddEvent extends AppCompatActivity {
 
     public void saveLocationEvent() {
 
-        String location_Id = databaseReferenceLocation.push().getKey();
-
         EventLocation event_Location = new EventLocation(latitude, longitude, location);
         assert location_Id != null;
         databaseReferenceLocation.child(location_Id).setValue(event_Location).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(AddEvent.this, "The Location details has been saved", Toast.LENGTH_SHORT).show();
-                        }
-
-                        else{
+                        } else {
                             Toast.makeText(AddEvent.this, "The Location details has not been saved", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -437,23 +452,32 @@ public class AddEvent extends AppCompatActivity {
 
     public void askPermission() {
         ActivityCompat.requestPermissions(AddEvent.this, new String[]
-                {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+                {Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_LOCATION);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if (requestCode == REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getLastLocation();
-
-            } else {
-                Toast.makeText(AddEvent.this, "Required Permission", Toast.LENGTH_LONG).show();
-            }
-        }
-
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case PERMISSION_CAMERA:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openCamera();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case PERMISSION_LOCATION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLastLocation();
+                } else {
+                    Toast.makeText(AddEvent.this, "Required Permission", Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
     }
+
     @Override
     public void onStop() {
         super.onStop();

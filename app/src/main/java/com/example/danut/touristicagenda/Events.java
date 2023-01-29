@@ -10,19 +10,22 @@ public class Events {
     private String event_Message;
     private String event_Image;
     private String user_Key;
+    private String eventLocationKey;
+
     private String event_Key;
 
     public Events() {
 
     }
 
-    public Events(String event_Date, String event_Name, String event_Address, String event_Message, String event_Image, String user_Key) {
+    public Events(String event_Date, String event_Name, String event_Address, String event_Message, String event_Image, String user_Key, String eventLocationKey) {
         this.event_Date = event_Date;
         this.event_Name = event_Name;
         this.event_Address = event_Address;
         this.event_Message = event_Message;
         this.event_Image = event_Image;
         this.user_Key = user_Key;
+        this.eventLocationKey = eventLocationKey;
     }
 
     public String getEvent_Date() {
@@ -71,6 +74,14 @@ public class Events {
 
     public void setUser_Key(String user_Key) {
         this.user_Key = user_Key;
+    }
+
+    public String getEventLocationKey() {
+        return eventLocationKey;
+    }
+
+    public void setEventLocationKey(String eventLocationKey) {
+        this.eventLocationKey = eventLocationKey;
     }
 
     @Exclude

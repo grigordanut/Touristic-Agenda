@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.danut.touristicagenda">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.danut.touristicagenda" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -8,15 +9,19 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/image_app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/image_app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.TouristicAgenda">
-
+        <activity
+            android:name=".UpdateEvent"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -32,7 +37,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA2v62ZDMh39bY5Wg1FYxOLE4LNeDJCOHU" />
 
-        <activity android:name=".UpdateEvent" />
         <activity android:name=".ChangeEmail" />
         <activity android:name=".AddEvent" />
         <activity android:name=".MapsActivity" />
@@ -45,7 +49,7 @@
         <activity android:name=".LoginUser" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
