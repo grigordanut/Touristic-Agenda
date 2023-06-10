@@ -1,23 +1,13 @@
 package com.example.danut.touristicagenda;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -36,6 +26,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,10 +49,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -85,6 +81,8 @@ public class AddEvent extends AppCompatActivity {
 
     //Retrieve data from Users database
     private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+
     private DatabaseReference databaseRefUser;
     private ValueEventListener eventListenerUser;
 
@@ -114,9 +112,13 @@ public class AddEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
+        Objects.requireNonNull(getSupportActionBar()).setTitle("CUSTOMER: Add Event");
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(AddEvent.this);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
         progressDialog = new ProgressDialog(AddEvent.this);
 
         storageReferenceEvents = FirebaseStorage.getInstance().getReference("Events");
@@ -144,49 +146,27 @@ public class AddEvent extends AppCompatActivity {
 
         ivAddEvent = findViewById(R.id.imgViewAddEvent);
 
-        ivAddEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery();
+        ivAddEvent.setOnClickListener(view -> openGallery());
+
+        btn_TakePicture.setOnClickListener(v -> {
+            if (checkSelfPermission(Manifest.permission.CAMERA) ==
+                    PackageManager.PERMISSION_DENIED ||
+                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                            PackageManager.PERMISSION_DENIED) {
+                String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                requestPermissions(permission, TAKE_PICTURE);
+            } else {
+                openCamera();
             }
         });
 
-        btn_TakePicture.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ObsoleteSdkInt")
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.CAMERA) ==
-                            PackageManager.PERMISSION_DENIED ||
-                            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                                    PackageManager.PERMISSION_DENIED) {
-                        String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        requestPermissions(permission, TAKE_PICTURE);
-                    } else {
-                        openCamera();
-                    }
-                }
-                else {
-                    openCamera();
-                }
-            }
-        });
+        btn_saveLocation.setOnClickListener(view -> getLastLocation());
 
-        btn_saveLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getLastLocation();
-            }
-        });
-
-        btn_SaveEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (eventsUploadTask != null && eventsUploadTask.isInProgress()) {
-                    Toast.makeText(AddEvent.this, "Upload in progress", Toast.LENGTH_SHORT).show();
-                } else {
-                    uploadEvent();
-                }
+        btn_SaveEvent.setOnClickListener(view -> {
+            if (eventsUploadTask != null && eventsUploadTask.isInProgress()) {
+                Toast.makeText(AddEvent.this, "Upload in progress", Toast.LENGTH_SHORT).show();
+            } else {
+                uploadEvent();
             }
         });
     }
@@ -245,54 +225,34 @@ public class AddEvent extends AppCompatActivity {
             //Read entered Event data
             event_Date = Objects.requireNonNull(eventDate.getText()).toString().trim();
 
-            progressDialog.setTitle("The Event is uploading!");
+            progressDialog.setTitle("Uploading the Event details!!");
             progressDialog.show();
             final StorageReference fileReference = storageReferenceEvents.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
             eventsUploadTask = fileReference.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(@NonNull Uri uri) {
-                                    String events_Id = databaseReferenceEvents.push().getKey();
+                    .addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl()
+                            .addOnSuccessListener(uri -> {
 
-                                    Events events_Data = new Events(event_Date, event_Name, event_Location, event_Message,
-                                            uri.toString(), user_Id, location_Id);
+                                String events_Id = databaseReferenceEvents.push().getKey();
 
-                                    assert events_Id != null;
-                                    databaseReferenceEvents.child(events_Id).setValue(events_Data);
+                                Events events_Data = new Events(event_Date, event_Name, event_Location, event_Message,
+                                        uri.toString(), user_Id, location_Id);
 
-//                                    eventName.setText("");
-//                                    eventLocation.setText("");
-//                                    eventMessage.setText("");
-//                                    ivAddEvent.setImageResource(R.drawable.image_event);
+                                assert events_Id != null;
+                                databaseReferenceEvents.child(events_Id).setValue(events_Data);
 
-                                    saveLocationEvent();
+                                saveLocationEvent();
 
-                                    Intent add_Event = new Intent(AddEvent.this, UserPage.class);
-                                    startActivity(add_Event);
+                                startActivity(new Intent(AddEvent.this, UserPage.class));
+                                Toast.makeText(AddEvent.this, "The event was successfully uploaded", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }))
 
-                                    Toast.makeText(AddEvent.this, "Upload Event successfully", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AddEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                            //show upload progress
-                            double progress = 100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount();
-                            progressDialog.setMessage("Uploaded: " + (int) progress + "%");
-                            progressDialog.setProgress((int) progress);
-                        }
+                    .addOnFailureListener(e -> Toast.makeText(AddEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show())
+                    .addOnProgressListener(taskSnapshot -> {
+                        //show upload progress
+                        double progress = 100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount();
+                        progressDialog.setMessage("Uploaded: " + (int) progress + "%");
+                        progressDialog.setProgress((int) progress);
                     });
         }
     }
@@ -336,17 +296,14 @@ public class AddEvent extends AppCompatActivity {
             @SuppressLint({"SetTextI18n", "NewApi"})
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot child_db : dataSnapshot.getChildren()) {
-                    FirebaseUser user_db = firebaseAuth.getCurrentUser();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                    final Users user = child_db.getValue(Users.class);
+                    Users user = postSnapshot.getValue(Users.class);
 
-                    if (user_db != null) {
-                        assert user != null;
-                        if (user_db.getUid().equals(child_db.getKey())) {
-                            tVAddEvent.setText(String.format("Add event to: %s", user.getUser_firstName() + " " + user.getUser_lastName()));
-                            user_Id = user_db.getUid();
-                        }
+                    assert user != null;
+                    if (firebaseUser.getUid().equals(postSnapshot.getKey())) {
+                        tVAddEvent.setText(String.format("Add event to: %s", user.getUser_firstName() + " " + user.getUser_lastName()));
+                        user_Id = firebaseUser.getUid();
                     }
                 }
             }
@@ -403,21 +360,13 @@ public class AddEvent extends AppCompatActivity {
                 .setTitle("Current Location")
                 .setView(promptsView)
                 .setCancelable(false)
-                .setPositiveButton("Save Location", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        latitude = Double.parseDouble(Objects.requireNonNull(eTLatitude.getText()).toString().trim());
-                        longitude = Double.parseDouble(Objects.requireNonNull(eTLongitude.getText()).toString().trim());
-                        location = Objects.requireNonNull(eTCityLocation.getText()).toString().trim();
-                        eventLocation.setText(location);
-                    }
+                .setPositiveButton("Save Location", (dialogInterface, i) -> {
+                    latitude = Double.parseDouble(Objects.requireNonNull(eTLatitude.getText()).toString().trim());
+                    longitude = Double.parseDouble(Objects.requireNonNull(eTLongitude.getText()).toString().trim());
+                    location = Objects.requireNonNull(eTCityLocation.getText()).toString().trim();
+                    eventLocation.setText(location);
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
+                .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel());
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="#ffffff"
+            android:background="@drawable/linear_round_corners"
             android:orientation="vertical">
 
             <TextView
@@ -46,6 +46,8 @@
                     android:id="@+id/etUserOldEmail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_baseline_email_24"
+                    android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="@string/et_userChangeEmailOldEmail"
                     android:inputType="textEmailAddress"
@@ -70,6 +72,8 @@
                     android:id="@+id/etUserPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_baseline_security_24"
+                    android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="@string/et_userChangeEmailPass"
                     android:inputType="textPassword"
@@ -97,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="#ffffff"
+            android:background="@drawable/linear_round_corners"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -114,6 +118,8 @@
                     android:id="@+id/etUserNewEmail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_baseline_email_24"
+                    android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="@string/et_userChangeEmailNewEmail"
                     android:inputType="textEmailAddress"

@@ -1,8 +1,8 @@
 package com.example.danut.touristicagenda;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
@@ -13,6 +13,6 @@ public class UpdateUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Update Users");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Update Users Details");
     }
 }

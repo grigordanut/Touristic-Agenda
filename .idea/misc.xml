@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
@@ -42,9 +41,14 @@
         <entry key="..\:/Users/danut/AndroidStudioProjects/Touristic-Agenda/app/src/main/res/menu/menu_user_change_password.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/Touristic-Agenda/app/src/main/res/menu/menu_user_page.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable-v24/bg_main_page.xml" value="0.138" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable-v24/bg_user_page.xml" value="0.223" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable-v24/et_round_corners.xml" value="0.2125" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable-v24/grad.xml" value="0.1475" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable-v24/ic_baseline_login_24.xml" value="0.14" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable-v24/ic_baseline_logout_24.xml" value="0.169" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1835" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1735" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.14" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1835" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable/ic_launcher_icon_background.xml" value="0.121" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/drawable/ic_launcher_round_background.xml" value="0.121" />
@@ -67,7 +71,9 @@
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/activity_user_page.xml" value="0.23055555555555557" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/content_main.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/fragment_maps_activity.xml" value="0.25" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/header_user_page.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/image_event.xml" value="0.25" />
+        <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/layout/toast.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/menu/menu_main.xml" value="0.25" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/menu/menu_user_page.xml" value="0.23055555555555557" />
         <entry key="..\:/Users/danut/AndroidStudioProjects/TouristicAgenda/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.121" />
@@ -75,7 +81,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

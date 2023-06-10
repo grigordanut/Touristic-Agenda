@@ -6,25 +6,31 @@
         android:id="@+id/logOutUser"
         android:orderInCategory="100"
         android:title="@string/menuUser_logOut"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/editProfile"
         android:orderInCategory="100"
         android:title="@string/menuUser_editProfile"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/changeEmail"
         android:orderInCategory="100"
-        android:title="@string/menuUserMain_changeEmail"
-        app:showAsAction="never"/>
+        android:title="@string/menuUser_changeEmail"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/changePassword"
-        android:orderInCategory="200"
-        android:title="@string/menuUserMain_changePassword"
-        app:showAsAction="never"/>
+        android:orderInCategory="100"
+        android:title="@string/menuUser_changePassword"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/close"
+        android:orderInCategory="100"
+        android:title="@string/menuUser_close"
+        app:showAsAction="never" />
 </menu>
 
 

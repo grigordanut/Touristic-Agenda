@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/user_addPicture"
+            android:icon="@drawable/baseline_image_24"
+            android:title="@string/mDUser_addPicture" />
+
+        <item
+            android:id="@+id/user_editProfile"
+            android:icon="@drawable/baseline_edit_24"
+            android:title="@string/mDUser_editProfile" />
+
+        <item
+            android:id="@+id/user_changeEmail"
+            android:icon="@drawable/ic_baseline_email_24"
+            android:title="@string/mDUser_changeEmail" />
+
+        <item
+            android:id="@+id/user_changePassword"
+            android:icon="@drawable/ic_baseline_security_24"
+            android:title="@string/mDUser_changePassword" />
+    </group>
+
+</menu>

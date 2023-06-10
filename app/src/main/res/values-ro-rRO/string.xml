@@ -31,28 +31,27 @@
     <string name="btn_userChangePassword">Change Password</string>
 
     <!--    Change Password-->
-<!--    <string name="tv_changePassword">Schimbăţi Parola</string>-->
-<!--    <string name="et_enterOldPassword">Introduceţi parola veche</string>-->
-<!--    <string name="et_enterNewPassword">Introduceţi parola nouă</string>-->
-<!--    <string name="btn_updatePassword">Actualizează Parola</string>-->
+    <!--    <string name="tv_changePassword">Schimbăţi Parola</string>-->
+    <!--    <string name="et_enterOldPassword">Introduceţi parola veche</string>-->
+    <!--    <string name="et_enterNewPassword">Introduceţi parola nouă</string>-->
+    <!--    <string name="btn_updatePassword">Actualizează Parola</string>-->
 
     <!--    Edit User Profile-->
-<!--    <string name="tv_editUserProfile">Editează Profilul</string>-->
-<!--    <string name="tv_fNameUserProfile">Prenume: </string>-->
-<!--    <string name="et_userFirstName">Prenume: </string>-->
-<!--    <string name="tv_lNameUserProfile">Nume: </string>-->
-<!--    <string name="et_userLastName">Nume: </string>-->
-<!--    <string name="tv_emailUserProfile">Email: </string>-->
-<!--    <string name="et_userEmailAddress">Email: </string>-->
-<!--    <string name="btn_saveChangesEditProfile">Save Changes</string>-->
+    <!--    <string name="tv_editUserProfile">Editează Profilul</string>-->
+    <!--    <string name="tv_fNameUserProfile">Prenume: </string>-->
+    <!--    <string name="et_userFirstName">Prenume: </string>-->
+    <!--    <string name="tv_lNameUserProfile">Nume: </string>-->
+    <!--    <string name="et_userLastName">Nume: </string>-->
+    <!--    <string name="tv_emailUserProfile">Email: </string>-->
+    <!--    <string name="et_userEmailAddress">Email: </string>-->
+    <!--    <string name="btn_saveChangesEditProfile">Save Changes</string>-->
 
     <!--    Events Image-->
-    <string name="tv_eventsPage">Bine ati venit la pagina evenimente</string>
     <string name="btn_addMoreEvents">Adauga Evenimente</string>
     <string name="btn_backUerPage">Inapoi Utilizator</string>
 
     <!--    Login User-->
-    <string name="tv_loginPage">Introduceti detaliile de logare</string>
+    <string name="tv_loginPage">Introduceţi detaliile de logare</string>
     <string name="et_emailLog">Adresa de Email</string>
     <string name="et_passLog">Parola</string>
     <string name="cb_remember">Remember me</string>
@@ -71,31 +70,39 @@
     <string name="btn_logUserReg">Semneaza</string>
 
     <!--    Reset Password-->
-    <string name="tv_resetPass">Reset Your Password</string>
-    <string name="et_resetPassEmail">Introduceti Adresa de Email</string>
+    <string name="tv_resetPass">Resetează Parola</string>
+    <string name="et_resetPassEmail">IntroduceVi Adresa de Email</string>
     <string name="btn_resetPass">Reseteaza Parola</string>
 
     <!--    User Page-->
-    <string name="tv_userPage">Bine ati venit</string>
+    <string name="tv_userPage">Bine aţi venit</string>
     <string name="btn_showEvents">Arata Evenimente</string>
     <string name="btn_addNewEvent">Adauga Eveniment Nou</string>
-    <string name="btn_showMap">Arata Harta</string>
-    <string name="btn_editProfile">Editeaza Profilul</string>
+    <string name="open_userPage">Open</string>
+    <string name="close_userPage">Close</string>
 
     <!--    Main Page-->
-    <string name="tv_mainPage">Bine ati venit la Agenda Turistica</string>
+    <string name="tv_mainPage">Bine aţi venit la Agenda Turistica</string>
 
     <!--    Update Event-->
     <string name="tv_updateEvent">Actualizare Eveniment</string>
-    <string name="tv_updateDate">Data: </string>
     <string name="tv_updateEventOr">Ori</string>
     <string name="et_updateEventName">Nume: </string>
     <string name="et_updateEventAddress">Adresa: </string>
-    <string name="et_updateEventComments" translatable="false">Comentarii: </string>
-    <string name="btn_saveEventUpdate">Salveaza Actualizarile</string>
+    <string name="btn_saveEventUpdate">Salvează Actualizările</string>
 
     <!--    Menu Menu Main-->
-    <string name="go_registerPage">Pagina de Inregistrare</string>
+
+    <!--    Menu Drawer User Page-->
+    <string name="mDUser_addPicture">Add User Picture</string>
+    <string name="mDUser_editProfile">Editare Profile</string>
+    <string name="mDUser_changeEmail">Schimbare Email</string>
+    <string name="mDUser_changePassword">Schimbare Parolă</string>
+
+    <!--    Menu Events Image-->
+    <string name="mEventsImage_goBack">Go Back User</string>
+    <string name="mEventsImage_addMenu">Add New Event</string>
+    <string name="mEventsImage_Close">Close</string>
 
     <!--    Menu User Change Email-->
     <string name="userChangeEmail_goBack">Innapoi</string>
@@ -105,9 +112,10 @@
 
     <!--    Menu User Page-->
     <string name="menuUser_logOut">Delogare</string>
-    <string name="menuUser_editProfile">Editeaza Profilul</string>
-    <string name="menuUserMain_changeEmail">Schimbă Emailul</string>
-    <string name="menuUserMain_changePassword">Schimbă Parola</string>
+    <string name="menuUser_editProfile">Editează Profilul</string>
+    <string name="menuUser_changeEmail">Schimbă Emailul</string>
+    <string name="menuUser_changePassword">Schimbă Parola</string>
+    <string name="menuUser_close">Inchide</string>
 
     <!--    Image Event-->
     <string name="tv_eventDate">Data Eventului:</string>

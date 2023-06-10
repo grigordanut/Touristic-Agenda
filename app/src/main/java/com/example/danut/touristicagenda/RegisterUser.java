@@ -1,24 +1,28 @@
 package com.example.danut.touristicagenda;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -32,7 +36,7 @@ public class RegisterUser extends AppCompatActivity {
     private TextInputEditText emailReg;
     private TextInputEditText passReg;
     private TextInputEditText confPassReg;
-    private String firstName_reg, lastName_reg, email_reg, pass_reg, confPass_reg;
+    private String  firstName_reg, lastName_reg, email_reg, pass_reg, confPass_reg;
 
     private ProgressDialog progressDialog;
 
@@ -41,9 +45,9 @@ public class RegisterUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Register Users");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Register User");
 
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(RegisterUser.this);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -57,84 +61,119 @@ public class RegisterUser extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         Button btn_logReg = findViewById(R.id.btnLogReg);
-        btn_logReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentLog = new Intent(RegisterUser.this, LoginUser.class);
-                startActivity(intentLog);
-                finish();
-            }
-        });
+        btn_logReg.setOnClickListener(v -> startActivity(new Intent(RegisterUser.this, LoginUser.class)));
 
         Button btn_register = findViewById(R.id.btnRegister);
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (validateUserRegData()) {
-
-                    progressDialog.setMessage("Register Users Details!");
-                    progressDialog.show();
-
-                    firebaseAuth.createUserWithEmailAndPassword(email_reg, pass_reg).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-
-                                uploadUserData();
-
-                            } else {
-                                try {
-                                    throw Objects.requireNonNull(task.getException());
-                                } catch (Exception e) {
-                                    Toast.makeText(RegisterUser.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            progressDialog.dismiss();
-                        }
-                    });
-                }
-            }
-        });
+        btn_register.setOnClickListener(v -> registerUser());
     }
 
-    private void uploadUserData() {
+    public void registerUser() {
 
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if (validateUserRegData()) {
 
-        if (firebaseUser != null) {
-            String user_Id = firebaseUser.getUid();
-            Users users_data = new Users(firstName_reg, lastName_reg, email_reg);
-            databaseReference.child(user_Id).setValue(users_data).addOnCompleteListener(RegisterUser.this, new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
+            progressDialog.setTitle("Register User Details!!");
+            progressDialog.show();
 
-                    if (task.isSuccessful()) {
+            firebaseAuth.createUserWithEmailAndPassword(email_reg, pass_reg).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
 
-                        firebaseUser.sendEmailVerification();
+                    uploadUserData();
 
-                        Toast.makeText(RegisterUser.this, "Users Successfully Registered.\nVerification Email has been sent!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(RegisterUser.this, LoginUser.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
-
-                    } else {
-                        try {
-                            throw Objects.requireNonNull(task.getException());
-                        } catch (Exception e) {
-                            Toast.makeText(RegisterUser.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                } else {
+                    try {
+                        throw Objects.requireNonNull(task.getException());
+                    } catch (Exception e) {
+                        LayoutInflater inflater = getLayoutInflater();
+                        @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+                        TextView text = layout.findViewById(R.id.tvToast);
+                        ImageView imageView = layout.findViewById(R.id.imgToast);
+                        text.setText(e.getMessage());
+                        imageView.setImageResource(R.drawable.ic_baseline_email_24);
+                        Toast toast = new Toast(getApplicationContext());
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setView(layout);
+                        toast.show();
                     }
-
-                    progressDialog.dismiss();
                 }
+
+                progressDialog.dismiss();
             });
         }
     }
 
+    @SuppressLint("SetTextI18n")
+    private void uploadUserData() {
+
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        assert firebaseUser != null;
+        String user_id = firebaseUser.getUid();
+
+        databaseReference.child(user_id).child("user_firstName").setValue(firstName_reg);
+        databaseReference.child(user_id).child("user_lastName").setValue(lastName_reg);
+        databaseReference.child(user_id).child("user_emailAddress").setValue(email_reg);
+
+        firebaseUser.sendEmailVerification();
+
+        LayoutInflater inflater = getLayoutInflater();
+        @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+        TextView text = layout.findViewById(R.id.tvToast);
+        ImageView imageView = layout.findViewById(R.id.imgToast);
+        text.setText("User Registered Successful. Verification Email has been sent!!");
+        imageView.setImageResource(R.drawable.ic_baseline_shopping_cart_24);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+
+        Intent intent = new Intent(RegisterUser.this, LoginUser.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+
+//        assert firebaseUser != null;
+//        String user_id = firebaseUser.getUid();
+//
+//        String user_picture ;
+//        Users users_data = new Users(user_picture, firstName_reg, lastName_reg, email_reg);
+//
+//
+//        databaseReference.child(user_id).setValue(users_data).addOnCompleteListener(RegisterUser.this, task -> {
+//
+//            if (task.isSuccessful()) {
+//
+//                firebaseUser.sendEmailVerification();
+//
+//                LayoutInflater inflater = getLayoutInflater();
+//                @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+//                TextView text = layout.findViewById(R.id.tvToast);
+//                ImageView imageView = layout.findViewById(R.id.imgToast);
+//                text.setText("User Registered Successful. Verification Email has been sent!!");
+//                imageView.setImageResource(R.drawable.ic_baseline_shopping_cart_24);
+//                Toast toast = new Toast(getApplicationContext());
+//                toast.setDuration(Toast.LENGTH_LONG);
+//                toast.setView(layout);
+//                toast.show();
+//
+//                Intent intent = new Intent(RegisterUser.this, LoginUser.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+//                finish();
+//
+//            } else {
+//                try {
+//                    throw Objects.requireNonNull(task.getException());
+//                } catch (Exception e) {
+//                    Toast.makeText(RegisterUser.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+           progressDialog.dismiss();
+//        });
+    }
+
     private Boolean validateUserRegData() {
+
         boolean result = false;
 
         firstName_reg = Objects.requireNonNull(firstNameReg.getText()).toString().trim();
@@ -165,7 +204,6 @@ public class RegisterUser extends AppCompatActivity {
             confPassReg.requestFocus();
         } else if (!pass_reg.equals(confPass_reg)) {
             confPassReg.setError("The Confirm Password does not match Password");
-            confPassReg.requestFocus();
         } else {
             result = true;
         }

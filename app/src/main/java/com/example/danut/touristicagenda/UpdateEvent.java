@@ -2,10 +2,6 @@ package com.example.danut.touristicagenda;
 
 import static com.google.firebase.storage.FirebaseStorage.getInstance;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -13,7 +9,6 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,8 +23,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,10 +38,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
@@ -69,7 +65,7 @@ public class UpdateEvent extends AppCompatActivity {
     //Add Events updated data
     private StorageReference storageRefEventUp;
     private DatabaseReference databaseRefEventUp;
-    private StorageTask uploadTaskEventUp;
+    private StorageTask taskEventUpdate;
 
     private ImageView ivEventUp;
     private Uri imageUriUp;
@@ -94,6 +90,8 @@ public class UpdateEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_event);
+
+        Objects.requireNonNull(getSupportActionBar()).setTitle("CUSTOMER: Reset Password");
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -138,12 +136,7 @@ public class UpdateEvent extends AppCompatActivity {
                 .centerCrop()
                 .into(ivEventUp);
 
-        ivEventUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery();
-            }
-        });
+        ivEventUp.setOnClickListener(view -> openGallery());
 
         //take a picture by camera
         buttonTakePictureUp.setOnClickListener(new View.OnClickListener() {
@@ -160,25 +153,21 @@ public class UpdateEvent extends AppCompatActivity {
                     } else {
                         openCamera();
                     }
-                }
-                else {
+                } else {
                     openCamera();
                 }
             }
         });
 
         //Action button Save Event
-        buttonSaveEventUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (uploadTaskEventUp != null && uploadTaskEventUp.isInProgress()) {
-                    Toast.makeText(UpdateEvent.this, "Update Event in progress", Toast.LENGTH_SHORT).show();
+        buttonSaveEventUp.setOnClickListener(view -> {
+            if (taskEventUpdate != null && taskEventUpdate.isInProgress()) {
+                Toast.makeText(UpdateEvent.this, "Update Event in progress", Toast.LENGTH_SHORT).show();
+            } else {
+                if (imageUriUp == null) {
+                    alertDialogEventPicture();
                 } else {
-                    if (imageUriUp == null) {
-                        alertDialogBikePicture();
-                    } else {
-                        updateEventWithNewPicture();
-                    }
+                    updateEventWithNewPicture();
                 }
             }
         });
@@ -205,18 +194,16 @@ public class UpdateEvent extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case PERMISSION_CAMERA:
-                if (grantResults.length > 0 && grantResults[0] ==
-                        PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted
-                    openCamera();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
-                    // permission deniedDisable the
-                    // functionality that depends on this permission.
-                }
-                break;
+        if (requestCode == PERMISSION_CAMERA) {
+            if (grantResults.length > 0 && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED) {
+                // permission was granted
+                openCamera();
+            } else {
+                Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+                // permission deniedDisable the
+                // functionality that depends on this permission.
+            }
         }
     }
 
@@ -250,23 +237,13 @@ public class UpdateEvent extends AppCompatActivity {
     }
 
     private void deleteOldEventPicture() {
-        progressDialog.show();
-
         StorageReference storageRefDelete = getInstance().getReferenceFromUrl(event_ImageUp);
-        storageRefDelete.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(@NonNull Void aVoid) {
-                Toast.makeText(UpdateEvent.this, "Previous image deleted", Toast.LENGTH_SHORT).show();
-                ivEventUp.setImageResource(R.drawable.image_event);
-                progressDialog.dismiss();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UpdateEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
-            }
-        });
+        storageRefDelete.delete()
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(UpdateEvent.this, "Previous image deleted", Toast.LENGTH_SHORT).show();
+                    ivEventUp.setImageResource(R.drawable.image_event);
+                })
+                .addOnFailureListener(e -> Toast.makeText(UpdateEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     //Upload the updated Event into the Events table
@@ -278,64 +255,52 @@ public class UpdateEvent extends AppCompatActivity {
             etEvent_AddressUp = Objects.requireNonNull(etAddressEventUp.getText()).toString().trim();
             etEvent_MessageUp = etMessageEventUp.getText().toString().trim();
 
-            progressDialog.setTitle("The Event is updating!");
+            progressDialog.setTitle("The Event is updating!!");
             progressDialog.show();
 
             final StorageReference fileReference = storageRefEventUp.child(System.currentTimeMillis() + "." + getFileExtension(imageUriUp));
-            uploadTaskEventUp = fileReference.putFile(imageUriUp)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            taskEventUpdate = fileReference.putFile(imageUriUp)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                            databaseRefEventUp.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
-                                public void onSuccess(@NonNull final Uri uri) {
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                    databaseRefEventUp.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                                                String event_Key = postSnapshot.getKey();
-                                                assert event_Key != null;
+                                        String event_Key = postSnapshot.getKey();
+                                        assert event_Key != null;
 
-                                                if (event_Key.equals(event_KeyUp)) {
-                                                    postSnapshot.getRef().child("event_Date").setValue(etEvent_DateUp);
-                                                    postSnapshot.getRef().child("event_Name").setValue(etEvent_NameUp);
-                                                    postSnapshot.getRef().child("event_Address").setValue(etEvent_AddressUp);
-                                                    postSnapshot.getRef().child("event_Message").setValue(etEvent_MessageUp);
-                                                    postSnapshot.getRef().child("event_Image").setValue(uri.toString());
-                                                    deleteOldEventPicture();
-                                                }
-                                            }
-
-                                            Toast.makeText(UpdateEvent.this, "The Event will be updated", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(UpdateEvent.this, UserPage.class));
-                                            finish();
+                                        if (event_Key.equals(event_KeyUp)) {
+                                            postSnapshot.getRef().child("event_Date").setValue(etEvent_DateUp);
+                                            postSnapshot.getRef().child("event_Name").setValue(etEvent_NameUp);
+                                            postSnapshot.getRef().child("event_Address").setValue(etEvent_AddressUp);
+                                            postSnapshot.getRef().child("event_Message").setValue(etEvent_MessageUp);
+                                            postSnapshot.getRef().child("event_Image").setValue(uri.toString());
                                         }
+                                    }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                                            Toast.makeText(UpdateEvent.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                                    deleteOldEventPicture();
+                                    Toast.makeText(UpdateEvent.this, "The Event will be updated", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(UpdateEvent.this, UserPage.class));
+                                    finish();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(UpdateEvent.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
-                        }
+                        });
                     })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(UpdateEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(UpdateEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                            //show upload Progress
-                            double progress = 100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount();
-                            progressDialog.setMessage("Updated: " + (int) progress + "%");
-                            progressDialog.setProgress((int) progress);
-                        }
+                    .addOnProgressListener(taskSnapshot -> {
+                        //show upload Progress
+                        double progress = 100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount();
+                        progressDialog.setMessage("Updated: " + (int) progress + "%");
+                        progressDialog.setProgress((int) progress);
                     });
         }
     }
@@ -350,25 +315,21 @@ public class UpdateEvent extends AppCompatActivity {
             etEvent_AddressUp = Objects.requireNonNull(etAddressEventUp.getText()).toString().trim();
             etEvent_MessageUp = etMessageEventUp.getText().toString().trim();
 
-            progressDialog.setTitle("The Event is updating!");
+            progressDialog.setTitle("The Event is updating!!");
             progressDialog.show();
 
-            databaseRefEventUp.addListenerForSingleValueEvent(new ValueEventListener() {
+            Query query = databaseRefEventUp.orderByKey().equalTo(event_KeyUp);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
-                        String event_Key = postSnapshot.getKey();
-                        assert event_Key != null;
-
-                        if (event_Key.equals(event_KeyUp)) {
-                            postSnapshot.getRef().child("event_Date").setValue(etEvent_DateUp);
-                            postSnapshot.getRef().child("event_Name").setValue(etEvent_NameUp);
-                            postSnapshot.getRef().child("event_Address").setValue(etEvent_AddressUp);
-                            postSnapshot.getRef().child("event_Message").setValue(etEvent_MessageUp);
-                        }
+                        postSnapshot.getRef().child("event_Date").setValue(etEvent_DateUp);
+                        postSnapshot.getRef().child("event_Name").setValue(etEvent_NameUp);
+                        postSnapshot.getRef().child("event_Address").setValue(etEvent_AddressUp);
+                        postSnapshot.getRef().child("event_Message").setValue(etEvent_MessageUp);
                     }
 
+                    progressDialog.dismiss();
                     Toast.makeText(UpdateEvent.this, "The Event will be updated", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(UpdateEvent.this, UserPage.class));
                     finish();
@@ -440,16 +401,15 @@ public class UpdateEvent extends AppCompatActivity {
         });
     }
 
-    public void alertDialogBikePicture() {
-        android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(this);
+    public void alertDialogEventPicture() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder
                 .setTitle("No Event picture changed.")
                 .setMessage("Update the Event with old picture.")
-                .setPositiveButton("YES",
-                        (arg0, arg1) -> uploadEventWithOldPicture())
-                .setNegativeButton("CANCEL", (dialog, i) -> dialog.dismiss());
+                .setPositiveButton("YES", (dialog, id) -> uploadEventWithOldPicture())
+                .setNegativeButton("NO", (dialog, id) -> dialog.dismiss());
 
-        android.app.AlertDialog alertDialog = alertDialogBuilder.create();
+        AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
 

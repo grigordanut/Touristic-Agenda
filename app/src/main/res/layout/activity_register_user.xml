@@ -133,7 +133,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/btn_round_corners"
+            android:background="@drawable/btn_fading"
             android:text="@string/btn_registerUser"
             android:textSize="22sp"
             android:textStyle="bold"

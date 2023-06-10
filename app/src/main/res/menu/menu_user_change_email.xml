@@ -6,6 +6,6 @@
         android:id="@+id/userChangeEmailGoBack"
         android:orderInCategory="100"
         android:title="@string/userChangeEmail_goBack"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
 </menu>

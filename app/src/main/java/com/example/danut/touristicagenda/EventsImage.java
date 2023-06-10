@@ -1,23 +1,20 @@
 package com.example.danut.touristicagenda;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,10 +27,11 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class EventsImage extends AppCompatActivity implements EventsAdapter.OnItemClickListener {
 
-    private TextView tVEvents, tVNoEvents;
+    private TextView tVNoEvents;
 
     //Retrieve data from Users database
     private DatabaseReference databaseRefUser;
@@ -62,6 +60,8 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_image);
 
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Events Page");
+
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
 
@@ -74,7 +74,6 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
 
         dbRefEventsLocation = FirebaseDatabase.getInstance().getReference().child("Locations");
 
-        tVEvents = findViewById(R.id.tvEvents);
         tVNoEvents = findViewById(R.id.tvNumberEvents);
 
         eventsRecyclerView = findViewById(R.id.evRecyclerView);
@@ -90,21 +89,11 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
         eventsRecyclerView.setAdapter(eventsAdapter);
         eventsAdapter.setOnItmClickListener(EventsImage.this);
 
-        Button buttonBackUserPage = findViewById(R.id.btnBackUserPage);
-        buttonBackUserPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(EventsImage.this, UserPage.class));
-            }
-        });
-
-        Button buttonAddMoreEvents = findViewById(R.id.btnAddMoreEvents);
-        buttonAddMoreEvents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(EventsImage.this, AddEvent.class));
-            }
-        });
+//        Button btn_BackUserPage = findViewById(R.id.btnBackUserPage);
+//        btn_BackUserPage.setOnClickListener(v -> startActivity(new Intent(EventsImage.this, UserPage.class)));
+//
+//        Button btn_AddMoreEvents = findViewById(R.id.btnAddMoreEvents);
+//        btn_AddMoreEvents.setOnClickListener(v -> startActivity(new Intent(EventsImage.this, AddEvent.class)));
     }
 
     @SuppressLint("SetTextI18n")
@@ -128,7 +117,6 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
                     if (fb_User != null) {
                         assert user_Data != null;
                         if (fb_User.getUid().equals(postSnapshot.getKey())) {
-                            tVEvents.setText("List of Events: " + user_Data.getUser_firstName() + " " + user_Data.getUser_lastName());
                             user_Name = user_Data.getUser_firstName() + " " + user_Data.getUser_lastName();
                         }
                     }
@@ -149,8 +137,9 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
             @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                eventsList.clear();
                 if (dataSnapshot.exists()) {
-                    eventsList.clear();
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         Events events = postSnapshot.getValue(Events.class);
                         assert events != null;
@@ -159,18 +148,15 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
                             eventsList.add(events);
                             tVNoEvents.setText(eventsList.size() + " Events added by: " + user_Name);
                         }
-                        else{
+
+                        if (eventsList.size() == 0) {
                             tVNoEvents.setText("No Events added by: " + user_Name);
                         }
-
-                        progressDialog.dismiss();
                     }
 
                     eventsAdapter.notifyDataSetChanged();
-                }
-
-                else{
-                    tVNoEvents.setText("No Events registered");
+                } else {
+                    tVNoEvents.setText("No Events registered!!");
                 }
 
                 progressDialog.dismiss();
@@ -179,7 +165,6 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(EventsImage.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
             }
         });
     }
@@ -196,13 +181,13 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
         alertDialogBuilder
                 .setCancelable(false)
                 .setTitle("You selected: " + selected_Event.getEvent_Name() + " event" + "\nSelect an option:")
-                .setAdapter(adapter, (dialogInterface, i) -> {
+                .setAdapter(adapter, (dialog, id) -> {
 
-                    if (i == 0) {
+                    if (id == 0) {
                         startActivity(new Intent(EventsImage.this, MapsActivity.class));
                     }
 
-                    if (i == 1) {
+                    if (id == 1) {
                         Intent intent = new Intent(EventsImage.this, UpdateEvent.class);
 
                         Events selected_Event1 = eventsList.get(position);
@@ -215,11 +200,12 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
                         startActivity(intent);
                     }
 
-                    if (i == 2) {
+                    if (id == 2) {
                         confirmDeletion(position);
                     }
                 })
-                .setNegativeButton("CLOSE", (dialogInterface, i) -> dialogInterface.dismiss());
+                .setNegativeButton("CLOSE", (dialog, id) -> dialog.dismiss());
+
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
@@ -227,37 +213,30 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
     //Action of the menu Delete and alert dialog
     public void confirmDeletion(int position) {
 
-        AlertDialog.Builder builderAlert = new AlertDialog.Builder(EventsImage.this);
-        builderAlert.setMessage("Are sure to delete this item?");
-        builderAlert.setCancelable(true);
-        builderAlert.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Events selected_Event = eventsList.get(position);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EventsImage.this);
+        alertDialogBuilder
+                .setTitle("Delete Event!!")
+                .setMessage("Are sure to delete this Event?")
+                .setCancelable(true)
+                .setPositiveButton("YES", (dialog, id) -> {
+                    Events selected_Event = eventsList.get(position);
 
-                        final String event_Key = selected_Event.getEvent_Key();
+                    final String event_Key = selected_Event.getEvent_Key();
 
-                        final String location_Key = selected_Event.getEventLocationKey();
+                    final String location_Key = selected_Event.getEventLocationKey();
 
-                        StorageReference imageReference = firebaseStEvents.getReferenceFromUrl(selected_Event.getEvent_Image());
-                        imageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(@NonNull Void aVoid) {
-                                databaseRefEvents.child(event_Key).removeValue();
-                                dbRefEventsLocation.child(location_Key).removeValue();
-                                Toast.makeText(EventsImage.this, "The Event has been deleted successfully ", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
+                    StorageReference imageReference = firebaseStEvents.getReferenceFromUrl(selected_Event.getEvent_Image());
+                    imageReference.delete().addOnSuccessListener(aVoid -> {
+                        databaseRefEvents.child(event_Key).removeValue();
+                        dbRefEventsLocation.child(location_Key).removeValue();
+                        Toast.makeText(EventsImage.this, "The Event has been deleted successfully ", Toast.LENGTH_SHORT).show();
+                    });
+                })
 
-        builderAlert.setNegativeButton(
-                "CANCEL",
-                (dialog, id) -> dialog.cancel());
+                .setNegativeButton(  "NO", (dialog, id) -> dialog.cancel());
 
-        AlertDialog alert11 = builderAlert.create();
-        alert11.show();
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     @SuppressLint("SetTextI18n")
@@ -266,5 +245,36 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
         super.onDestroy();
         databaseRefEvents.removeEventListener(valueEvListenerEvents);
         tVNoEvents.setText(eventsList.size() + " Events added by " + user_Name);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_events_image, menu);
+        return true;
+    }
+
+    public void menuEventsImageGoBack() {
+        startActivity(new Intent(EventsImage.this, UserPage.class));
+        finish();
+    }
+
+    public void menuEventsImageAddMenu() {
+        startActivity(new Intent(EventsImage.this, AddEvent.class));
+        finish();
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.menuEventsImage_goBack) {
+            menuEventsImageGoBack();
+        }
+
+        if (item.getItemId() == R.id.menuEventsImage_addMenu) {
+            menuEventsImageAddMenu();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

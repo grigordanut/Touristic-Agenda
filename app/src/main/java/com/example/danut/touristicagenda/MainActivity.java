@@ -2,19 +2,14 @@ package com.example.danut.touristicagenda;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Handler;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,35 +23,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        imgView = (ImageView)findViewById(R.id.imageView);
+        imgView = findViewById(R.id.imageView);
 
         //Rotate animation
         Handler handlerRotate = new Handler();
-        handlerRotate.post(new Runnable() {
-            @Override
-            public void run() {
-                animationRotate = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
-                imgView.startAnimation(animationRotate);
-            }
+        handlerRotate.post(() -> {
+            animationRotate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
+            imgView.startAnimation(animationRotate);
         });
 
         //move animation
         Handler handlerDelay = new Handler();
-        handlerDelay.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent i = new Intent(MainActivity.this,LoginUser.class);
-                startActivity(i);
-            }
-        }, DELAY_MILLISECONDS);
+        handlerDelay.postDelayed(() -> startActivity(new Intent(MainActivity.this, LoginUser.class)), DELAY_MILLISECONDS);
 
-        imgView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,LoginUser.class);
-                startActivity(intent);
-            }
-        });
+        imgView.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, LoginUser.class)));
     }
 
     @Override

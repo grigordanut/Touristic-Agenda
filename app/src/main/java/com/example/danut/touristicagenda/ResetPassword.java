@@ -1,19 +1,14 @@
 package com.example.danut.touristicagenda;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
@@ -45,44 +40,35 @@ public class ResetPassword extends AppCompatActivity {
 
         //Action of the button Reset password
         Button btn_ResetPass = findViewById(R.id.btnResetPass);
-        btn_ResetPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //change the old password to a new password
-                resetPassword();
-            }
-        });
+        btn_ResetPass.setOnClickListener(view -> resetPassword());
     }
 
     private void resetPassword() {
 
         if (validateResetPassData()) {
 
-            progressDialog.setMessage("The password is resetting!!");
+            progressDialog.setMessage("Reset user Password!!");
             progressDialog.show();
 
-            firebaseAuth.sendPasswordResetEmail(email_ResetPass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
+            firebaseAuth.sendPasswordResetEmail(email_ResetPass).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
 
-                        Toast.makeText(ResetPassword.this, "The password reset email was sent", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ResetPassword.this, LoginUser.class));
-                        finish();
+                    Toast.makeText(ResetPassword.this, "Password reset email has been sent", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(ResetPassword.this, LoginUser.class));
+                    finish();
 
-                    } else {
-                        try {
-                            throw Objects.requireNonNull(task.getException());
-                        } catch (FirebaseAuthInvalidUserException e) {
-                            emailResetPass.setError("This email is not registered.");
-                            emailResetPass.requestFocus();
-                        } catch (Exception e) {
-                            Toast.makeText(ResetPassword.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                } else {
+                    try {
+                        throw Objects.requireNonNull(task.getException());
+                    } catch (FirebaseAuthInvalidUserException e) {
+                        emailResetPass.setError("This email is not registered");
+                        emailResetPass.requestFocus();
+                    } catch (Exception e) {
+                        Toast.makeText(ResetPassword.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
-                    progressDialog.dismiss();
                 }
+
+                progressDialog.dismiss();
             });
         }
     }

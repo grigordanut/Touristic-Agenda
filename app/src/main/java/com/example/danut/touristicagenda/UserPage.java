@@ -1,20 +1,31 @@
 package com.example.danut.touristicagenda;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import static com.google.firebase.storage.FirebaseStorage.getInstance;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.webkit.MimeTypeMap;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,21 +33,48 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
-public class UserPage extends AppCompatActivity {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class UserPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+    //Declare Variables
+    private static final int PICK_IMAGE = 100;
+
+    private Uri imageUriPicture;
+    //private ImageView ivAddPicture;
+
+    private String user_Image = "";
+
+    private CircleImageView ivAddPicture;
 
     //Access customer database
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
 
-    private DatabaseReference databaseReference;
+    private StorageReference stRefAddUserPicture;
+    private DatabaseReference dbRefAddUserPicture;
+
+    private DatabaseReference dbRefCheckPicture;
+
+    private DatabaseReference dbRefUsers;
+
     private ValueEventListener eventListenerUser;
+    private StorageTask eventsUploadTask;
 
-    private TextView tVUserName;
+    private TextView tVUserHeader, tVUserPage;
 
-    private Users users_data;
+    private ProgressDialog progressDialog;
+
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
+    private NavigationView navigationView;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -46,33 +84,96 @@ public class UserPage extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setTitle("Users Page");
 
+        progressDialog = new ProgressDialog(UserPage.this);
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        //initialise the variables
-        tVUserName = findViewById(R.id.tvUserName);
-
-        Button btn_addEvent = findViewById(R.id.btnAddEvent);
-
-        Button btn_showEvents = findViewById(R.id.btnShowEvents);
+        stRefAddUserPicture = FirebaseStorage.getInstance().getReference("Users");
+        dbRefAddUserPicture = FirebaseDatabase.getInstance().getReference("Users");
 
         //retrieve data from database into text views
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        dbRefCheckPicture = FirebaseDatabase.getInstance().getReference("Users");
+        dbRefUsers = FirebaseDatabase.getInstance().getReference("Users");
 
-        eventListenerUser = databaseReference.addValueEventListener(new ValueEventListener() {
-            @SuppressLint({"SetTextI18n", "NewApi"})
+
+        drawerLayout = findViewById(R.id.activity_user_page);
+        navigationView = findViewById(R.id.navViewUserPage);
+        View header = navigationView.getHeaderView(0);
+
+        //initialise the variables
+        tVUserPage = findViewById(R.id.tvUserPage);
+        tVUserHeader = header.findViewById(R.id.tvUserHeader);
+        ivAddPicture = header.findViewById(R.id.imgUserPicture);
+
+        findViewById(R.id.layoutAddEvent).setOnClickListener(this);
+        findViewById(R.id.layoutShowEvents).setOnClickListener(this);
+
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_userPage, R.string.close_userPage);
+
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        eventListenerUser = dbRefUsers.addValueEventListener(new ValueEventListener() {
+            @SuppressLint({"SetTextI18n", "NewApi", "NonConstantResourceId"})
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 //retrieve data from database
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                    users_data = postSnapshot.getValue(Users.class);
+                    final Users users_data = postSnapshot.getValue(Users.class);
 
                     assert users_data != null;
                     assert firebaseUser != null;
                     if (firebaseUser.getUid().equals(postSnapshot.getKey())) {
-                        tVUserName.setText("Welcome: " + users_data.getUser_firstName() + " " + users_data.getUser_lastName());
+                        tVUserPage.setText("Welcome: " + users_data.getUser_firstName() + " " + users_data.getUser_lastName());
+
+                        Picasso.get()
+                                .load(users_data.getUser_picture())
+                                .placeholder(R.mipmap.ic_launcher)
+                                .fit()
+                                .centerCrop()
+                                .into(ivAddPicture);
+
+                        tVUserHeader.setText(users_data.getUser_firstName() + " " + users_data.getUser_lastName());
+
+                        user_Image = users_data.getUser_picture();
+
+                        navigationView.setNavigationItemSelectedListener(item -> {
+                            int id = item.getItemId();
+                            switch (id) {
+
+                                //User add picture
+                                case R.id.user_addPicture:
+                                    openGallery();
+                                    break;
+
+                                //Edit User profile
+                                case R.id.user_editProfile:
+                                    Intent edit_Profile = new Intent(UserPage.this, UpdateUser.class);
+                                    startActivity(edit_Profile);
+                                    break;
+
+                                //Change User email
+                                case R.id.user_changeEmail:
+                                    Intent change_Email = new Intent(UserPage.this, ChangeEmail.class);
+                                    startActivity(change_Email);
+                                    break;
+
+                                //Change User Password
+                                case R.id.user_changePassword:
+                                    Intent change_Password = new Intent(UserPage.this, ChangePassword.class);
+                                    startActivity(change_Password);
+                                    break;
+
+                                default:
+                                    return true;
+                            }
+                            return true;
+                        });
                     }
                 }
             }
@@ -80,25 +181,6 @@ public class UserPage extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(UserPage.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        btn_addEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addEvent = new Intent(UserPage.this, AddEvent.class);
-                addEvent.putExtra("USERKey", firebaseUser.getUid());
-                startActivity(addEvent);
-            }
-        });
-
-        btn_showEvents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent showEvent = new Intent(UserPage.this, EventsImage.class);
-                getIntent().putExtra("USERKey", firebaseUser.getUid());
-                startActivity(showEvent);
             }
         });
     }
@@ -119,15 +201,8 @@ public class UserPage extends AppCompatActivity {
     }
 
     //user log out
-    private void LogOut() {
-        SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("remember", "false");
-        editor.apply();
-
-        Toast.makeText(UserPage.this, "You are Log Out", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(UserPage.this, LoginUser.class));
-        finish();
+    private void logOutUser() {
+        alertDialogUserLogout();
     }
 
     @Override
@@ -139,8 +214,12 @@ public class UserPage extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         if (item.getItemId() == R.id.logOutUser) {
-            alertDialogUserLogout();
+            logOutUser();
         }
 
         if (item.getItemId() == R.id.editProfile) {
@@ -158,19 +237,42 @@ public class UserPage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void alertDialogUserLogout(){
+    @SuppressLint("SetTextI18n")
+    private void alertDialogUserLogout() {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(UserPage.this);
         alertDialogBuilder
-                .setTitle("Log out Users")
-                .setMessage("Are sure to Log Out?")
+                .setTitle("Logout User!!")
+                .setMessage("Are you sure to Logout?")
                 .setCancelable(false)
-                .setPositiveButton("Yes",
-                        (dialog, id) -> LogOut())
+                .setPositiveButton("YES", (dialog, id) -> {
 
-                .setNegativeButton("No",
-                        (dialog, id) -> dialog.cancel());
+                    progressDialog.setTitle("Logout User!!");
+                    progressDialog.show();
 
+                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "false");
+                    editor.apply();
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+                    TextView text = layout.findViewById(R.id.tvToast);
+                    ImageView imageView = layout.findViewById(R.id.imgToast);
+                    text.setText("Logout Successful!!");
+                    imageView.setImageResource(R.drawable.ic_baseline_logout_24);
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+
+                    startActivity(new Intent(UserPage.this, LoginUser.class));
+                    finish();
+                })
+
+                .setNegativeButton("NO", (dialog, id) -> dialog.cancel());
+
+        progressDialog.dismiss();
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
@@ -178,8 +280,119 @@ public class UserPage extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        if(eventListenerUser != null){
-            databaseReference.removeEventListener(eventListenerUser);
+        if (eventListenerUser != null) {
+            dbRefUsers.removeEventListener(eventListenerUser);
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            //Show Restaurants
+            case R.id.layoutAddEvent:
+                startActivity(new Intent(UserPage.this, AddEvent.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+            //Show Menus
+            case R.id.layoutShowEvents:
+                startActivity(new Intent(UserPage.this, EventsImage.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+        }
+    }
+
+    public void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        //gallery.setType("Image/*");
+        startActivityForResult(gallery, PICK_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
+            imageUriPicture = data.getData();
+            ivAddPicture.setImageURI(imageUriPicture);
+            checkUserPictureExists();
+            Toast.makeText(UserPage.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    private void checkUserPictureExists() {
+
+        if (user_Image == null) {
+            uploadUserPicture();
+        } else {
+            uploadUserPicture();
+            deleteOldUserPicture();
+        }
+    }
+
+    //Upload a new Event into the Events table
+    public void uploadUserPicture() {
+
+        //Add Event into Events database
+        progressDialog.setTitle("Upload User picture!!");
+        progressDialog.show();
+
+        final StorageReference fileReference = stRefAddUserPicture.child(System.currentTimeMillis() + "." + getFileExtension(imageUriPicture));
+        eventsUploadTask = fileReference.putFile(imageUriPicture)
+                .addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl()
+                        .addOnSuccessListener(uri -> {
+
+                            dbRefAddUserPicture.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @SuppressLint("SetTextI18n")
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                                        if (firebaseUser.getUid().equals(postSnapshot.getKey())) {
+                                            postSnapshot.getRef().child("user_picture").setValue(uri.toString());
+                                        }
+                                    }
+
+                                    user_Image = uri.toString();
+                                    progressDialog.dismiss();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(UserPage.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }))
+
+                .addOnFailureListener(e -> Toast.makeText(UserPage.this, e.getMessage(), Toast.LENGTH_SHORT).show())
+                .addOnProgressListener(taskSnapshot -> {
+                    //show upload Progress
+                    double progress = 100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount();
+                    progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                    progressDialog.setProgress((int) progress);
+                });
+    }
+
+    private void deleteOldUserPicture() {
+        StorageReference storageRefDelete = getInstance().getReferenceFromUrl(user_Image);
+        storageRefDelete.delete()
+                .addOnSuccessListener(aVoid -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(UserPage.this, "Previous image deleted", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> Toast.makeText(UserPage.this, e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }

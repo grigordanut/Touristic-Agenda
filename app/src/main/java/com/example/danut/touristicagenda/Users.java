@@ -4,19 +4,29 @@ import com.google.firebase.database.Exclude;
 
 public class Users {
 
+    private String user_picture;
     private String user_firstName;
     private String user_lastName;
     private String user_emailAddress;
     private String user_Key;
 
-    public Users(){
+    public Users() {
 
     }
 
-    public Users(String user_firstName, String user_lastName, String user_emailAddress) {
+    public Users(String user_picture, String user_firstName, String user_lastName, String user_emailAddress) {
+        this.user_picture = user_picture;
         this.user_firstName = user_firstName;
         this.user_lastName = user_lastName;
         this.user_emailAddress = user_emailAddress;
+    }
+
+    public String getUser_picture() {
+        return user_picture;
+    }
+
+    public void setUser_picture(String user_picture) {
+        this.user_picture = user_picture;
     }
 
     public String getUser_firstName() {

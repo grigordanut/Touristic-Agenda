@@ -1,11 +1,11 @@
 package com.example.danut.touristicagenda;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
-
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener,GoogleMap.OnMarkerClickListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
 
@@ -56,7 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot mapSnapShot : dataSnapshot.getChildren()){
+                for (DataSnapshot mapSnapShot : dataSnapshot.getChildren()) {
                     EventLocation mapEvLocation = mapSnapShot.getValue(EventLocation.class);
                     assert mapEvLocation != null;
                     LatLng storeLocation = new LatLng(mapEvLocation.getEvent_Latitude(), mapEvLocation.getEvent_Longitude());
@@ -94,7 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public boolean onMarkerClick(Marker marker) {
+    public boolean onMarkerClick(@NonNull Marker marker) {
         return false;
     }
 }

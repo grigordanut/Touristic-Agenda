@@ -1,84 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_bright"
-    tools:context=".EventsImage"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="0dp">
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".EventsImage">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvNumberEvents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Events"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText" />
 
-        <TextView
-            android:id="@+id/tvEvents"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="@string/tv_eventsPage"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="24sp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/evRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
 
-        <TextView
-            android:id="@+id/tvNumberEvents"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="#ffffff"
-            android:text="Events"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            tools:ignore="HardcodedText" />
+    </androidx.recyclerview.widget.RecyclerView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/evRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnAddMoreEvents"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_round_corners"
-                android:text="@string/btn_addMoreEvents"
-                android:textSize="16sp"
-                tools:ignore="ButtonStyle" />
-
-            <Button
-                android:id="@+id/btnBackUserPage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_round_corners"
-                android:text="@string/btn_backUerPage"
-                android:textSize="16sp"
-                tools:ignore="ButtonStyle" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

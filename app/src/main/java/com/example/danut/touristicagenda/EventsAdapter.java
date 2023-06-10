@@ -2,7 +2,6 @@ package com.example.danut.touristicagenda;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,17 +9,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ImageViewHolder>{
+public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ImageViewHolder> {
 
     private final Context eventContext;
     private final List<Events> eventUploads;
     private OnItemClickListener clickListener;
 
-    public EventsAdapter(Context event_context, List<Events> event_uploads){
+    public EventsAdapter(Context event_context, List<Events> event_uploads) {
         eventContext = event_context;
         eventUploads = event_uploads;
     }
@@ -28,7 +28,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ImageViewH
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(eventContext).inflate(R.layout.image_event,parent, false);
+        View view = LayoutInflater.from(eventContext).inflate(R.layout.image_event, parent, false);
         return new ImageViewHolder(view);
     }
 
@@ -88,7 +88,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ImageViewH
         void onItemClick(int position);
     }
 
-    public void setOnItmClickListener(OnItemClickListener listener){
+    public void setOnItmClickListener(OnItemClickListener listener) {
         clickListener = listener;
     }
 }
