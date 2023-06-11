@@ -92,7 +92,7 @@ public class LoginUser extends AppCompatActivity {
     public void logInUser() {
         if (validateUserLogData()) {
 
-            progressDialog.setTitle("Login User!!");
+            progressDialog.setTitle("User login!!");
             progressDialog.show();
 
             firebaseAuth.signInWithEmailAndPassword(email_logUser, pass_logUser).addOnCompleteListener(task -> {
@@ -132,7 +132,7 @@ public class LoginUser extends AppCompatActivity {
             @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
             TextView text = layout.findViewById(R.id.tvToast);
             ImageView imageView = layout.findViewById(R.id.imgToast);
-            text.setText("Login Successful!!");
+            text.setText("Login successful!!");
             imageView.setImageResource(R.drawable.ic_baseline_login_24);
             Toast toast = new Toast(getApplicationContext());
             toast.setDuration(Toast.LENGTH_LONG);
@@ -150,7 +150,7 @@ public class LoginUser extends AppCompatActivity {
             @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
             TextView text = layout.findViewById(R.id.tvToast);
             ImageView imageView = layout.findViewById(R.id.imgToast);
-            text.setText("Please verify your Email!!");
+            text.setText("Please verify your email!!");
             imageView.setImageResource(R.drawable.baseline_report_gmailerrorred_24);
             Toast toast = new Toast(getApplicationContext());
             toast.setDuration(Toast.LENGTH_LONG);

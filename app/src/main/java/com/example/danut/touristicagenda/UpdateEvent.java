@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -207,6 +208,7 @@ public class UpdateEvent extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -217,7 +219,17 @@ public class UpdateEvent extends AppCompatActivity {
                     assert data != null;
                     imageUriUp = data.getData();
                     ivEventUp.setImageURI(imageUriUp);
-                    Toast.makeText(getApplicationContext(), "Image picked from Gallery", Toast.LENGTH_SHORT).show();
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+                    TextView text = layout.findViewById(R.id.tvToast);
+                    ImageView imageView = layout.findViewById(R.id.imgToast);
+                    text.setText("Image picked from Gallery!!");
+                    imageView.setImageResource(R.drawable.baseline_camera_24);
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
                 }
                 break;
 
@@ -255,7 +267,7 @@ public class UpdateEvent extends AppCompatActivity {
             etEvent_AddressUp = Objects.requireNonNull(etAddressEventUp.getText()).toString().trim();
             etEvent_MessageUp = etMessageEventUp.getText().toString().trim();
 
-            progressDialog.setTitle("The Event is updating!!");
+            progressDialog.setTitle("Updating event details!!");
             progressDialog.show();
 
             final StorageReference fileReference = storageRefEventUp.child(System.currentTimeMillis() + "." + getFileExtension(imageUriUp));
@@ -263,6 +275,7 @@ public class UpdateEvent extends AppCompatActivity {
                     .addOnSuccessListener(taskSnapshot -> {
                         fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
                             databaseRefEventUp.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @SuppressLint("SetTextI18n")
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -281,7 +294,18 @@ public class UpdateEvent extends AppCompatActivity {
                                     }
 
                                     deleteOldEventPicture();
-                                    Toast.makeText(UpdateEvent.this, "The Event will be updated", Toast.LENGTH_SHORT).show();
+
+                                    LayoutInflater inflater = getLayoutInflater();
+                                    @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+                                    TextView text = layout.findViewById(R.id.tvToast);
+                                    ImageView imageView = layout.findViewById(R.id.imgToast);
+                                    text.setText("The event has been updated successfully!!");
+                                    imageView.setImageResource(R.drawable.baseline_event_available_24);
+                                    Toast toast = new Toast(getApplicationContext());
+                                    toast.setDuration(Toast.LENGTH_LONG);
+                                    toast.setView(layout);
+                                    toast.show();
+
                                     startActivity(new Intent(UpdateEvent.this, UserPage.class));
                                     finish();
                                 }

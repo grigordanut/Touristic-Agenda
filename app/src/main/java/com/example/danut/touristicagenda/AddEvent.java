@@ -234,7 +234,7 @@ public class AddEvent extends AppCompatActivity {
             //Read entered Event data
             event_Date = Objects.requireNonNull(eventDate.getText()).toString().trim();
 
-            progressDialog.setTitle("Uploading the Event details!!");
+            progressDialog.setTitle("Uploading event details!!");
             progressDialog.show();
 
             final StorageReference fileReference = storageReferenceEvents.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
@@ -257,7 +257,7 @@ public class AddEvent extends AppCompatActivity {
                                 TextView text = layout.findViewById(R.id.tvToast);
                                 ImageView imageView = layout.findViewById(R.id.imgToast);
                                 text.setText("The event was successfully uploaded!!");
-                                imageView.setImageResource(R.drawable.ic_baseline_shopping_cart_24);
+                                imageView.setImageResource(R.drawable.baseline_event_available_24);
                                 Toast toast = new Toast(getApplicationContext());
                                 toast.setDuration(Toast.LENGTH_LONG);
                                 toast.setView(layout);
@@ -405,7 +405,7 @@ public class AddEvent extends AppCompatActivity {
                         @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
                         TextView text = layout.findViewById(R.id.tvToast);
                         ImageView imageView = layout.findViewById(R.id.imgToast);
-                        text.setText("The Location details has been saved!!");
+                        text.setText("Location details have been saved!!");
                         imageView.setImageResource(R.drawable.baseline_location_on_24);
                         Toast toast = new Toast(getApplicationContext());
                         toast.setDuration(Toast.LENGTH_LONG);

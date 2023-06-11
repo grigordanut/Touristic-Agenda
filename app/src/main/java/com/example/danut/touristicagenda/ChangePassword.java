@@ -145,7 +145,7 @@ public class ChangePassword extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void updateUserPassword() {
 
-        progressDialog.setMessage("Changing user Password!!");
+        progressDialog.setMessage("Changing user password!!");
         progressDialog.show();
 
         firebaseUser.updatePassword(new_Password).addOnCompleteListener(task1 -> {
@@ -157,7 +157,7 @@ public class ChangePassword extends AppCompatActivity {
                 @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
                 TextView text = layout.findViewById(R.id.tvToast);
                 ImageView imageView = layout.findViewById(R.id.imgToast);
-                text.setText("The password will be changed!!");
+                text.setText("Password has been changed successfully!!");
                 imageView.setImageResource(R.drawable.baseline_security_update_good_24);
                 Toast toast = new Toast(getApplicationContext());
                 toast.setDuration(Toast.LENGTH_LONG);
@@ -184,13 +184,7 @@ public class ChangePassword extends AppCompatActivity {
         alertDialogBuilder
                 .setMessage("Your profile is not authenticated yet.\nPlease authenticate your profile first and then change the Password!!")
                 .setCancelable(false)
-                .setPositiveButton("Ok",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
+                .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss());
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();

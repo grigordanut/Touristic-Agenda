@@ -41,7 +41,7 @@ public class RegisterUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Register User");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("User registration");
 
         progressDialog = new ProgressDialog(RegisterUser.this);
 
@@ -67,7 +67,7 @@ public class RegisterUser extends AppCompatActivity {
 
         if (validateUserRegData()) {
 
-            progressDialog.setTitle("Register User Details!!");
+            progressDialog.setTitle("Registration of user details!!");
             progressDialog.show();
 
             firebaseAuth.createUserWithEmailAndPassword(email_reg, pass_reg).addOnCompleteListener(task -> {
@@ -115,7 +115,7 @@ public class RegisterUser extends AppCompatActivity {
         @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
         TextView text = layout.findViewById(R.id.tvToast);
         ImageView imageView = layout.findViewById(R.id.imgToast);
-        text.setText("User Registered Successful. Verification Email has been sent!!");
+        text.setText("Registration successful. Verification email sent!!");
         imageView.setImageResource(R.drawable.baseline_how_to_reg_24);
         Toast toast = new Toast(getApplicationContext());
         toast.setDuration(Toast.LENGTH_LONG);

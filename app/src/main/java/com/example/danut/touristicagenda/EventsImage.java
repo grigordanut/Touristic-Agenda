@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,12 +91,6 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
         eventsAdapter = new EventsAdapter(EventsImage.this, eventsList);
         eventsRecyclerView.setAdapter(eventsAdapter);
         eventsAdapter.setOnItmClickListener(EventsImage.this);
-
-//        Button btn_BackUserPage = findViewById(R.id.btnBackUserPage);
-//        btn_BackUserPage.setOnClickListener(v -> startActivity(new Intent(EventsImage.this, UserPage.class)));
-//
-//        Button btn_AddMoreEvents = findViewById(R.id.btnAddMoreEvents);
-//        btn_AddMoreEvents.setOnClickListener(v -> startActivity(new Intent(EventsImage.this, AddEvent.class)));
     }
 
     @SuppressLint("SetTextI18n")
@@ -211,12 +208,13 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
     }
 
     //Action of the menu Delete and alert dialog
+    @SuppressLint("SetTextI18n")
     public void confirmDeletion(int position) {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EventsImage.this);
         alertDialogBuilder
-                .setTitle("Delete Event!!")
-                .setMessage("Are sure to delete this Event?")
+                .setTitle("Delete the event!!")
+                .setMessage("Are sure to delete this event?")
                 .setCancelable(true)
                 .setPositiveButton("YES", (dialog, id) -> {
                     Events selected_Event = eventsList.get(position);
@@ -229,7 +227,17 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
                     imageReference.delete().addOnSuccessListener(aVoid -> {
                         databaseRefEvents.child(event_Key).removeValue();
                         dbRefEventsLocation.child(location_Key).removeValue();
-                        Toast.makeText(EventsImage.this, "The Event has been deleted successfully ", Toast.LENGTH_SHORT).show();
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+                        TextView text = layout.findViewById(R.id.tvToast);
+                        ImageView imageView = layout.findViewById(R.id.imgToast);
+                        text.setText("The event was successfully deleted!!");
+                        imageView.setImageResource(R.drawable.baseline_delete_forever_24);
+                        Toast toast = new Toast(getApplicationContext());
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setView(layout);
+                        toast.show();
                     });
                 })
 

@@ -139,7 +139,7 @@ public class ChangeEmail extends AppCompatActivity {
 
     public void updateUserEmail() {
 
-        progressDialog.setTitle("Changing user Email!!");
+        progressDialog.setTitle("Changing user email!!");
         progressDialog.show();
 
         firebaseUser.updateEmail(new_Email).addOnCompleteListener(task -> {
@@ -186,7 +186,7 @@ public class ChangeEmail extends AppCompatActivity {
                         @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
                         TextView text = layout.findViewById(R.id.tvToast);
                         ImageView imageView = layout.findViewById(R.id.imgToast);
-                        text.setText("Email changed Successful. Verification Email has been sent!!");
+                        text.setText("Email has been changed successfully. Verification email has been sent!!");
                         imageView.setImageResource(R.drawable.ic_baseline_email_24);
                         Toast toast = new Toast(getApplicationContext());
                         toast.setDuration(Toast.LENGTH_LONG);

@@ -53,7 +53,7 @@ public class ResetPassword extends AppCompatActivity {
 
         if (validateResetPassData()) {
 
-            progressDialog.setMessage("Reset user Password!!");
+            progressDialog.setMessage("Resetting User password!!");
             progressDialog.show();
 
             firebaseAuth.sendPasswordResetEmail(email_ResetPass).addOnCompleteListener(task -> {
@@ -63,7 +63,7 @@ public class ResetPassword extends AppCompatActivity {
                     @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
                     TextView text = layout.findViewById(R.id.tvToast);
                     ImageView imageView = layout.findViewById(R.id.imgToast);
-                    text.setText("Email to  reset password has been sent!!");
+                    text.setText("An email has been sent to reset your password!!");
                     imageView.setImageResource(R.drawable.baseline_security_update_good_24);
                     Toast toast = new Toast(getApplicationContext());
                     toast.setDuration(Toast.LENGTH_LONG);

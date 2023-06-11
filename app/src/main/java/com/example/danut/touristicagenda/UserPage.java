@@ -233,12 +233,12 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(UserPage.this);
         alertDialogBuilder
-                .setTitle("Logout User!!")
-                .setMessage("Are you sure to Logout?")
+                .setTitle("User logout!!")
+                .setMessage("Are you sure to logout?")
                 .setCancelable(false)
                 .setPositiveButton("YES", (dialog, id) -> {
 
-                    progressDialog.setTitle("Logout User!!");
+                    progressDialog.setTitle("User logout!!");
                     progressDialog.show();
 
                     SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
@@ -319,7 +319,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
             @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
             TextView text = layout.findViewById(R.id.tvToast);
             ImageView imageView = layout.findViewById(R.id.imgToast);
-            text.setText("Uploaded User Picture!!");
+            text.setText("User picture uploaded!!");
             imageView.setImageResource(R.drawable.baseline_image_24);
             Toast toast = new Toast(getApplicationContext());
             toast.setDuration(Toast.LENGTH_LONG);
@@ -348,7 +348,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
     public void uploadUserPicture() {
 
         //Add picture into Users database
-        progressDialog.setTitle("Upload User picture!!");
+        progressDialog.setTitle("Uploading user picture!!");
         progressDialog.show();
 
         final StorageReference fileReference = stRefAddUserPicture.child(System.currentTimeMillis() + "." + getFileExtension(imageUriPicture));
