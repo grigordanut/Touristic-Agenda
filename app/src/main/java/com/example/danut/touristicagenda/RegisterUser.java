@@ -116,7 +116,7 @@ public class RegisterUser extends AppCompatActivity {
         TextView text = layout.findViewById(R.id.tvToast);
         ImageView imageView = layout.findViewById(R.id.imgToast);
         text.setText("Registration successful. Verification email sent!!");
-        imageView.setImageResource(R.drawable.baseline_how_to_reg_24);
+        imageView.setImageResource(R.drawable.baseline_person_add_alt_1_24);
         Toast toast = new Toast(getApplicationContext());
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);
