@@ -63,7 +63,7 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_image);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Events Page");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Events page");
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();

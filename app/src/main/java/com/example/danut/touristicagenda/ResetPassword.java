@@ -34,7 +34,7 @@ public class ResetPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Reset Password");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Reset password");
 
         progressDialog = new ProgressDialog(this);
 
@@ -53,7 +53,7 @@ public class ResetPassword extends AppCompatActivity {
 
         if (validateResetPassData()) {
 
-            progressDialog.setMessage("Resetting User password!!");
+            progressDialog.setMessage("Resetting user password!!");
             progressDialog.show();
 
             firebaseAuth.sendPasswordResetEmail(email_ResetPass).addOnCompleteListener(task -> {

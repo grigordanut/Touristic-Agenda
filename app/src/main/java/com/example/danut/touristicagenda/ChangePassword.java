@@ -48,7 +48,7 @@ public class ChangePassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("USER: change Password");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("User change password");
 
         progressDialog = new ProgressDialog(ChangePassword.this);
 

@@ -92,7 +92,7 @@ public class UpdateEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_event);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("CUSTOMER: Reset Password");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("User update event");
 
         firebaseAuth = FirebaseAuth.getInstance();
 

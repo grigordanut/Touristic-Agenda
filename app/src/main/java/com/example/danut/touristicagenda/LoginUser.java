@@ -41,7 +41,7 @@ public class LoginUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_user);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Login User");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("User login");
 
         progressDialog = new ProgressDialog(LoginUser.this);
 

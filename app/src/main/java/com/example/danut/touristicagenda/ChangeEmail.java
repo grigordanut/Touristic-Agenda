@@ -52,7 +52,7 @@ public class ChangeEmail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_email);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("USER: Change Email");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("User change email");
 
         progressDialog = new ProgressDialog(ChangeEmail.this);
 

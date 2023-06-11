@@ -75,7 +75,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Users Page");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("User main page");
 
         progressDialog = new ProgressDialog(UserPage.this);
 
