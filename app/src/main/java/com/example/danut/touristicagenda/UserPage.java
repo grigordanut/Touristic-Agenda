@@ -313,6 +313,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
             imageUriPicture = data.getData();
             ivAddPicture.setImageURI(imageUriPicture);
+
             checkUserPictureExists();
 
             LayoutInflater inflater = getLayoutInflater();
