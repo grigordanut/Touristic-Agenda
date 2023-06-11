@@ -151,7 +151,7 @@ public class LoginUser extends AppCompatActivity {
             TextView text = layout.findViewById(R.id.tvToast);
             ImageView imageView = layout.findViewById(R.id.imgToast);
             text.setText("Please verify your email!!");
-            imageView.setImageResource(R.drawable.baseline_report_gmailerrorred_24);
+            imageView.setImageResource(R.drawable.ic_baseline_mark_email_unread_24);
             Toast toast = new Toast(getApplicationContext());
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(layout);

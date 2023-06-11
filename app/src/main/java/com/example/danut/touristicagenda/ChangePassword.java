@@ -145,7 +145,7 @@ public class ChangePassword extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void updateUserPassword() {
 
-        progressDialog.setMessage("Changing user password!!");
+        progressDialog.setTitle("Changing user password!!");
         progressDialog.show();
 
         firebaseUser.updatePassword(new_Password).addOnCompleteListener(task1 -> {
@@ -182,9 +182,10 @@ public class ChangePassword extends AppCompatActivity {
     private void alertUserPasswordNotAuth() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ChangePassword.this);
         alertDialogBuilder
+                .setTitle("Unauthenticated user!!")
                 .setMessage("Your profile is not authenticated yet.\nPlease authenticate your profile first and then change the Password!!")
                 .setCancelable(false)
-                .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss());
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();

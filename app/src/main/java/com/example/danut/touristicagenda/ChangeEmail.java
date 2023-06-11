@@ -212,7 +212,7 @@ public class ChangeEmail extends AppCompatActivity {
     public void alertUserEmailNotAuth() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ChangeEmail.this);
         alertDialogBuilder
-                .setTitle("User Unauthenticated!!")
+                .setTitle("Unauthenticated user!!")
                 .setMessage("Your profile is not authenticated yet.\nPlease authenticate your profile first and then change the Email!!")
                 .setCancelable(false)
                 .setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
