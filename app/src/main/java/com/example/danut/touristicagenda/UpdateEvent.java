@@ -10,7 +10,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -58,11 +57,6 @@ public class UpdateEvent extends AppCompatActivity {
     private DatabaseReference databaseRefUser;
     private ValueEventListener eventEvListenerUsers;
 
-    //Retrieve data from Events database
-    private FirebaseStorage firebaseStEvents;
-    private DatabaseReference databaseRefEvents;
-    private ValueEventListener valueEvListenerEvents;
-
     //Add Events updated data
     private StorageReference storageRefEventUp;
     private DatabaseReference databaseRefEventUp;
@@ -92,7 +86,7 @@ public class UpdateEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_event);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("User update event");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("User event update");
 
         firebaseAuth = FirebaseAuth.getInstance();
 
