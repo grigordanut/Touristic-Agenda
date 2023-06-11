@@ -15,7 +15,7 @@
         android:layout_marginTop="5dp"
         android:text="@string/tv_mainPage"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="26sp"
         android:textStyle="bold" />
 
@@ -24,8 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="15dp"
         app:srcCompat="@drawable/image_main_page"
         tools:ignore="ContentDescription" />

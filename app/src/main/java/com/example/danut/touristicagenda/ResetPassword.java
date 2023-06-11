@@ -1,10 +1,15 @@
 package com.example.danut.touristicagenda;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +48,7 @@ public class ResetPassword extends AppCompatActivity {
         btn_ResetPass.setOnClickListener(view -> resetPassword());
     }
 
+    @SuppressLint("SetTextI18n")
     private void resetPassword() {
 
         if (validateResetPassData()) {
@@ -53,7 +59,17 @@ public class ResetPassword extends AppCompatActivity {
             firebaseAuth.sendPasswordResetEmail(email_ResetPass).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
 
-                    Toast.makeText(ResetPassword.this, "Password reset email has been sent", Toast.LENGTH_SHORT).show();
+                    LayoutInflater inflater = getLayoutInflater();
+                    @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+                    TextView text = layout.findViewById(R.id.tvToast);
+                    ImageView imageView = layout.findViewById(R.id.imgToast);
+                    text.setText("Email to  reset password has been sent!!");
+                    imageView.setImageResource(R.drawable.baseline_security_update_good_24);
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+
                     startActivity(new Intent(ResetPassword.this, LoginUser.class));
                     finish();
 
@@ -77,7 +93,7 @@ public class ResetPassword extends AppCompatActivity {
 
         boolean result = false;
 
-        email_ResetPass = emailResetPass.getText().toString().trim();
+        email_ResetPass = Objects.requireNonNull(emailResetPass.getText()).toString().trim();
 
         //check the input fields
         if (email_ResetPass.isEmpty()) {

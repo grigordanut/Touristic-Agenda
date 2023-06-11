@@ -16,18 +16,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:background="#5F5F5F"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/imgToast"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="10dp"
                 android:layout_gravity="center_vertical"
-                android:background="#ffffff"
+                android:layout_marginStart="10dp"
                 android:layout_weight="0"
+                android:background="@color/white"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -35,10 +35,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
-                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
 
         </LinearLayout>

@@ -6,6 +6,7 @@
     <!--    LayoutResources-->
     <!--    Add Event-->
     <string name="tv_addEvent">Welcome to add Events Page</string>
+    <string name="tv_dateEvent">Date of Event</string>
     <string name="tv_orChose">Or</string>
     <string name="btn_saveLocation">Save Location</string>
     <string name="et_eventName">Event Name</string>
@@ -30,13 +31,7 @@
     <string name="et_userChangePassConfNewPass">Conf new Password</string>
     <string name="btn_userChangePassword">Change Password</string>
 
-    <!--    Change Password-->
-    <!--    <string name="tv_changePassword">Change Your Password</string>-->
-    <!--    <string name="et_enterOldPassword" translatable="false">Enter Old Password</string>-->
-    <!--    <string name="et_enterNewPassword" translatable="false">Enter New Password</string>-->
-    <!--    <string name="btn_updatePassword" translatable="false">Update Password</string>-->
-
-    <!--    Edit User Profile-->
+    <!--    Activity Edit User Profile-->
     <!--    <string name="tv_editUserProfile">Editează Profilul</string>-->
     <!--    <string name="tv_fNameUserProfile">Prenume: </string>-->
     <!--    <string name="et_userFirstName">Prenume: </string>-->
@@ -46,11 +41,11 @@
     <!--    <string name="et_userEmailAddress">Email: </string>-->
     <!--    <string name="btn_saveChangesEditProfile">Save Changes</string>-->
 
-    <!--    Events Image-->
+    <!--    Activity Events Image-->
     <string name="btn_addMoreEvents">Add Events</string>
     <string name="btn_backUerPage">Back User</string>
 
-    <!--    Login Users-->
+    <!--    Activity Login User-->
     <string name="tv_loginPage">Enter your Log in details</string>
     <string name="et_emailLog">Email Address</string>
     <string name="et_passLog">Password</string>
@@ -62,17 +57,9 @@
     <!--    Main Page-->
     <string name="tv_mainPage">Welcome to Touristic Agenda</string>
 
-    <!--    Edit Users Profile-->
-    <!--    <string name="tv_editUserProfile">Edit your Profile</string>-->
-    <!--    <string name="tv_fNameUserProfile">First Name: </string>-->
-    <!--    <string name="et_userFirstName">First Name: </string>-->
-    <!--    <string name="tv_lNameUserProfile">Last Name: </string>-->
-    <!--    <string name="et_userLastName">Last Name: </string>-->
-    <!--    <string name="tv_emailUserProfile">Email: </string>-->
-    <!--    <string name="et_userEmailAddress">Email: </string>-->
-    <!--    <string name="btn_saveChangesEditProfile">Save Changes</string>-->
+    <!--    Activity Maps-->
 
-    <!--    Register Users-->
+    <!--    Activity Register Users-->
     <string name="tv_registerPage">Enter your register details here</string>
     <string name="et_fName">First Name</string>
     <string name="et_lName">Last Name</string>
@@ -87,17 +74,25 @@
     <string name="et_resetPassEmail">Please enter your Email Address</string>
     <string name="btn_resetPass">Reset Password</string>
 
-    <!--    Update Event-->
-    <string name="tv_updateEvent">Update Event</string>
+    <!--    Activity Save Location-->
+    <string name="et_locationLatitude">Latitude</string>
+    <string name="et_locationLongitude">Longitude</string>
+    <string name="et_locationAddress">Address</string>
+    <string name="et_locationEvent">Event Location</string>
+
+    <!--    Activity Update Event-->
+    <string name="tv_updateEventPage">Update Event</string>
+    <string name="et_updateEventDate">Date of Event</string>
     <string name="tv_updateEventOr">Or</string>
     <string name="et_updateEventName">Name: </string>
     <string name="et_updateEventAddress">Address: </string>
     <string name="btn_saveEventUpdate">Save Event Updated</string>
 
-    <!--    Users Page-->
+    <!--    Activity Users Page-->
     <string name="tv_userPage">Welcome</string>
-    <string name="btn_showEvents">Show Events</string>
-    <string name="btn_addNewEvent">Add New Event</string>
+    <string name="tv_userService">Select a service:</string>
+    <string name="drawer_showEvents">Show Events</string>
+    <string name="drawer_addNewEvent">Add Event</string>
     <string name="open_userPage">Open</string>
     <string name="close_userPage">Close</string>
 
@@ -122,13 +117,13 @@
 
     <!--    Menu Main-->
 
+    <!--    Menu Users Edit Details-->
+
     <!--    Menu User Change Email-->
     <string name="userChangeEmail_goBack">Go Back</string>
 
     <!--    Menu User Change Password-->
     <string name="userChangePassword_goBack">Go Back</string>
-
-    <!--    Menu Users Edit Details-->
 
     <!--    Menu Users Page-->
     <string name="menuUser_logOut">Log Out</string>

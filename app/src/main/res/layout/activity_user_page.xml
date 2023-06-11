@@ -19,11 +19,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:text="@string/tv_userPage"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvUserService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/tv_userService"
+            android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -50,20 +63,20 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/app_name"
-                    app:srcCompat="@drawable/image_add_event" />
+                    app:srcCompat="@drawable/image_drawer_add_event" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Add Event"
-                    android:textColor="#000000"
                     android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="@string/drawer_addNewEvent"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -83,21 +96,21 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/app_name"
-                    app:srcCompat="@drawable/image_show_events" />
+                    app:srcCompat="@drawable/image_drawer_show_events" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Show Event"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
                     android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="@string/drawer_showEvents"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -110,12 +123,12 @@
         android:id="@+id/navViewUserPage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#dddddd"
         android:layout_gravity="start"
+        android:background="#dddddd"
         app:headerLayout="@layout/header_user_page"
+        app:itemBackground="@drawable/et_square_corners"
         app:itemTextAppearance="?android:textAppearanceMedium"
         app:itemTextColor="@drawable/drawer_item_color"
-        app:menu="@menu/menu_drawer_user_page"
-        app:itemBackground="@drawable/et_square_corners" />
+        app:menu="@menu/menu_drawer_user_page" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

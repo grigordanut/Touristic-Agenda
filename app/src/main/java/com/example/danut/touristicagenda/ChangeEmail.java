@@ -101,7 +101,6 @@ public class ChangeEmail extends AppCompatActivity {
 
                         etPassword.setEnabled(false);
                         btn_AuthUserEmail.setEnabled(false);
-                        btn_AuthUserEmail.setText("Disabled");
                         etNewEmail.requestFocus();
 
                         btn_ChangeEmail.setOnClickListener(view1 -> {
@@ -145,7 +144,9 @@ public class ChangeEmail extends AppCompatActivity {
 
         firebaseUser.updateEmail(new_Email).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+
                         uploadUserChangeEmailData();
+
                     } else {
                         try {
                             throw Objects.requireNonNull(task.getException());
@@ -163,7 +164,7 @@ public class ChangeEmail extends AppCompatActivity {
                     TextView text = layout.findViewById(R.id.tvToast);
                     ImageView imageView = layout.findViewById(R.id.imgToast);
                     text.setText(e.getMessage());
-                    imageView.setImageResource(R.drawable.ic_baseline_email_24);
+                    imageView.setImageResource(R.drawable.baseline_report_gmailerrorred_24);
                     Toast toast = new Toast(getApplicationContext());
                     toast.setDuration(Toast.LENGTH_LONG);
                     toast.setView(layout);

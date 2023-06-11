@@ -19,9 +19,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:text="@string/tv_updateEvent"
+            android:text="@string/tv_updateEventPage"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textSize="22sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -31,18 +31,18 @@
             android:layout_marginStart="100dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
-            android:textColorHint="#000000">
+            android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etDateEventUpdate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Date of Event"
+                android:hint="@string/et_updateEventDate"
                 android:inputType="date"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textAlignment="textEnd"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 tools:ignore="RtlSymmetry" />
@@ -55,7 +55,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="#f2f2f2"
-            app:srcCompat="@drawable/image_event"
+            app:srcCompat="@drawable/image_add_event"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -64,10 +64,10 @@
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="#ffffff"
+            android:background="@color/white"
             android:text="@string/tv_updateEventOr"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textSize="26sp"
             android:textStyle="bold"
             tools:ignore="RtlCompat,RtlSymmetry" />
@@ -88,7 +88,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
-            android:textColorHint="#000000">
+            android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etNameEventUpdate"
@@ -97,7 +97,7 @@
                 android:hint="@string/et_updateEventName"
                 android:inputType="text|textCapWords"
                 android:paddingStart="10dp"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 tools:ignore="RtlSymmetry" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -109,7 +109,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
-            android:textColorHint="#000000">
+            android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etAddressEventUpdate"
@@ -118,7 +118,7 @@
                 android:hint="@string/et_updateEventAddress"
                 android:inputType="text|textCapWords"
                 android:paddingStart="10dp"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 tools:ignore="RtlSymmetry" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -132,7 +132,7 @@
             android:layout_marginTop="5dp"
             android:paddingStart="10dp"
             android:text="@string/tv_messageEvent"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textSize="24sp"
             tools:ignore="RtlSymmetry" />
 
@@ -150,7 +150,7 @@
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
             android:paddingStart="10dp"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             tools:ignore="InefficientWeight,LabelFor,RtlSymmetry" />
 
         <Button
@@ -163,7 +163,6 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/btn_fading"
             android:text="@string/btn_saveEventUpdate"
-            android:textColor="#ffffff"
             android:textSize="22sp"
             android:textStyle="bold" />
 

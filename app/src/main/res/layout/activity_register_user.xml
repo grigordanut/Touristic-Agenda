@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f2f2"
+    android:background="@drawable/bg_pages"
     tools:context=".RegisterUser">
 
     <LinearLayout
@@ -21,7 +21,7 @@
             android:layout_marginEnd="10dp"
             android:text="@string/tv_registerPage"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -31,7 +31,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:textColorHint="#000000">
+            android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etFirstNameReg"
@@ -71,7 +71,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
-            android:textColorHint="#000000">
+            android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmailReg"
@@ -91,7 +91,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
-            android:textColorHint="#000000"
+            android:textColorHint="@color/black"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -112,7 +112,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
-            android:textColorHint="#000000"
+            android:textColorHint="@color/black"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -150,7 +150,6 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/btn_blue"
             android:text="@string/btn_logUserReg"
-            android:textColor="#ffffff"
             android:textSize="22sp"
             android:textStyle="bold"
             tools:ignore="ButtonStyle" />

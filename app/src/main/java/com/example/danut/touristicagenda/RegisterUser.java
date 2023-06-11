@@ -12,17 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -36,7 +32,7 @@ public class RegisterUser extends AppCompatActivity {
     private TextInputEditText emailReg;
     private TextInputEditText passReg;
     private TextInputEditText confPassReg;
-    private String  firstName_reg, lastName_reg, email_reg, pass_reg, confPass_reg;
+    private String firstName_reg, lastName_reg, email_reg, pass_reg, confPass_reg;
 
     private ProgressDialog progressDialog;
 
@@ -88,7 +84,7 @@ public class RegisterUser extends AppCompatActivity {
                         TextView text = layout.findViewById(R.id.tvToast);
                         ImageView imageView = layout.findViewById(R.id.imgToast);
                         text.setText(e.getMessage());
-                        imageView.setImageResource(R.drawable.ic_baseline_email_24);
+                        imageView.setImageResource(R.drawable.baseline_report_gmailerrorred_24);
                         Toast toast = new Toast(getApplicationContext());
                         toast.setDuration(Toast.LENGTH_LONG);
                         toast.setView(layout);
@@ -120,7 +116,7 @@ public class RegisterUser extends AppCompatActivity {
         TextView text = layout.findViewById(R.id.tvToast);
         ImageView imageView = layout.findViewById(R.id.imgToast);
         text.setText("User Registered Successful. Verification Email has been sent!!");
-        imageView.setImageResource(R.drawable.ic_baseline_shopping_cart_24);
+        imageView.setImageResource(R.drawable.baseline_how_to_reg_24);
         Toast toast = new Toast(getApplicationContext());
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);
@@ -131,45 +127,7 @@ public class RegisterUser extends AppCompatActivity {
         startActivity(intent);
         finish();
 
-//        assert firebaseUser != null;
-//        String user_id = firebaseUser.getUid();
-//
-//        String user_picture ;
-//        Users users_data = new Users(user_picture, firstName_reg, lastName_reg, email_reg);
-//
-//
-//        databaseReference.child(user_id).setValue(users_data).addOnCompleteListener(RegisterUser.this, task -> {
-//
-//            if (task.isSuccessful()) {
-//
-//                firebaseUser.sendEmailVerification();
-//
-//                LayoutInflater inflater = getLayoutInflater();
-//                @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
-//                TextView text = layout.findViewById(R.id.tvToast);
-//                ImageView imageView = layout.findViewById(R.id.imgToast);
-//                text.setText("User Registered Successful. Verification Email has been sent!!");
-//                imageView.setImageResource(R.drawable.ic_baseline_shopping_cart_24);
-//                Toast toast = new Toast(getApplicationContext());
-//                toast.setDuration(Toast.LENGTH_LONG);
-//                toast.setView(layout);
-//                toast.show();
-//
-//                Intent intent = new Intent(RegisterUser.this, LoginUser.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-//                finish();
-//
-//            } else {
-//                try {
-//                    throw Objects.requireNonNull(task.getException());
-//                } catch (Exception e) {
-//                    Toast.makeText(RegisterUser.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-           progressDialog.dismiss();
-//        });
+        progressDialog.dismiss();
     }
 
     private Boolean validateUserRegData() {

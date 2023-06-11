@@ -241,7 +241,7 @@ public class UpdateEvent extends AppCompatActivity {
         storageRefDelete.delete()
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(UpdateEvent.this, "Previous image deleted", Toast.LENGTH_SHORT).show();
-                    ivEventUp.setImageResource(R.drawable.image_event);
+                    ivEventUp.setImageResource(R.drawable.image_add_event);
                 })
                 .addOnFailureListener(e -> Toast.makeText(UpdateEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show());
     }

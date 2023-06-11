@@ -36,10 +36,7 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -188,6 +185,7 @@ public class AddEvent extends AppCompatActivity {
         startActivityForResult(cameraIntent, CAPTURE_CAMERA);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -198,7 +196,17 @@ public class AddEvent extends AppCompatActivity {
                     assert data != null;
                     imageUri = data.getData();
                     ivAddEvent.setImageURI(imageUri);
-                    Toast.makeText(getApplicationContext(), "Image picked from Gallery", Toast.LENGTH_SHORT).show();
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+                    TextView text = layout.findViewById(R.id.tvToast);
+                    ImageView imageView = layout.findViewById(R.id.imgToast);
+                    text.setText("Image picked from Gallery!!");
+                    imageView.setImageResource(R.drawable.baseline_camera_24);
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
                 }
                 break;
 
@@ -218,6 +226,7 @@ public class AddEvent extends AppCompatActivity {
     }
 
     //Upload a new Events into the Events table
+    @SuppressLint("SetTextI18n")
     public void uploadEvent() {
 
         if (validateEventDetails()) {
@@ -227,6 +236,7 @@ public class AddEvent extends AppCompatActivity {
 
             progressDialog.setTitle("Uploading the Event details!!");
             progressDialog.show();
+
             final StorageReference fileReference = storageReferenceEvents.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
             eventsUploadTask = fileReference.putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl()
@@ -242,8 +252,18 @@ public class AddEvent extends AppCompatActivity {
 
                                 saveLocationEvent();
 
+                                LayoutInflater inflater = getLayoutInflater();
+                                @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+                                TextView text = layout.findViewById(R.id.tvToast);
+                                ImageView imageView = layout.findViewById(R.id.imgToast);
+                                text.setText("The event was successfully uploaded!!");
+                                imageView.setImageResource(R.drawable.ic_baseline_shopping_cart_24);
+                                Toast toast = new Toast(getApplicationContext());
+                                toast.setDuration(Toast.LENGTH_LONG);
+                                toast.setView(layout);
+                                toast.show();
+
                                 startActivity(new Intent(AddEvent.this, UserPage.class));
-                                Toast.makeText(AddEvent.this, "The event was successfully uploaded", Toast.LENGTH_SHORT).show();
                                 finish();
                             }))
 
@@ -368,34 +388,35 @@ public class AddEvent extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel());
 
-        // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
         alertDialog.show();
     }
 
+    @SuppressLint("SetTextI18n")
     public void saveLocationEvent() {
 
         EventLocation event_Location = new EventLocation(latitude, longitude, location);
         assert location_Id != null;
-        databaseReferenceLocation.child(location_Id).setValue(event_Location).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+        databaseReferenceLocation.child(location_Id).setValue(event_Location).addOnCompleteListener(task -> {
 
-                        if (task.isSuccessful()) {
-                            Toast.makeText(AddEvent.this, "The Location details has been saved", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(AddEvent.this, "The Location details has not been saved", Toast.LENGTH_SHORT).show();
-                        }
+                    if (task.isSuccessful()) {
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+                        TextView text = layout.findViewById(R.id.tvToast);
+                        ImageView imageView = layout.findViewById(R.id.imgToast);
+                        text.setText("The Location details has been saved!!");
+                        imageView.setImageResource(R.drawable.baseline_location_on_24);
+                        Toast toast = new Toast(getApplicationContext());
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setView(layout);
+                        toast.show();
+
+                    } else {
+                        Toast.makeText(AddEvent.this, "The Location details has not been saved", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .addOnFailureListener(e -> Toast.makeText(AddEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show());
 
     }
 

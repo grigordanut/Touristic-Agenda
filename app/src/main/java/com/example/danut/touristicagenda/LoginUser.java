@@ -26,8 +26,6 @@ import java.util.Objects;
 
 public class LoginUser extends AppCompatActivity {
 
-    private static final int DELAY_MILLISECONDS = 6000;
-
     private TextInputEditText emailLogUser;
     private TextInputEditText passLogUser;
 
@@ -57,13 +55,11 @@ public class LoginUser extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String checkbox = preferences.getString("remember", "");
 
-        if (checkbox != null) {
-            if (checkbox.equals("true")) {
-                startActivity(new Intent(LoginUser.this, UserPage.class));
+        if (checkbox.equals("true")) {
+            startActivity(new Intent(LoginUser.this, UserPage.class));
 
-            } else {
-                Toast.makeText(LoginUser.this, "Please Sign In", Toast.LENGTH_SHORT).show();
-            }
+        } else {
+            Toast.makeText(LoginUser.this, "Please Sign In", Toast.LENGTH_SHORT).show();
         }
 
         rememberCheckBox.setOnCheckedChangeListener((compoundButton, b) -> {
@@ -147,6 +143,7 @@ public class LoginUser extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
+
         } else {
 
             LayoutInflater inflater = getLayoutInflater();
@@ -154,14 +151,12 @@ public class LoginUser extends AppCompatActivity {
             TextView text = layout.findViewById(R.id.tvToast);
             ImageView imageView = layout.findViewById(R.id.imgToast);
             text.setText("Please verify your Email!!");
-            imageView.setImageResource(R.drawable.ic_baseline_mark_email_unread_24);
+            imageView.setImageResource(R.drawable.baseline_report_gmailerrorred_24);
             Toast toast = new Toast(getApplicationContext());
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(layout);
             toast.show();
         }
-
-        //progressDialog.dismiss();
     }
 
     private Boolean validateUserLogData() {

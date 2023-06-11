@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,7 +98,6 @@ public class ChangePassword extends AppCompatActivity {
 
                         etOldPassword.setEnabled(false);
                         btn_AuthUserPass.setEnabled(false);
-                        btn_AuthUserPass.setText("Disabled");
                         etNewPassword.requestFocus();
 
                         btn_ChangePassword.setOnClickListener(view1 -> {
@@ -140,6 +142,7 @@ public class ChangePassword extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void updateUserPassword() {
 
         progressDialog.setMessage("Changing user Password!!");
@@ -149,7 +152,18 @@ public class ChangePassword extends AppCompatActivity {
             if (task1.isSuccessful()) {
 
                 firebaseAuth.signOut();
-                Toast.makeText(ChangePassword.this, "The password will be changed.", Toast.LENGTH_SHORT).show();
+
+                LayoutInflater inflater = getLayoutInflater();
+                @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+                TextView text = layout.findViewById(R.id.tvToast);
+                ImageView imageView = layout.findViewById(R.id.imgToast);
+                text.setText("The password will be changed!!");
+                imageView.setImageResource(R.drawable.baseline_security_update_good_24);
+                Toast toast = new Toast(getApplicationContext());
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+
                 startActivity(new Intent(ChangePassword.this, LoginUser.class));
                 finish();
 

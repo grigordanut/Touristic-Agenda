@@ -48,10 +48,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
     private static final int PICK_IMAGE = 100;
 
     private Uri imageUriPicture;
-    //private ImageView ivAddPicture;
-
-    private String user_Image = "";
-
+    private String user_ImageId = "";
     private CircleImageView ivAddPicture;
 
     //Access customer database
@@ -60,11 +57,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
 
     private StorageReference stRefAddUserPicture;
     private DatabaseReference dbRefAddUserPicture;
-
-    private DatabaseReference dbRefCheckPicture;
-
     private DatabaseReference dbRefUsers;
-
     private ValueEventListener eventListenerUser;
     private StorageTask eventsUploadTask;
 
@@ -93,9 +86,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
         dbRefAddUserPicture = FirebaseDatabase.getInstance().getReference("Users");
 
         //retrieve data from database into text views
-        dbRefCheckPicture = FirebaseDatabase.getInstance().getReference("Users");
         dbRefUsers = FirebaseDatabase.getInstance().getReference("Users");
-
 
         drawerLayout = findViewById(R.id.activity_user_page);
         navigationView = findViewById(R.id.navViewUserPage);
@@ -140,7 +131,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
 
                         tVUserHeader.setText(users_data.getUser_firstName() + " " + users_data.getUser_lastName());
 
-                        user_Image = users_data.getUser_picture();
+                        user_ImageId = users_data.getUser_picture();
 
                         navigationView.setNavigationItemSelectedListener(item -> {
                             int id = item.getItemId();
@@ -294,13 +285,14 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            //Show Restaurants
+
+            //Add Events
             case R.id.layoutAddEvent:
                 startActivity(new Intent(UserPage.this, AddEvent.class));
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
-            //Show Menus
+            //Show Events
             case R.id.layoutShowEvents:
                 startActivity(new Intent(UserPage.this, EventsImage.class));
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -314,6 +306,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
         startActivityForResult(gallery, PICK_IMAGE);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -321,7 +314,17 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
             imageUriPicture = data.getData();
             ivAddPicture.setImageURI(imageUriPicture);
             checkUserPictureExists();
-            Toast.makeText(UserPage.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+
+            LayoutInflater inflater = getLayoutInflater();
+            @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+            TextView text = layout.findViewById(R.id.tvToast);
+            ImageView imageView = layout.findViewById(R.id.imgToast);
+            text.setText("Uploaded User Picture!!");
+            imageView.setImageResource(R.drawable.baseline_image_24);
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(layout);
+            toast.show();
         }
     }
 
@@ -333,7 +336,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
 
     private void checkUserPictureExists() {
 
-        if (user_Image == null) {
+        if (user_ImageId == null) {
             uploadUserPicture();
         } else {
             uploadUserPicture();
@@ -341,10 +344,10 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
         }
     }
 
-    //Upload a new Event into the Events table
+    //Upload a picture into the Users table
     public void uploadUserPicture() {
 
-        //Add Event into Events database
+        //Add picture into Users database
         progressDialog.setTitle("Upload User picture!!");
         progressDialog.show();
 
@@ -365,7 +368,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
                                         }
                                     }
 
-                                    user_Image = uri.toString();
+                                    user_ImageId = uri.toString();
                                     progressDialog.dismiss();
                                 }
 
@@ -387,11 +390,10 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     private void deleteOldUserPicture() {
-        StorageReference storageRefDelete = getInstance().getReferenceFromUrl(user_Image);
+        StorageReference storageRefDelete = getInstance().getReferenceFromUrl(user_ImageId);
         storageRefDelete.delete()
                 .addOnSuccessListener(aVoid -> {
                     progressDialog.dismiss();
-                    Toast.makeText(UserPage.this, "Previous image deleted", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> Toast.makeText(UserPage.this, e.getMessage(), Toast.LENGTH_SHORT).show());
     }

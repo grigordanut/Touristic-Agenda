@@ -4,8 +4,9 @@
     <string name="action_settings">Setări</string>
 
     <!--    LayoutResources-->
-    <!--    Add Event Page-->
+    <!--    Activity Add Event-->
     <string name="tv_addEvent">Bun venit la adăugarea evenimentelor</string>
+    <string name="tv_dateEvent">Data Evenimentului</string>
     <string name="tv_orChose">Or</string>
     <string name="btn_saveLocation">Save Location</string>
     <string name="et_eventName">Numele Evenimentului</string>
@@ -30,12 +31,6 @@
     <string name="et_userChangePassConfNewPass">Confirm your new Password</string>
     <string name="btn_userChangePassword">Change Password</string>
 
-    <!--    Change Password-->
-    <!--    <string name="tv_changePassword">Schimbăţi Parola</string>-->
-    <!--    <string name="et_enterOldPassword">Introduceţi parola veche</string>-->
-    <!--    <string name="et_enterNewPassword">Introduceţi parola nouă</string>-->
-    <!--    <string name="btn_updatePassword">Actualizează Parola</string>-->
-
     <!--    Edit User Profile-->
     <!--    <string name="tv_editUserProfile">Editează Profilul</string>-->
     <!--    <string name="tv_fNameUserProfile">Prenume: </string>-->
@@ -46,11 +41,11 @@
     <!--    <string name="et_userEmailAddress">Email: </string>-->
     <!--    <string name="btn_saveChangesEditProfile">Save Changes</string>-->
 
-    <!--    Events Image-->
+    <!--    Activity Events Image-->
     <string name="btn_addMoreEvents">Adauga Evenimente</string>
     <string name="btn_backUerPage">Inapoi Utilizator</string>
 
-    <!--    Login User-->
+    <!--    Activity Login User-->
     <string name="tv_loginPage">Introduceţi detaliile de logare</string>
     <string name="et_emailLog">Adresa de Email</string>
     <string name="et_passLog">Parola</string>
@@ -59,7 +54,12 @@
     <string name="btn_loginUser">Logare</string>
     <string name="btn_regUserLog">Inregistrare</string>
 
-    <!--    Register User-->
+    <!--    Main Page-->
+    <string name="tv_mainPage">Bine aţi venit la Agenda Turistica</string>
+
+    <!--    Activity Maps-->
+
+    <!--    Activity Register User-->
     <string name="tv_registerPage">Intruduceti detaliile de Inregistrare</string>
     <string name="et_fName">Prenumele</string>
     <string name="et_lName">Numele</string>
@@ -69,29 +69,40 @@
     <string name="btn_registerUser">Inregistrare</string>
     <string name="btn_logUserReg">Semneaza</string>
 
-    <!--    Reset Password-->
+    <!--    Activity Reset Password-->
     <string name="tv_resetPass">Resetează Parola</string>
-    <string name="et_resetPassEmail">IntroduceVi Adresa de Email</string>
+    <string name="et_resetPassEmail">Introduceti Adresa de Email</string>
     <string name="btn_resetPass">Reseteaza Parola</string>
 
-    <!--    User Page-->
-    <string name="tv_userPage">Bine aţi venit</string>
-    <string name="btn_showEvents">Arata Evenimente</string>
-    <string name="btn_addNewEvent">Adauga Eveniment Nou</string>
-    <string name="open_userPage">Open</string>
-    <string name="close_userPage">Close</string>
+    <!--    Activity Save Location-->
+    <string name="et_locationLatitude">Latitudine</string>
+    <string name="et_locationLongitude">Longitudine</string>
+    <string name="et_locationAddress">Adresa</string>
+    <string name="et_locationEvent">Event Location</string>
 
-    <!--    Main Page-->
-    <string name="tv_mainPage">Bine aţi venit la Agenda Turistica</string>
-
-    <!--    Update Event-->
-    <string name="tv_updateEvent">Actualizare Eveniment</string>
+    <!--    Activity Update Event-->
+    <string name="tv_updateEventPage">Actualizare Eveniment</string>
+    <string name="et_updateEventDate">Data Evenimentului</string>
     <string name="tv_updateEventOr">Ori</string>
     <string name="et_updateEventName">Nume: </string>
     <string name="et_updateEventAddress">Adresa: </string>
     <string name="btn_saveEventUpdate">Salvează Actualizările</string>
 
-    <!--    Menu Menu Main-->
+    <!--    Activity User Page-->
+    <string name="tv_userPage">Bine aţi venit</string>
+    <string name="tv_userService">Selectează un serviciu:</string>
+    <string name="drawer_showEvents">Arată Evenimente</string>
+    <string name="drawer_addNewEvent">Adaugă Eveniment Nou</string>
+    <string name="open_userPage">Open</string>
+    <string name="close_userPage">Close</string>
+
+    <!--    Image Event-->
+    <string name="tv_eventDate">Data Eventului:</string>
+    <string name="tv_eventName">Numele Eventului:</string>
+    <string name="tv_eventAddress">Locul Eventului:</string>
+    <string name="tv_eventMessage">Mesaj:</string>
+
+    <!--    Menu Resources-->
 
     <!--    Menu Drawer User Page-->
     <string name="mDUser_addPicture">Add User Picture</string>
@@ -103,6 +114,10 @@
     <string name="mEventsImage_goBack">Go Back User</string>
     <string name="mEventsImage_addMenu">Add New Event</string>
     <string name="mEventsImage_Close">Close</string>
+
+    <!--    Menu Main-->
+
+    <!--    Menu Users Edit Details-->
 
     <!--    Menu User Change Email-->
     <string name="userChangeEmail_goBack">Innapoi</string>
@@ -116,11 +131,5 @@
     <string name="menuUser_changeEmail">Schimbă Emailul</string>
     <string name="menuUser_changePassword">Schimbă Parola</string>
     <string name="menuUser_close">Inchide</string>
-
-    <!--    Image Event-->
-    <string name="tv_eventDate">Data Eventului:</string>
-    <string name="tv_eventName">Numele Eventului:</string>
-    <string name="tv_eventAddress">Locul Eventului:</string>
-    <string name="tv_eventMessage">Mesaj:</string>
 
 </resources>

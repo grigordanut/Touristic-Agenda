@@ -233,7 +233,7 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
                     });
                 })
 
-                .setNegativeButton(  "NO", (dialog, id) -> dialog.cancel());
+                .setNegativeButton("NO", (dialog, id) -> dialog.cancel());
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
