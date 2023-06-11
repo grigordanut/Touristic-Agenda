@@ -250,7 +250,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
                     @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
                     TextView text = layout.findViewById(R.id.tvToast);
                     ImageView imageView = layout.findViewById(R.id.imgToast);
-                    text.setText("Logout Successful!!");
+                    text.setText("Logout successful!!");
                     imageView.setImageResource(R.drawable.ic_baseline_logout_24);
                     Toast toast = new Toast(getApplicationContext());
                     toast.setDuration(Toast.LENGTH_LONG);

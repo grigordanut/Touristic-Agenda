@@ -240,12 +240,22 @@ public class UpdateEvent extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
+    @SuppressLint("SetTextI18n")
     private void deleteOldEventPicture() {
         StorageReference storageRefDelete = getInstance().getReferenceFromUrl(event_ImageUp);
         storageRefDelete.delete()
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(UpdateEvent.this, "Previous image deleted", Toast.LENGTH_SHORT).show();
-                    ivEventUp.setImageResource(R.drawable.image_add_event);
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+                    TextView text = layout.findViewById(R.id.tvToast);
+                    ImageView imageView = layout.findViewById(R.id.imgToast);
+                    text.setText("Previous image deleted!!");
+                    imageView.setImageResource(R.drawable.baseline_delete_forever_24);
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
                 })
                 .addOnFailureListener(e -> Toast.makeText(UpdateEvent.this, e.getMessage(), Toast.LENGTH_SHORT).show());
     }
@@ -331,11 +341,12 @@ public class UpdateEvent extends AppCompatActivity {
             etEvent_AddressUp = Objects.requireNonNull(etAddressEventUp.getText()).toString().trim();
             etEvent_MessageUp = etMessageEventUp.getText().toString().trim();
 
-            progressDialog.setTitle("The Event is updating!!");
+            progressDialog.setTitle("Updating event details!!");
             progressDialog.show();
 
             Query query = databaseRefEventUp.orderByKey().equalTo(event_KeyUp);
             query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -346,7 +357,18 @@ public class UpdateEvent extends AppCompatActivity {
                     }
 
                     progressDialog.dismiss();
-                    Toast.makeText(UpdateEvent.this, "The Event will be updated", Toast.LENGTH_SHORT).show();
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
+                    TextView text = layout.findViewById(R.id.tvToast);
+                    ImageView imageView = layout.findViewById(R.id.imgToast);
+                    text.setText("The event has been updated successfully!!");
+                    imageView.setImageResource(R.drawable.baseline_event_available_24);
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+
                     startActivity(new Intent(UpdateEvent.this, UserPage.class));
                     finish();
                 }
@@ -420,8 +442,8 @@ public class UpdateEvent extends AppCompatActivity {
     public void alertDialogEventPicture() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder
-                .setTitle("No Event picture changed.")
-                .setMessage("Update the Event with old picture.")
+                .setTitle("No event picture changed!!")
+                .setMessage("Update the event with the old picture?")
                 .setPositiveButton("YES", (dialog, id) -> uploadEventWithOldPicture())
                 .setNegativeButton("NO", (dialog, id) -> dialog.dismiss());
 
