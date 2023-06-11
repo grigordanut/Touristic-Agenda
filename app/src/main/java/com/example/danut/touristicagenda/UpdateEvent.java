@@ -140,23 +140,15 @@ public class UpdateEvent extends AppCompatActivity {
         ivEventUp.setOnClickListener(view -> openGallery());
 
         //take a picture by camera
-        buttonTakePictureUp.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ObsoleteSdkInt")
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.CAMERA) ==
-                            PackageManager.PERMISSION_DENIED ||
-                            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                                    PackageManager.PERMISSION_DENIED) {
-                        String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        requestPermissions(permission, TAKE_PICTURE);
-                    } else {
-                        openCamera();
-                    }
-                } else {
-                    openCamera();
-                }
+        buttonTakePictureUp.setOnClickListener(v -> {
+            if (checkSelfPermission(Manifest.permission.CAMERA) ==
+                    PackageManager.PERMISSION_DENIED ||
+                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                            PackageManager.PERMISSION_DENIED) {
+                String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                requestPermissions(permission, TAKE_PICTURE);
+            } else {
+                openCamera();
             }
         });
 
