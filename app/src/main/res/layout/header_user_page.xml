@@ -27,7 +27,7 @@
         android:background="@color/white"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:text="User Name"
+        android:text="@string/tv_userHeader"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp"

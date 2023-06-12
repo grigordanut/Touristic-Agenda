@@ -2,7 +2,6 @@ package com.example.danut.touristicagenda;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -48,7 +47,7 @@ public class ChangePassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("User change password");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Change user password");
 
         progressDialog = new ProgressDialog(ChangePassword.this);
 
@@ -194,7 +193,7 @@ public class ChangePassword extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_user_change_password, menu);
+        getMenuInflater().inflate(R.menu.menu_change_user_password, menu);
         return true;
     }
 
@@ -206,7 +205,7 @@ public class ChangePassword extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.userChangePassGoBack) {
+        if (item.getItemId() == R.id.changeUserPassGoBack) {
             changePassGoBack();
         }
 

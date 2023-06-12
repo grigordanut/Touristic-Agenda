@@ -52,7 +52,7 @@ public class ChangeEmail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_email);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("User change email");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Change user email");
 
         progressDialog = new ProgressDialog(ChangeEmail.this);
 
@@ -224,7 +224,7 @@ public class ChangeEmail extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_user_change_email, menu);
+        getMenuInflater().inflate(R.menu.menu_change_user_email, menu);
         return true;
     }
 
@@ -236,7 +236,7 @@ public class ChangeEmail extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.userChangeEmailGoBack) {
+        if (item.getItemId() == R.id.changeUserEmailGoBack) {
             changeEmailGoBack();
         }
 

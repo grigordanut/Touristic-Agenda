@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvEventUpdate"
+            android:id="@+id/tvEventUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -34,7 +34,7 @@
             android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etDateEventUpdate"
+                android:id="@+id/etDateEventUp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/et_updateEventDate"
@@ -49,7 +49,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
-            android:id="@+id/imgViewEventUpdate"
+            android:id="@+id/imgViewEventUp"
             android:layout_width="280dp"
             android:layout_height="240dp"
             android:layout_gravity="center"
@@ -59,7 +59,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/tvOrEventUpdate"
+            android:id="@+id/tvOrEventUp"
             android:layout_width="100dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
@@ -73,7 +73,7 @@
             tools:ignore="RtlCompat,RtlSymmetry" />
 
         <ImageButton
-            android:id="@+id/btnTakePictureEventUpdate"
+            android:id="@+id/btnTakePictureEventUp"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
@@ -91,7 +91,7 @@
             android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNameEventUpdate"
+                android:id="@+id/etNameEventUp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/et_updateEventName"
@@ -112,7 +112,7 @@
             android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etAddressEventUpdate"
+                android:id="@+id/etAddressEventUp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/et_updateEventAddress"
@@ -124,20 +124,20 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tvMessageEventUpdate"
+            android:id="@+id/tvMessageEventUp"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:paddingStart="10dp"
-            android:text="@string/tv_messageEvent"
+            android:text="@string/tv_updateEventMessage"
             android:textColor="@color/black"
             android:textSize="24sp"
             tools:ignore="RtlSymmetry" />
 
         <EditText
-            android:id="@+id/etMessageEventUpdate"
+            android:id="@+id/etMessageEventUp"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_gravity="center"
@@ -154,7 +154,7 @@
             tools:ignore="InefficientWeight,LabelFor,RtlSymmetry" />
 
         <Button
-            android:id="@+id/btnSaveEventUpdate"
+            android:id="@+id/btnSaveEventUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"

@@ -86,7 +86,7 @@ public class UpdateEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_event);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("User event update");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Update the event");
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -96,14 +96,14 @@ public class UpdateEvent extends AppCompatActivity {
         databaseRefEventUp = FirebaseDatabase.getInstance().getReference("Events");
 
         //initialise variables
-        tVEventUp = findViewById(R.id.tvEventUpdate);
+        tVEventUp = findViewById(R.id.tvEventUp);
 
-        etDateEventUp = findViewById(R.id.etDateEventUpdate);
+        etDateEventUp = findViewById(R.id.etDateEventUp);
         etDateEventUp.setEnabled(false);
-        etNameEventUp = findViewById(R.id.etNameEventUpdate);
-        etAddressEventUp = findViewById(R.id.etAddressEventUpdate);
-        etMessageEventUp = findViewById(R.id.etMessageEventUpdate);
-        ivEventUp = findViewById(R.id.imgViewEventUpdate);
+        etNameEventUp = findViewById(R.id.etNameEventUp);
+        etAddressEventUp = findViewById(R.id.etAddressEventUp);
+        etMessageEventUp = findViewById(R.id.etMessageEventUp);
+        ivEventUp = findViewById(R.id.imgViewEventUp);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -121,8 +121,8 @@ public class UpdateEvent extends AppCompatActivity {
         etAddressEventUp.setText(event_AddressUp);
         etMessageEventUp.setText(event_MessageUp);
 
-        ImageButton buttonTakePictureUp = findViewById(R.id.btnTakePictureEventUpdate);
-        Button buttonSaveEventUp = findViewById(R.id.btnSaveEventUpdate);
+        ImageButton btn_TakePictureUp = findViewById(R.id.btnTakePictureEventUp);
+        Button btn_SaveEventUp = findViewById(R.id.btnSaveEventUp);
 
         Picasso.get()
                 .load(event_ImageUp)
@@ -134,7 +134,7 @@ public class UpdateEvent extends AppCompatActivity {
         ivEventUp.setOnClickListener(view -> openGallery());
 
         //take a picture by camera
-        buttonTakePictureUp.setOnClickListener(v -> {
+        btn_TakePictureUp.setOnClickListener(v -> {
             if (checkSelfPermission(Manifest.permission.CAMERA) ==
                     PackageManager.PERMISSION_DENIED ||
                     checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
@@ -147,7 +147,7 @@ public class UpdateEvent extends AppCompatActivity {
         });
 
         //Action button Save Event
-        buttonSaveEventUp.setOnClickListener(view -> {
+        btn_SaveEventUp.setOnClickListener(view -> {
             if (taskEventUpdate != null && taskEventUpdate.isInProgress()) {
                 Toast.makeText(UpdateEvent.this, "Update Event in progress", Toast.LENGTH_SHORT).show();
             } else {

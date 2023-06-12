@@ -7,6 +7,7 @@ public class Users {
     private String user_picture;
     private String user_firstName;
     private String user_lastName;
+    private String user_phoneNumber;
     private String user_emailAddress;
     private String user_Key;
 
@@ -14,10 +15,11 @@ public class Users {
 
     }
 
-    public Users(String user_picture, String user_firstName, String user_lastName, String user_emailAddress) {
+    public Users(String user_picture, String user_firstName, String user_lastName, String user_phoneNumber, String user_emailAddress) {
         this.user_picture = user_picture;
         this.user_firstName = user_firstName;
         this.user_lastName = user_lastName;
+        this.user_phoneNumber = user_phoneNumber;
         this.user_emailAddress = user_emailAddress;
     }
 
@@ -43,6 +45,14 @@ public class Users {
 
     public void setUser_lastName(String user_lastName) {
         this.user_lastName = user_lastName;
+    }
+
+    public String getUser_phoneNumber() {
+        return user_phoneNumber;
+    }
+
+    public void setUser_phoneNumber(String user_phoneNumber) {
+        this.user_phoneNumber = user_phoneNumber;
     }
 
     public String getUser_emailAddress() {

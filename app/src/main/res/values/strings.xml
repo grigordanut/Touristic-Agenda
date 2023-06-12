@@ -5,14 +5,14 @@
 
     <!--    LayoutResources-->
     <!--    Add Event-->
-    <string name="tv_addEvent">Welcome to add Events Page</string>
-    <string name="tv_dateEvent">Date of Event</string>
-    <string name="tv_orChose">Or</string>
-    <string name="btn_saveLocation">Save Location</string>
-    <string name="et_eventName">Event Name</string>
-    <string name="et_eventAddress">Event Location</string>
-    <string name="tv_messageEvent">Message:</string>
-    <string name="btn_saveEvent">SAVE EVENT</string>
+    <string name="tv_addEventPage">Welcome to add Events Page</string>
+    <string name="tv_addEventDate">Date of Event</string>
+    <string name="tv_addEventOrChose">Or</string>
+    <string name="btn_addEventSaveLocation">Save Location</string>
+    <string name="et_addEventName">Event Name</string>
+    <string name="et_addEventAddress">Event Location</string>
+    <string name="tv_addEventMessage">Message:</string>
+    <string name="btn_saveEvent">Save Event</string>
 
     <!--    Activity User Change Email-->
     <string name="tv_userChangeEmailAuth">Authenticate User Email</string>
@@ -25,28 +25,14 @@
     <!--    Activity User Change Password-->
     <string name="tv_userChangePassAuth">Authenticate User Password</string>
     <string name="et_userChangePassEmail">Email Address</string>
-    <string name="et_userChangePassOldPass">Enter old Password</string>
+    <string name="et_userChangePassOldPass">Enter old password</string>
     <string name="btn_userChangePassAuth">Authenticate User</string>
-    <string name="et_userChangePassNewPass">Enter new Password</string>
+    <string name="et_userChangePassNewPass">Enter new password</string>
     <string name="et_userChangePassConfNewPass">Conf new Password</string>
     <string name="btn_userChangePassword">Change Password</string>
 
-    <!--    Activity Edit User Profile-->
-    <!--    <string name="tv_editUserProfile">Editează Profilul</string>-->
-    <!--    <string name="tv_fNameUserProfile">Prenume: </string>-->
-    <!--    <string name="et_userFirstName">Prenume: </string>-->
-    <!--    <string name="tv_lNameUserProfile">Nume: </string>-->
-    <!--    <string name="et_userLastName">Nume: </string>-->
-    <!--    <string name="tv_emailUserProfile">Email: </string>-->
-    <!--    <string name="et_userEmailAddress">Email: </string>-->
-    <!--    <string name="btn_saveChangesEditProfile">Save Changes</string>-->
-
-    <!--    Activity Events Image-->
-    <string name="btn_addMoreEvents">Add Events</string>
-    <string name="btn_backUerPage">Back User</string>
-
     <!--    Activity Login User-->
-    <string name="tv_loginPage">Enter your Log in details</string>
+    <string name="tv_loginPage">Enter your Login details</string>
     <string name="et_emailLog">Email Address</string>
     <string name="et_passLog">Password</string>
     <string name="cb_remember">Remember me</string>
@@ -61,17 +47,18 @@
 
     <!--    Activity Register Users-->
     <string name="tv_registerPage">Enter your register details here</string>
-    <string name="et_fName">First Name</string>
-    <string name="et_lName">Last Name</string>
-    <string name="et_emailReg">Email Address</string>
+    <string name="et_fNameReg">First Name</string>
+    <string name="et_lNameReg">Last Name</string>
+    <string name="et_phoneReg">Phone Number</string>
+    <string name="et_emailReg">Email address</string>
     <string name="et_passReg">Password</string>
-    <string name="et_confPassReg">Confirm Password</string>
+    <string name="et_confPassReg">Confirm password</string>
     <string name="btn_registerUser">Register</string>
     <string name="btn_logUserReg">Log In</string>
 
     <!--    Activity Reset Password-->
     <string name="tv_resetPass">Enter your registered Email</string>
-    <string name="et_resetPassEmail">Please enter your Email Address</string>
+    <string name="et_resetPassEmail">Please enter your email address</string>
     <string name="btn_resetPass">Reset Password</string>
 
     <!--    Activity Save Location-->
@@ -86,10 +73,24 @@
     <string name="tv_updateEventOr">Or</string>
     <string name="et_updateEventName">Name: </string>
     <string name="et_updateEventAddress">Address: </string>
-    <string name="btn_saveEventUpdate">Save Event Updated</string>
+    <string name="tv_updateEventMessage">Message:</string>
+    <string name="btn_saveEventUpdate">Save Event</string>
+
+    <!--    Activity Update User-->
+    <string name="tv_userPageUp">Edit user profile</string>
+    <string name="tv_fNameUp">First name: </string>
+    <string name="et_fNameUp">First name</string>
+    <string name="tv_lNameUp">Last name: </string>
+    <string name="et_lNameUp">Last Name</string>
+    <string name="tv_phoneUp">Phone Number: </string>
+    <string name="et_phoneUp">Phone Number</string>
+    <string name="tv_emailUserUp">Email: </string>
+    <string name="et_emailUserUp">Email</string>
+    <string name="btn_saveChangesUp">Save Changes</string>
 
     <!--    Activity Users Page-->
-    <string name="tv_userPage">Welcome</string>
+    <string name="tv_userHeader">User Name</string>
+    <string name="tv_userWelcome">Welcome</string>
     <string name="tv_userService">Select a service:</string>
     <string name="drawer_showEvents">Show Events</string>
     <string name="drawer_addNewEvent">Add Event</string>
@@ -97,12 +98,17 @@
     <string name="close_userPage">Close</string>
 
     <!--    Image Event-->
-    <string name="tv_eventDate">Date of Event:</string>
-    <string name="tv_eventName">Name of Event:</string>
-    <string name="tv_eventAddress">Place of Event:</string>
+    <string name="tv_eventDate">Date of event:</string>
+    <string name="tv_eventName">Name of event:</string>
+    <string name="tv_eventAddress">Place of event:</string>
     <string name="tv_eventMessage">Message:</string>
 
-    <!--Menu Resources-->
+            <!--Menu Resources-->
+    <!--    Menu Change User Email-->
+    <string name="mChangeUserEmail_goBack">Go Back</string>
+
+    <!--    Menu Change User Password-->
+    <string name="mChangeUserPassword_goBack">Go Back</string>
 
     <!--    Menu Drawer User Page-->
     <string name="mDUser_addPicture">Add User Picture</string>
@@ -117,13 +123,8 @@
 
     <!--    Menu Main-->
 
-    <!--    Menu Users Edit Details-->
-
-    <!--    Menu User Change Email-->
-    <string name="userChangeEmail_goBack">Go Back</string>
-
-    <!--    Menu User Change Password-->
-    <string name="userChangePassword_goBack">Go Back</string>
+    <!--    Menu Update User-->
+    <string name="mUpdateUser_goBack">Go Back</string>
 
     <!--    Menu Users Page-->
     <string name="menuUser_logOut">Log Out</string>

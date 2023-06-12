@@ -27,12 +27,9 @@ public class RegisterUser extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
-    private TextInputEditText firstNameReg;
-    private TextInputEditText lastNameReg;
-    private TextInputEditText emailReg;
-    private TextInputEditText passReg;
-    private TextInputEditText confPassReg;
-    private String firstName_reg, lastName_reg, email_reg, pass_reg, confPass_reg;
+    private TextInputEditText fNameReg, lNameReg, phoneReg, emailReg, passReg, confPassReg;
+
+    private String fName_reg, lName_reg, phone_reg, email_reg, pass_reg, confPass_reg;
 
     private ProgressDialog progressDialog;
 
@@ -47,8 +44,9 @@ public class RegisterUser extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        firstNameReg = findViewById(R.id.etFirstNameReg);
-        lastNameReg = findViewById(R.id.etLastNameReg);
+        fNameReg = findViewById(R.id.etFirstNameReg);
+        lNameReg = findViewById(R.id.etLastNameReg);
+        phoneReg = findViewById(R.id.etPhoneReg);
         emailReg = findViewById(R.id.etEmailReg);
         passReg = findViewById(R.id.etPassReg);
         confPassReg = findViewById(R.id.etConfPassReg);
@@ -67,7 +65,7 @@ public class RegisterUser extends AppCompatActivity {
 
         if (validateUserRegData()) {
 
-            progressDialog.setTitle("Registration of user details!!");
+            progressDialog.setTitle("User registration!!");
             progressDialog.show();
 
             firebaseAuth.createUserWithEmailAndPassword(email_reg, pass_reg).addOnCompleteListener(task -> {
@@ -105,8 +103,9 @@ public class RegisterUser extends AppCompatActivity {
         assert firebaseUser != null;
         String user_id = firebaseUser.getUid();
 
-        databaseReference.child(user_id).child("user_firstName").setValue(firstName_reg);
-        databaseReference.child(user_id).child("user_lastName").setValue(lastName_reg);
+        databaseReference.child(user_id).child("user_firstName").setValue(fName_reg);
+        databaseReference.child(user_id).child("user_lastName").setValue(lName_reg);
+        databaseReference.child(user_id).child("user_phoneNumber").setValue(phone_reg);
         databaseReference.child(user_id).child("user_emailAddress").setValue(email_reg);
 
         firebaseUser.sendEmailVerification();
@@ -134,20 +133,24 @@ public class RegisterUser extends AppCompatActivity {
 
         boolean result = false;
 
-        firstName_reg = Objects.requireNonNull(firstNameReg.getText()).toString().trim();
-        lastName_reg = Objects.requireNonNull(lastNameReg.getText()).toString().trim();
+        fName_reg = Objects.requireNonNull(fNameReg.getText()).toString().trim();
+        lName_reg = Objects.requireNonNull(lNameReg.getText()).toString().trim();
+        phone_reg = Objects.requireNonNull(phoneReg.getText()).toString().trim();
         email_reg = Objects.requireNonNull(emailReg.getText()).toString().trim();
         pass_reg = Objects.requireNonNull(passReg.getText()).toString().trim();
         confPass_reg = Objects.requireNonNull(confPassReg.getText()).toString().trim();
 
-        if (firstName_reg.isEmpty()) {
-            firstNameReg.setError("First Name can be empty");
-            firstNameReg.requestFocus();
-        } else if (lastName_reg.isEmpty()) {
-            lastNameReg.setError("Last Name cannot be empty");
-            lastNameReg.requestFocus();
+        if (fName_reg.isEmpty()) {
+            fNameReg.setError("First name can be empty");
+            fNameReg.requestFocus();
+        } else if (lName_reg.isEmpty()) {
+            lNameReg.setError("Last name cannot be empty");
+            lNameReg.requestFocus();
+        } else if (phone_reg.isEmpty()) {
+            phoneReg.setError("Phone number cannot be empty");
+            phoneReg.requestFocus();
         } else if (email_reg.isEmpty()) {
-            emailReg.setError("Email Address cannot be empty");
+            emailReg.setError("Email address cannot be empty");
             emailReg.requestFocus();
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email_reg).matches()) {
             emailReg.setError("Enter a valid Email Address");
@@ -158,10 +161,10 @@ public class RegisterUser extends AppCompatActivity {
         } else if (pass_reg.length() < 6) {
             passReg.setError("Password too short, enter minimum 6 character long");
         } else if (confPass_reg.isEmpty()) {
-            confPassReg.setError("Confirm Password cannot be empty");
+            confPassReg.setError("Confirm password cannot be empty");
             confPassReg.requestFocus();
         } else if (!pass_reg.equals(confPass_reg)) {
-            confPassReg.setError("The Confirm Password does not match Password");
+            confPassReg.setError("The confirm password does not match password");
         } else {
             result = true;
         }

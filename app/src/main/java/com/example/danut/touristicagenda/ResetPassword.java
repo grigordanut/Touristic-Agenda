@@ -34,7 +34,7 @@ public class ResetPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Reset password");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Reset user password");
 
         progressDialog = new ProgressDialog(this);
 

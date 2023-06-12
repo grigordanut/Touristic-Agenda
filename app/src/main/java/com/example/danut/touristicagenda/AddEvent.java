@@ -109,7 +109,7 @@ public class AddEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("CUSTOMER: Add Event");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Add customer event");
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(AddEvent.this);
 
@@ -161,6 +161,7 @@ public class AddEvent extends AppCompatActivity {
 
         btn_SaveEvent.setOnClickListener(view -> {
             if (eventsUploadTask != null && eventsUploadTask.isInProgress()) {
+
                 Toast.makeText(AddEvent.this, "Upload in progress", Toast.LENGTH_SHORT).show();
             } else {
                 uploadEvent();

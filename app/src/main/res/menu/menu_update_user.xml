@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/userChangePassGoBack"
+        android:id="@+id/updateUser_goBack"
         android:orderInCategory="100"
-        android:title="@string/userChangePassword_goBack"
+        android:title="@string/mUpdateUser_goBack"
         app:showAsAction="ifRoom" />
 
 </menu>
