@@ -101,6 +101,7 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
         findViewById(R.id.layoutShowEvents).setOnClickListener(this);
         findViewById(R.id.layoutUpdateEvents).setOnClickListener(this);
         findViewById(R.id.layoutDeleteEvents).setOnClickListener(this);
+        findViewById(R.id.layoutMapEvents).setOnClickListener(this);
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_userPage, R.string.close_userPage);
 
@@ -309,6 +310,12 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
             //Delete Events
             case R.id.layoutDeleteEvents:
                 startActivity(new Intent(UserPage.this, EventImageDeleteEvents.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+            //Map Events
+            case R.id.layoutMapEvents:
+                startActivity(new Intent(UserPage.this, MapsActivity.class));
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
         }

@@ -102,11 +102,12 @@
     <!--    Activity Users Page-->
     <string name="tv_userHeader">User Name</string>
     <string name="tv_userWelcome">Welcome</string>
-    <string name="tv_userService">Select a service:</string>
-    <string name="drawer_showEvents">Show Events</string>
-    <string name="drawer_addNewEvent">Add Event</string>
-    <string name="drawer_updateEvent">Update Event</string>
-    <string name="drawer_deleteEvent">Delete Event</string>
+    <string name="tv_userService">Select an event service:</string>
+    <string name="drawer_showEvent">Show</string>
+    <string name="drawer_addNewEvent">Add New</string>
+    <string name="drawer_updateEvent">Update</string>
+    <string name="drawer_deleteEvent">Delete</string>
+    <string name="drawer_mapEvent">Map</string>
     <string name="open_userPage">Open</string>
     <string name="close_userPage">Close</string>
 

@@ -103,10 +103,11 @@
     <string name="tv_userHeader">Numele Utilizatorului</string>
     <string name="tv_userWelcome">Bine aţi venit</string>
     <string name="tv_userService">Selectează un serviciu:</string>
-    <string name="drawer_showEvents">Arată evenimente</string>
+    <string name="drawer_showEvent">Arată evenimente</string>
     <string name="drawer_addNewEvent">Adaugă eveniment Nou</string>
     <string name="drawer_updateEvent">Modifică Eveniment</string>
     <string name="drawer_deleteEvent">Şterge Eveniment</string>
+    <string name="drawer_mapEvent">Hartă</string>
     <string name="open_userPage">Deschide</string>
     <string name="close_userPage">Inchide</string>
 
