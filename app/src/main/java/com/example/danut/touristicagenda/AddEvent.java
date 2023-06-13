@@ -83,7 +83,7 @@ public class AddEvent extends AppCompatActivity {
     private DatabaseReference databaseRefUser;
     private ValueEventListener eventListenerUser;
 
-    private TextInputEditText eventDate, eventName, eventLocation;
+    private TextInputEditText eventDate, eventName, eventPlace;
     private EditText eventMessage;
 
     private TextView tVAddEvent;
@@ -94,7 +94,7 @@ public class AddEvent extends AppCompatActivity {
     private Button btn_saveLocation, btn_SaveEvent;
     private ImageButton btn_TakePicture;
 
-    private String event_Date, event_Name, event_Location, event_Message;
+    private String event_Date, event_Name, event_Place, event_Message;
     private String location;
     private double latitude, longitude;
 
@@ -129,7 +129,7 @@ public class AddEvent extends AppCompatActivity {
         eventDate = findViewById(R.id.etEventDate);
         eventDate.setEnabled(false);
         eventName = findViewById(R.id.etEventName);
-        eventLocation = findViewById(R.id.etEventLocation);
+        eventPlace = findViewById(R.id.etEventPlace);
         eventMessage = findViewById(R.id.etEventMessage);
 
         btn_TakePicture = findViewById(R.id.btnTakePicture);
@@ -245,7 +245,7 @@ public class AddEvent extends AppCompatActivity {
 
                                 String events_Id = databaseReferenceEvents.push().getKey();
 
-                                Events events_Data = new Events(event_Date, event_Name, event_Location, event_Message,
+                                Events events_Data = new Events(event_Date, event_Name, event_Place, event_Message,
                                         uri.toString(), user_Id, location_Id);
 
                                 assert events_Id != null;
@@ -282,24 +282,37 @@ public class AddEvent extends AppCompatActivity {
         boolean result = false;
 
         event_Name = Objects.requireNonNull(eventName.getText()).toString().trim();
-        event_Location = Objects.requireNonNull(eventLocation.getText()).toString().trim();
+        event_Place = Objects.requireNonNull(eventPlace.getText()).toString().trim();
         event_Message = eventMessage.getText().toString().trim();
 
         if (imageUri == null) {
-            Toast.makeText(AddEvent.this, "Please add a  picture", Toast.LENGTH_SHORT).show();
+            alertDialogEventPicture();
         } else if (TextUtils.isEmpty(event_Name)) {
-            eventName.setError("Please add the Name of Event");
+            eventName.setError("Please add the event name");
             eventName.requestFocus();
-        } else if (TextUtils.isEmpty(event_Location)) {
-            eventLocation.setError("Please add the Event Address");
-            eventLocation.requestFocus();
+        } else if (TextUtils.isEmpty(event_Place)) {
+            eventPlace.setError("Please add the event location");
+            eventPlace.requestFocus();
         } else if (TextUtils.isEmpty(event_Message)) {
-            eventMessage.setError("Please add the Event Message ");
+            eventMessage.setError("Please add the event message");
             eventMessage.requestFocus();
         } else {
             result = true;
         }
         return result;
+    }
+
+
+    public void alertDialogEventPicture() {
+        android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(AddEvent.this);
+        alertDialogBuilder
+                .setTitle("No event picture!!")
+                .setMessage("Please add an event picture.")
+                .setCancelable(false)
+                .setPositiveButton("OK", (dialog, id) -> dialog.dismiss());
+
+        android.app.AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     @Override
@@ -385,7 +398,7 @@ public class AddEvent extends AppCompatActivity {
                     latitude = Double.parseDouble(Objects.requireNonNull(eTLatitude.getText()).toString().trim());
                     longitude = Double.parseDouble(Objects.requireNonNull(eTLongitude.getText()).toString().trim());
                     location = Objects.requireNonNull(eTCityLocation.getText()).toString().trim();
-                    eventLocation.setText(location);
+                    eventPlace.setText(location);
                 })
                 .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel());
 

@@ -153,7 +153,7 @@ public class RegisterUser extends AppCompatActivity {
             emailReg.setError("Email address cannot be empty");
             emailReg.requestFocus();
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email_reg).matches()) {
-            emailReg.setError("Enter a valid Email Address");
+            emailReg.setError("Enter a valid email address");
             emailReg.requestFocus();
         } else if (pass_reg.isEmpty()) {
             passReg.setError("Password cannot be empty");

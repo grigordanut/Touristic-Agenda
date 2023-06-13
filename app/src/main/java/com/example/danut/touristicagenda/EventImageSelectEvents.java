@@ -167,7 +167,7 @@ public class EventImageSelectEvents extends AppCompatActivity implements EventAd
         Intent intent = new Intent(EventImageSelectEvents.this, UpdateEvent.class);
         intent.putExtra("EDate", selected_Events.getEvent_Date());
         intent.putExtra("EName", selected_Events.getEvent_Name());
-        intent.putExtra("EAddress", selected_Events.getEvent_Place());
+        intent.putExtra("EPlace", selected_Events.getEvent_Place());
         intent.putExtra("EMessage", selected_Events.getEvent_Message());
         intent.putExtra("EImage", selected_Events.getEvent_Image());
         intent.putExtra("EKey", selected_Events.getEvent_Key());

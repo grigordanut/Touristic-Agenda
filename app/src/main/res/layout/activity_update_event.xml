@@ -35,7 +35,7 @@
             android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etDateEventUp"
+                android:id="@+id/etEventDateUp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/et_updateEventDate"
@@ -92,7 +92,7 @@
             android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNameEventUp"
+                android:id="@+id/etEventNameUp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/et_updateEventName"
@@ -113,7 +113,7 @@
             android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etAddressEventUp"
+                android:id="@+id/etEventPlaceUp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/et_updateEventPlace"
@@ -125,7 +125,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tvMessageEventUp"
+            android:id="@+id/tvEventMessageUp"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -138,7 +138,7 @@
             tools:ignore="RtlSymmetry" />
 
         <EditText
-            android:id="@+id/etMessageEventUp"
+            android:id="@+id/etEventMessageUp"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_gravity="center"

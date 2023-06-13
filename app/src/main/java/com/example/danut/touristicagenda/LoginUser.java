@@ -107,7 +107,7 @@ public class LoginUser extends AppCompatActivity {
                         emailLogUser.setError("This email is not registered.");
                         emailLogUser.requestFocus();
                     } catch (FirebaseAuthInvalidCredentialsException e) {
-                        passLogUser.setError("Invalid Password");
+                        passLogUser.setError("Invalid password");
                         passLogUser.requestFocus();
                     } catch (Exception e) {
                         Toast.makeText(LoginUser.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -167,12 +167,12 @@ public class LoginUser extends AppCompatActivity {
         pass_logUser = Objects.requireNonNull(passLogUser.getText()).toString().trim();
 
         if (email_logUser.isEmpty()) {
-            emailLogUser.setError("Enter your Login Email");
+            emailLogUser.setError("Enter your login email");
             emailLogUser.requestFocus();
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email_logUser).matches()) {
-            emailLogUser.setError("Enter a valid Email Address");
+            emailLogUser.setError("Enter a valid email address");
         } else if (pass_logUser.isEmpty()) {
-            passLogUser.setError("Enter your Login Password");
+            passLogUser.setError("Enter your login password");
             passLogUser.requestFocus();
         } else {
             result = true;

@@ -188,7 +188,7 @@ public class EventImageShowEvents extends AppCompatActivity implements EventAdap
 
                         intent.putExtra("EDate", selected_Event.getEvent_Date());
                         intent.putExtra("EName", selected_Event.getEvent_Name());
-                        intent.putExtra("EAddress", selected_Event.getEvent_Place());
+                        intent.putExtra("EPlace", selected_Event.getEvent_Place());
                         intent.putExtra("EMessage", selected_Event.getEvent_Message());
                         intent.putExtra("EImage", selected_Event.getEvent_Image());
                         intent.putExtra("EKey", selected_Event.getEvent_Key());

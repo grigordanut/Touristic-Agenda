@@ -105,19 +105,19 @@ public class ChangePassword extends AppCompatActivity {
                             conf_NewPassword = etConfNewPassword.getText().toString().trim();
 
                             if (TextUtils.isEmpty(new_Password)) {
-                                etNewPassword.setError("Enter your new Password");
+                                etNewPassword.setError("Enter your new password");
                                 etNewPassword.requestFocus();
                             } else if (new_Password.length() < 6) {
                                 etNewPassword.setError("Password too short.\nEnter minimum 6 character long");
                             } else if (TextUtils.isEmpty(conf_NewPassword)) {
-                                etConfNewPassword.setError("Enter your new Confirm Password");
+                                etConfNewPassword.setError("Enter your new confirm password");
                                 etConfNewPassword.requestFocus();
                             } else if (!conf_NewPassword.equals(new_Password)) {
-                                etConfNewPassword.setError("The Password does not match");
+                                etConfNewPassword.setError("The password does not match");
                                 etConfNewPassword.requestFocus();
                             } else if (new_Password.matches(old_Password)) {
-                                etNewPassword.setError("Please enter a new Password\nNew Password cannot same as old");
-                                etConfNewPassword.setError("Please enter a new Password\nNew Password cannot same as old");
+                                etNewPassword.setError("Please enter a new password\nNew password cannot same as old");
+                                etConfNewPassword.setError("Please enter a new password\nNew password cannot same as old");
                             } else {
 
                                 updateUserPassword();

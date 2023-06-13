@@ -66,18 +66,18 @@ public class UpdateEvent extends AppCompatActivity {
     private Uri imageUriUp;
 
     private TextView tVEventUp;
-    private TextInputEditText etDateEventUp, etNameEventUp, etAddressEventUp;
-    private EditText etMessageEventUp;
+    private TextInputEditText eventDateUp, eventNameUp, eventPlaceUp;
+    private EditText eventMessageUp;
 
-    private String etEvent_DateUp, etEvent_NameUp, etEvent_AddressUp, etEvent_MessageUp;
+    private String event_DateUp, event_NameUp, event_PlaceUp, event_MessageUp;
 
     //Data received from Events image
-    private String event_DateUp = "";
-    private String event_NameUp = "";
-    private String event_AddressUp = "";
-    private String event_MessageUp = "";
-    private String event_ImageUp = "";
-    private String event_KeyUp = "";
+    private String eventDate_Up = "";
+    private String eventName_Up = "";
+    private String eventPlace_Up = "";
+    private String eventMessage_Up = "";
+    private String eventImage_Up = "";
+    private String eventKey_Up = "";
 
     private ProgressDialog progressDialog;
 
@@ -98,34 +98,34 @@ public class UpdateEvent extends AppCompatActivity {
         //initialise variables
         tVEventUp = findViewById(R.id.tvEventUp);
 
-        etDateEventUp = findViewById(R.id.etDateEventUp);
-        etDateEventUp.setEnabled(false);
-        etNameEventUp = findViewById(R.id.etNameEventUp);
-        etAddressEventUp = findViewById(R.id.etAddressEventUp);
-        etMessageEventUp = findViewById(R.id.etMessageEventUp);
+        eventDateUp = findViewById(R.id.etEventDateUp);
+        eventDateUp.setEnabled(false);
+        eventNameUp = findViewById(R.id.etEventNameUp);
+        eventPlaceUp = findViewById(R.id.etEventPlaceUp);
+        eventMessageUp = findViewById(R.id.etEventMessageUp);
         ivEventUp = findViewById(R.id.imgViewEventUp);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
 
-            event_DateUp = bundle.getString("EDate");
-            event_NameUp = bundle.getString("EName");
-            event_AddressUp = bundle.getString("EAddress");
-            event_MessageUp = bundle.getString("EMessage");
-            event_ImageUp = bundle.getString("EImage");
-            event_KeyUp = bundle.getString("EKey");
+            eventDate_Up = bundle.getString("EDate");
+            eventName_Up = bundle.getString("EName");
+            eventPlace_Up = bundle.getString("EPlace");
+            eventMessage_Up = bundle.getString("EMessage");
+            eventImage_Up = bundle.getString("EImage");
+            eventKey_Up = bundle.getString("EKey");
         }
 
-        etDateEventUp.setText(event_DateUp);
-        etNameEventUp.setText(event_NameUp);
-        etAddressEventUp.setText(event_AddressUp);
-        etMessageEventUp.setText(event_MessageUp);
+        eventDateUp.setText(eventDate_Up);
+        eventNameUp.setText(eventName_Up);
+        eventPlaceUp.setText(eventPlace_Up);
+        eventMessageUp.setText(eventMessage_Up);
 
         ImageButton btn_TakePictureUp = findViewById(R.id.btnTakePictureEventUp);
         Button btn_SaveEventUp = findViewById(R.id.btnSaveEventUp);
 
         Picasso.get()
-                .load(event_ImageUp)
+                .load(eventImage_Up)
                 .placeholder(R.mipmap.ic_launcher)
                 .fit()
                 .centerCrop()
@@ -236,7 +236,7 @@ public class UpdateEvent extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void deleteOldEventPicture() {
-        StorageReference storageRefDelete = getInstance().getReferenceFromUrl(event_ImageUp);
+        StorageReference storageRefDelete = getInstance().getReferenceFromUrl(eventImage_Up);
         storageRefDelete.delete()
                 .addOnSuccessListener(aVoid -> {
 
@@ -258,10 +258,10 @@ public class UpdateEvent extends AppCompatActivity {
     public void updateEventWithNewPicture() {
 
         if (validateUpdateEventDetails()) {
-            etEvent_DateUp = Objects.requireNonNull(etDateEventUp.getText()).toString().trim();
-            etEvent_NameUp = Objects.requireNonNull(etNameEventUp.getText()).toString().trim();
-            etEvent_AddressUp = Objects.requireNonNull(etAddressEventUp.getText()).toString().trim();
-            etEvent_MessageUp = etMessageEventUp.getText().toString().trim();
+            event_DateUp = Objects.requireNonNull(eventDateUp.getText()).toString().trim();
+            event_NameUp = Objects.requireNonNull(eventNameUp.getText()).toString().trim();
+            event_PlaceUp = Objects.requireNonNull(eventPlaceUp.getText()).toString().trim();
+            event_MessageUp = eventMessageUp.getText().toString().trim();
 
             progressDialog.setTitle("Updating event details!!");
             progressDialog.show();
@@ -280,11 +280,11 @@ public class UpdateEvent extends AppCompatActivity {
                                         String event_Key = postSnapshot.getKey();
                                         assert event_Key != null;
 
-                                        if (event_Key.equals(event_KeyUp)) {
-                                            postSnapshot.getRef().child("event_Date").setValue(etEvent_DateUp);
-                                            postSnapshot.getRef().child("event_Name").setValue(etEvent_NameUp);
-                                            postSnapshot.getRef().child("event_Address").setValue(etEvent_AddressUp);
-                                            postSnapshot.getRef().child("event_Message").setValue(etEvent_MessageUp);
+                                        if (event_Key.equals(eventKey_Up)) {
+                                            postSnapshot.getRef().child("event_Date").setValue(event_DateUp);
+                                            postSnapshot.getRef().child("event_Name").setValue(event_NameUp);
+                                            postSnapshot.getRef().child("event_Address").setValue(event_PlaceUp);
+                                            postSnapshot.getRef().child("event_Message").setValue(event_MessageUp);
                                             postSnapshot.getRef().child("event_Image").setValue(uri.toString());
                                         }
                                     }
@@ -330,24 +330,24 @@ public class UpdateEvent extends AppCompatActivity {
         if (validateUpdateEventDetails()) {
 
             //Add a new Event into the Event's table
-            etEvent_DateUp = Objects.requireNonNull(etDateEventUp.getText()).toString().trim();
-            etEvent_NameUp = Objects.requireNonNull(etNameEventUp.getText()).toString().trim();
-            etEvent_AddressUp = Objects.requireNonNull(etAddressEventUp.getText()).toString().trim();
-            etEvent_MessageUp = etMessageEventUp.getText().toString().trim();
+            event_DateUp = Objects.requireNonNull(eventDateUp.getText()).toString().trim();
+            event_NameUp = Objects.requireNonNull(eventNameUp.getText()).toString().trim();
+            event_PlaceUp = Objects.requireNonNull(eventPlaceUp.getText()).toString().trim();
+            event_MessageUp = eventMessageUp.getText().toString().trim();
 
             progressDialog.setTitle("Updating event details!!");
             progressDialog.show();
 
-            Query query = databaseRefEventUp.orderByKey().equalTo(event_KeyUp);
+            Query query = databaseRefEventUp.orderByKey().equalTo(eventKey_Up);
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        postSnapshot.getRef().child("event_Date").setValue(etEvent_DateUp);
-                        postSnapshot.getRef().child("event_Name").setValue(etEvent_NameUp);
-                        postSnapshot.getRef().child("event_Address").setValue(etEvent_AddressUp);
-                        postSnapshot.getRef().child("event_Message").setValue(etEvent_MessageUp);
+                        postSnapshot.getRef().child("event_Date").setValue(event_DateUp);
+                        postSnapshot.getRef().child("event_Name").setValue(event_NameUp);
+                        postSnapshot.getRef().child("event_Place").setValue(event_PlaceUp);
+                        postSnapshot.getRef().child("event_Message").setValue(event_MessageUp);
                     }
 
                     progressDialog.dismiss();
@@ -376,20 +376,22 @@ public class UpdateEvent extends AppCompatActivity {
     }
 
     public boolean validateUpdateEventDetails() {
-        boolean result = false;
-        etEvent_NameUp = Objects.requireNonNull(etNameEventUp.getText()).toString().trim();
-        etEvent_AddressUp = Objects.requireNonNull(etAddressEventUp.getText()).toString().trim();
-        etEvent_MessageUp = etMessageEventUp.getText().toString().trim();
 
-        if (TextUtils.isEmpty(etEvent_NameUp)) {
-            etNameEventUp.setError("Please add the name of Event");
-            etDateEventUp.requestFocus();
-        } else if (TextUtils.isEmpty(etEvent_AddressUp)) {
-            etAddressEventUp.setError("Please add the address of Event");
-            etAddressEventUp.requestFocus();
-        } else if (TextUtils.isEmpty(etEvent_MessageUp)) {
-            etMessageEventUp.setError("Please add the message of Event");
-            etMessageEventUp.requestFocus();
+        boolean result = false;
+
+        event_NameUp = Objects.requireNonNull(eventNameUp.getText()).toString().trim();
+        event_PlaceUp = Objects.requireNonNull(eventPlaceUp.getText()).toString().trim();
+        event_MessageUp = eventMessageUp.getText().toString().trim();
+
+        if (TextUtils.isEmpty(event_NameUp)) {
+            eventNameUp.setError("Please add the event name");
+            eventDateUp.requestFocus();
+        } else if (TextUtils.isEmpty(event_PlaceUp)) {
+            eventPlaceUp.setError("Please add the event place");
+            eventPlaceUp.requestFocus();
+        } else if (TextUtils.isEmpty(event_MessageUp)) {
+            eventMessageUp.setError("Please add the event message");
+            eventMessageUp.requestFocus();
         } else {
             result = true;
         }

@@ -108,12 +108,12 @@ public class ChangeEmail extends AppCompatActivity {
                             new_Email = etNewEmail.getText().toString().trim();
 
                             if (TextUtils.isEmpty(new_Email)) {
-                                etNewEmail.setError("Enter your new Email Address");
+                                etNewEmail.setError("Enter your new email address");
                                 etNewEmail.requestFocus();
                             } else if (!Patterns.EMAIL_ADDRESS.matcher(new_Email).matches()) {
-                                etNewEmail.setError("Enter a valid Email Address");
+                                etNewEmail.setError("Enter a valid email address");
                             } else if (old_Email.matches(new_Email)) {
-                                etNewEmail.setError("Please enter a new Email\nNew Email cannot be same as old");
+                                etNewEmail.setError("Please enter a new email\nNew email cannot be same as old");
                             } else {
 
                                 updateUserEmail();
@@ -124,7 +124,7 @@ public class ChangeEmail extends AppCompatActivity {
                         try {
                             throw Objects.requireNonNull(task.getException());
                         } catch (FirebaseAuthInvalidCredentialsException e) {
-                            etPassword.setError("Invalid Password");
+                            etPassword.setError("Invalid password");
                             etPassword.requestFocus();
                         } catch (Exception e) {
                             Toast.makeText(ChangeEmail.this, e.getMessage(), Toast.LENGTH_SHORT).show();
