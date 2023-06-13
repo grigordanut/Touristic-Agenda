@@ -6,22 +6,21 @@
     android:background="@android:color/holo_blue_bright"
     android:orientation="vertical"
     android:padding="5dp"
-    tools:context=".EventsImage">
+    tools:context=".EventImageShowEvents">
 
     <TextView
-        android:id="@+id/tvNumberEvents"
+        android:id="@+id/tvShowEvents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:text="Events"
+        android:text="@string/tv_evImgShowEvents"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="22sp"
-        tools:ignore="HardcodedText" />
+        android:textSize="22sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/evRecyclerView"
+        android:id="@+id/recyclerViewShowEvents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp">

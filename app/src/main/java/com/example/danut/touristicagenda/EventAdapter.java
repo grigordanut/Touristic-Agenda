@@ -14,13 +14,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ImageViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ImageViewHolder> {
 
     private final Context eventContext;
     private final List<Events> eventUploads;
     private OnItemClickListener clickListener;
 
-    public EventsAdapter(Context event_context, List<Events> event_uploads) {
+    public EventAdapter(Context event_context, List<Events> event_uploads) {
         eventContext = event_context;
         eventUploads = event_uploads;
     }
@@ -36,16 +36,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ImageViewH
     public void onBindViewHolder(ImageViewHolder holder, int position) {
 
         Events uploadCurrent = eventUploads.get(position);
-        holder.tvEventDate.setText(uploadCurrent.getEvent_Date());
-        holder.tvEventName.setText(uploadCurrent.getEvent_Name());
-        holder.tvEventAddress.setText(uploadCurrent.getEvent_Address());
-        holder.tvEventMessage.setText(uploadCurrent.getEvent_Message());
+        holder.tvDateEv.setText(uploadCurrent.getEvent_Date());
+        holder.tvNameEv.setText(uploadCurrent.getEvent_Name());
+        holder.tvPlaceEv.setText(uploadCurrent.getEvent_Place());
+        holder.tvMessageEv.setText(uploadCurrent.getEvent_Message());
         Picasso.get()
                 .load(uploadCurrent.getEvent_Image())
                 .placeholder(R.drawable.image_app_icon)
                 .fit()
                 .centerCrop()
-                .into(holder.imageEvent);
+                .into(holder.imageEv);
     }
 
     @Override
@@ -55,20 +55,20 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ImageViewH
 
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView tvEventDate;
-        public ImageView imageEvent;
-        public TextView tvEventName;
-        public TextView tvEventAddress;
-        public TextView tvEventMessage;
+        public TextView tvDateEv;
+        public ImageView imageEv;
+        public TextView tvNameEv;
+        public TextView tvPlaceEv;
+        public TextView tvMessageEv;
 
         public ImageViewHolder(View itemView) {
             super(itemView);
 
-            tvEventDate = itemView.findViewById(R.id.tvDate);
-            imageEvent = itemView.findViewById(R.id.imgShowEvent);
-            tvEventName = itemView.findViewById(R.id.tvName);
-            tvEventAddress = itemView.findViewById(R.id.tvAddress);
-            tvEventMessage = itemView.findViewById(R.id.tvComments);
+            tvDateEv = itemView.findViewById(R.id.tvDateEvent);
+            imageEv = itemView.findViewById(R.id.imageEvent);
+            tvNameEv = itemView.findViewById(R.id.tvNameEvent);
+            tvPlaceEv = itemView.findViewById(R.id.tvPlaceEvent);
+            tvMessageEv = itemView.findViewById(R.id.tvMessageEvent);
 
             itemView.setOnClickListener(this);
         }

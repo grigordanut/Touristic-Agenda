@@ -10,7 +10,7 @@
     <string name="tv_addEventOrChose">Or</string>
     <string name="btn_addEventSaveLocation">Save Location</string>
     <string name="et_addEventName">Event Name</string>
-    <string name="et_addEventAddress">Event Location</string>
+    <string name="et_addEventPlace">Event Place</string>
     <string name="tv_addEventMessage">Message:</string>
     <string name="btn_saveEvent">Save Event</string>
 
@@ -30,6 +30,17 @@
     <string name="et_userChangePassNewPass">Enter new password</string>
     <string name="et_userChangePassConfNewPass">Conf new Password</string>
     <string name="btn_userChangePassword">Change Password</string>
+
+    <!--    Activity Events Image Show Events-->
+    <string name="tv_evImgShowEvents">Show Events</string>
+
+    <!--    Activity Event Image Select Events-->
+    <string name="tv_evImgSelectNoEvents">Number of Events</string>
+    <string name="tv_evImgSelectEvents">Select Event</string>
+
+    <!--    Activity Event Image Delete Events-->
+    <string name="tv_evImgDeleteNoEvents">Number of Events</string>
+    <string name="tv_evImgDeleteEvents">Select Event</string>
 
     <!--    Activity Login User-->
     <string name="tv_loginPage">Enter your Login details</string>
@@ -71,8 +82,8 @@
     <string name="tv_updateEventPage">Update Event</string>
     <string name="et_updateEventDate">Date of Event</string>
     <string name="tv_updateEventOr">Or</string>
-    <string name="et_updateEventName">Name: </string>
-    <string name="et_updateEventAddress">Address: </string>
+    <string name="et_updateEventName">Event Name</string>
+    <string name="et_updateEventPlace">Event Place</string>
     <string name="tv_updateEventMessage">Message:</string>
     <string name="btn_saveEventUpdate">Save Event</string>
 
@@ -94,16 +105,18 @@
     <string name="tv_userService">Select a service:</string>
     <string name="drawer_showEvents">Show Events</string>
     <string name="drawer_addNewEvent">Add Event</string>
+    <string name="drawer_updateEvent">Update Event</string>
+    <string name="drawer_deleteEvent">Delete Event</string>
     <string name="open_userPage">Open</string>
     <string name="close_userPage">Close</string>
 
     <!--    Image Event-->
     <string name="tv_eventDate">Date of event:</string>
     <string name="tv_eventName">Name of event:</string>
-    <string name="tv_eventAddress">Place of event:</string>
+    <string name="tv_eventPlace">Place of event:</string>
     <string name="tv_eventMessage">Message:</string>
 
-            <!--Menu Resources-->
+    <!--Menu Resources-->
     <!--    Menu Change User Email-->
     <string name="mChangeUserEmail_goBack">Go Back</string>
 

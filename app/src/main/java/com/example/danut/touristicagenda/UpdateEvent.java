@@ -420,7 +420,7 @@ public class UpdateEvent extends AppCompatActivity {
                     if (user_db != null) {
                         assert user != null;
                         if (user_db.getUid().equals(child_db.getKey())) {
-                            tVEventUp.setText(String.format("Update %s", user.getUser_firstName() + " " + user.getUser_lastName() + "'s events"));
+                            tVEventUp.setText(String.format("Update %s", user.getUser_firstName() + " " + user.getUser_lastName() + "'s event"));
                         }
                     }
                 }

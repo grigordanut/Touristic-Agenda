@@ -9,8 +9,8 @@
     <string name="tv_addEventDate">Data evenimentului</string>
     <string name="tv_addEventOrChose">Or</string>
     <string name="btn_addEventSaveLocation">Salvează Locaţia</string>
-    <string name="et_addEventName">Numele evenimentului</string>
-    <string name="et_addEventAddress">Adresa evenimentului</string>
+    <string name="et_addEventName">Numele eveniment</string>
+    <string name="et_addEventPlace">Locţie eveniment</string>
     <string name="tv_addEventMessage">Mesaj:</string>
     <string name="btn_saveEvent">Salvează Evenimentul</string>
 
@@ -30,6 +30,17 @@
     <string name="et_userChangePassNewPass">Introduceţi parola nouă</string>
     <string name="et_userChangePassConfNewPass">Confirmaţi parola nouă</string>
     <string name="btn_userChangePassword">Schimbaţi Parola</string>
+
+    <!--    Activity Event Image Show Events-->
+    <string name="tv_evImgShowEvents">Adată Evenimentul</string>
+
+    <!--    Activity Event Image Select Events-->
+    <string name="tv_evImgSelectNoEvents">Numărul evenimentelor</string>
+    <string name="tv_evImgSelectEvents">Selectează evenimentul</string>
+
+    <!--    Activity Event Image Delete Events-->
+    <string name="tv_evImgDeleteNoEvents">Numărul evenimentelor</string>
+    <string name="tv_evImgDeleteEvents">Selectează evenimentul</string>
 
     <!--    Activity Login User-->
     <string name="tv_loginPage">Introduceţi detaliile de logare</string>
@@ -71,8 +82,8 @@
     <string name="tv_updateEventPage">Actualizare eveniment</string>
     <string name="et_updateEventDate">Data Evenimentului</string>
     <string name="tv_updateEventOr">Ori</string>
-    <string name="et_updateEventName">Nume: </string>
-    <string name="et_updateEventAddress">Adresa: </string>
+    <string name="et_updateEventName">Numele Eveniment</string>
+    <string name="et_updateEventPlace">Locaţie Eveniment</string>
     <string name="tv_updateEventMessage">Mesaj:</string>
     <string name="btn_saveEventUpdate">Salvează Actualizările</string>
 
@@ -94,13 +105,15 @@
     <string name="tv_userService">Selectează un serviciu:</string>
     <string name="drawer_showEvents">Arată evenimente</string>
     <string name="drawer_addNewEvent">Adaugă eveniment Nou</string>
+    <string name="drawer_updateEvent">Modifică Eveniment</string>
+    <string name="drawer_deleteEvent">Şterge Eveniment</string>
     <string name="open_userPage">Deschide</string>
     <string name="close_userPage">Inchide</string>
 
     <!--    Image Event-->
     <string name="tv_eventDate">Data eventului:</string>
     <string name="tv_eventName">Numele eventului:</string>
-    <string name="tv_eventAddress">Locul eventului:</string>
+    <string name="tv_eventPlace">Locul eventului:</string>
     <string name="tv_eventMessage">Mesaj:</string>
 
             <!--    Menu Resources-->

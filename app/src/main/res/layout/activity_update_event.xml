@@ -22,7 +22,8 @@
             android:text="@string/tv_updateEventPage"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -115,7 +116,7 @@
                 android:id="@+id/etAddressEventUp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/et_updateEventAddress"
+                android:hint="@string/et_updateEventPlace"
                 android:inputType="text|textCapWords"
                 android:paddingStart="10dp"
                 android:textColor="@color/black"

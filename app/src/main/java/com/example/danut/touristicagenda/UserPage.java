@@ -97,8 +97,10 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
         tVUserHeader = header.findViewById(R.id.tvUserHeader);
         ivAddPicture = header.findViewById(R.id.imgUserPicture);
 
-        findViewById(R.id.layoutAddEvent).setOnClickListener(this);
+        findViewById(R.id.layoutAddEvents).setOnClickListener(this);
         findViewById(R.id.layoutShowEvents).setOnClickListener(this);
+        findViewById(R.id.layoutUpdateEvents).setOnClickListener(this);
+        findViewById(R.id.layoutDeleteEvents).setOnClickListener(this);
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_userPage, R.string.close_userPage);
 
@@ -287,14 +289,26 @@ public class UserPage extends AppCompatActivity implements NavigationView.OnNavi
         switch (view.getId()) {
 
             //Add Events
-            case R.id.layoutAddEvent:
+            case R.id.layoutAddEvents:
                 startActivity(new Intent(UserPage.this, AddEvent.class));
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             //Show Events
             case R.id.layoutShowEvents:
-                startActivity(new Intent(UserPage.this, EventsImage.class));
+                startActivity(new Intent(UserPage.this, EventImageShowEvents.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+            //Update Events
+            case R.id.layoutUpdateEvents:
+                startActivity(new Intent(UserPage.this, EventImageSelectEvents.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+            //Delete Events
+            case R.id.layoutDeleteEvents:
+                startActivity(new Intent(UserPage.this, EventImageDeleteEvents.class));
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
         }

@@ -32,9 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class EventsImage extends AppCompatActivity implements EventsAdapter.OnItemClickListener {
+public class EventImageShowEvents extends AppCompatActivity implements EventAdapter.OnItemClickListener {
 
-    private TextView tVNoEvents;
+    private TextView tVShowEvents;
 
     //Retrieve data from Users database
     private DatabaseReference databaseRefUser;
@@ -42,28 +42,31 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
     private FirebaseUser currentUser;
 
     //Retrieve data from Events database
-    private FirebaseStorage firebaseStEvents;
-    private DatabaseReference databaseRefEvents;
-    private ValueEventListener valueEvListenerEvents;
+    private FirebaseStorage firebaseStShowEv;
+    private DatabaseReference databaseRefShowEv;
+    private ValueEventListener valueEvListenerShowEv;
 
     //Retrieve data from Events Location database
     private DatabaseReference dbRefEventsLocation;
 
-    private RecyclerView eventsRecyclerView;
-    private EventsAdapter eventsAdapter;
+    private RecyclerView recyclerViewShowEv;
+    private EventAdapter adapterShowEv;
 
-    private List<Events> eventsList;
+    private List<Events> listShowEv;
 
-    String user_Name = "";
+    private String user_Name = "";
 
     private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_events_image);
+        setContentView(R.layout.activity_event_image_show_events);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Events page");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Show events page");
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.show();
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
@@ -72,25 +75,21 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
         databaseRefUser = FirebaseDatabase.getInstance().getReference().child("Users");
 
         //Initialize the database storage events
-        firebaseStEvents = FirebaseStorage.getInstance();
-        databaseRefEvents = FirebaseDatabase.getInstance().getReference().child("Events");
+        firebaseStShowEv = FirebaseStorage.getInstance();
+        databaseRefShowEv = FirebaseDatabase.getInstance().getReference().child("Events");
 
         dbRefEventsLocation = FirebaseDatabase.getInstance().getReference().child("Locations");
 
-        tVNoEvents = findViewById(R.id.tvNumberEvents);
+        tVShowEvents = findViewById(R.id.tvShowEvents);
 
-        eventsRecyclerView = findViewById(R.id.evRecyclerView);
-        eventsRecyclerView.setHasFixedSize(true);
-        eventsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewShowEv = findViewById(R.id.recyclerViewShowEvents);
+        recyclerViewShowEv.setHasFixedSize(true);
+        recyclerViewShowEv.setLayoutManager(new LinearLayoutManager(this));
+        listShowEv = new ArrayList<>();
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.show();
-
-        eventsList = new ArrayList<>();
-
-        eventsAdapter = new EventsAdapter(EventsImage.this, eventsList);
-        eventsRecyclerView.setAdapter(eventsAdapter);
-        eventsAdapter.setOnItmClickListener(EventsImage.this);
+        adapterShowEv = new EventAdapter(EventImageShowEvents.this, listShowEv);
+        recyclerViewShowEv.setAdapter(adapterShowEv);
+        adapterShowEv.setOnItmClickListener(EventImageShowEvents.this);
     }
 
     @SuppressLint("SetTextI18n")
@@ -122,7 +121,7 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(EventsImage.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EventImageShowEvents.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -130,30 +129,30 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
     private void loadEvents() {
 
         //retrieve data from firebase database
-        valueEvListenerEvents = databaseRefEvents.addValueEventListener(new ValueEventListener() {
+        valueEvListenerShowEv = databaseRefShowEv.addValueEventListener(new ValueEventListener() {
             @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                eventsList.clear();
+                listShowEv.clear();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         Events events = postSnapshot.getValue(Events.class);
                         assert events != null;
                         if (events.getUser_Key().equals(currentUser.getUid())) {
                             events.setEvent_Key(postSnapshot.getKey());
-                            eventsList.add(events);
-                            tVNoEvents.setText(eventsList.size() + " Events added by: " + user_Name);
+                            listShowEv.add(events);
+                            tVShowEvents.setText(listShowEv.size() + " events added by: " + user_Name);
                         }
 
-                        if (eventsList.size() == 0) {
-                            tVNoEvents.setText("No Events added by: " + user_Name);
+                        if (listShowEv.size() == 0) {
+                            tVShowEvents.setText("No events added by: " + user_Name);
                         }
                     }
 
-                    eventsAdapter.notifyDataSetChanged();
+                    adapterShowEv.notifyDataSetChanged();
                 } else {
-                    tVNoEvents.setText("No Events registered!!");
+                    tVShowEvents.setText("No events registered!!");
                 }
 
                 progressDialog.dismiss();
@@ -161,39 +160,38 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(EventsImage.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EventImageShowEvents.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    //Action of the menu onClick
+    //Action of the events onClick
     @Override
     public void onItemClick(int position) {
 
-        final String[] options = {"Show events in Map", "Update this event", "Delete this Event"};
+        final String[] options = {"Show events in Map!!", "Update this event!!", "Delete this event!!"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.select_dialog_item, options);
-        Events selected_Event = eventsList.get(position);
+        Events selected_Event = listShowEv.get(position);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder
                 .setCancelable(false)
-                .setTitle("You selected: " + selected_Event.getEvent_Name() + " event" + "\nSelect an option:")
+                .setTitle("Selected event: " + selected_Event.getEvent_Name() + "!!" + "\nSelect an option:")
                 .setAdapter(adapter, (dialog, id) -> {
 
                     if (id == 0) {
-                        startActivity(new Intent(EventsImage.this, MapsActivity.class));
+                        startActivity(new Intent(EventImageShowEvents.this, MapsActivity.class));
                     }
 
                     if (id == 1) {
-                        Intent intent = new Intent(EventsImage.this, UpdateEvent.class);
+                        Intent intent = new Intent(EventImageShowEvents.this, UpdateEvent.class);
 
-                        Events selected_Event1 = eventsList.get(position);
-                        intent.putExtra("EDate", selected_Event1.getEvent_Date());
-                        intent.putExtra("EName", selected_Event1.getEvent_Name());
-                        intent.putExtra("EAddress", selected_Event1.getEvent_Address());
-                        intent.putExtra("EMessage", selected_Event1.getEvent_Message());
-                        intent.putExtra("EImage", selected_Event1.getEvent_Image());
-                        intent.putExtra("EKey", selected_Event1.getEvent_Key());
+                        intent.putExtra("EDate", selected_Event.getEvent_Date());
+                        intent.putExtra("EName", selected_Event.getEvent_Name());
+                        intent.putExtra("EAddress", selected_Event.getEvent_Place());
+                        intent.putExtra("EMessage", selected_Event.getEvent_Message());
+                        intent.putExtra("EImage", selected_Event.getEvent_Image());
+                        intent.putExtra("EKey", selected_Event.getEvent_Key());
                         startActivity(intent);
                     }
 
@@ -211,21 +209,21 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
     @SuppressLint("SetTextI18n")
     public void confirmDeletion(int position) {
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EventsImage.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EventImageShowEvents.this);
         alertDialogBuilder
                 .setTitle("Delete the event!!")
                 .setMessage("Are sure to delete this event?")
                 .setCancelable(true)
                 .setPositiveButton("YES", (dialog, id) -> {
-                    Events selected_Event = eventsList.get(position);
+                    Events selected_Event = listShowEv.get(position);
 
                     final String event_Key = selected_Event.getEvent_Key();
 
                     final String location_Key = selected_Event.getEventLocationKey();
 
-                    StorageReference imageReference = firebaseStEvents.getReferenceFromUrl(selected_Event.getEvent_Image());
+                    StorageReference imageReference = firebaseStShowEv.getReferenceFromUrl(selected_Event.getEvent_Image());
                     imageReference.delete().addOnSuccessListener(aVoid -> {
-                        databaseRefEvents.child(event_Key).removeValue();
+                        databaseRefShowEv.child(event_Key).removeValue();
                         dbRefEventsLocation.child(location_Key).removeValue();
 
                         LayoutInflater inflater = getLayoutInflater();
@@ -251,23 +249,22 @@ public class EventsImage extends AppCompatActivity implements EventsAdapter.OnIt
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        databaseRefEvents.removeEventListener(valueEvListenerEvents);
-        tVNoEvents.setText(eventsList.size() + " Events added by " + user_Name);
+        databaseRefShowEv.removeEventListener(valueEvListenerShowEv);
     }
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_events_image, menu);
+        getMenuInflater().inflate(R.menu.menu_event_image_show_events, menu);
         return true;
     }
 
     public void menuEventsImageGoBack() {
-        startActivity(new Intent(EventsImage.this, UserPage.class));
+        startActivity(new Intent(EventImageShowEvents.this, UserPage.class));
         finish();
     }
 
     public void menuEventsImageAddMenu() {
-        startActivity(new Intent(EventsImage.this, AddEvent.class));
+        startActivity(new Intent(EventImageShowEvents.this, AddEvent.class));
         finish();
     }
 
