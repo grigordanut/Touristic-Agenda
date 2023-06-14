@@ -92,6 +92,7 @@ public class LoginUser extends AppCompatActivity {
     }
 
     public void logInUser() {
+
         if (validateUserLogData()) {
 
             progressDialog.setTitle("User login!!");
@@ -100,7 +101,6 @@ public class LoginUser extends AppCompatActivity {
             firebaseAuth.signInWithEmailAndPassword(email_logUser, pass_logUser).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
 
-                    //UIUtil.hideKeyboard(this);
                     checkEmailVerification();
 
                 } else {
