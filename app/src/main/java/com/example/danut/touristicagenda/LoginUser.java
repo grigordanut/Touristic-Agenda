@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
+import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
+
 import java.util.Objects;
 
 public class LoginUser extends AppCompatActivity {
@@ -98,9 +100,13 @@ public class LoginUser extends AppCompatActivity {
             firebaseAuth.signInWithEmailAndPassword(email_logUser, pass_logUser).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
 
+                    //UIUtil.hideKeyboard(this);
                     checkEmailVerification();
 
                 } else {
+
+                    progressDialog.dismiss();
+
                     try {
                         throw Objects.requireNonNull(task.getException());
                     } catch (FirebaseAuthInvalidUserException e) {
@@ -113,8 +119,6 @@ public class LoginUser extends AppCompatActivity {
                         Toast.makeText(LoginUser.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-
-                progressDialog.dismiss();
             });
         }
     }
@@ -128,6 +132,10 @@ public class LoginUser extends AppCompatActivity {
         assert firebaseUser != null;
         if (firebaseUser.isEmailVerified()) {
 
+            UIUtil.hideKeyboard(this);
+
+            progressDialog.dismiss();
+
             LayoutInflater inflater = getLayoutInflater();
             @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
             TextView text = layout.findViewById(R.id.tvToast);
@@ -140,11 +148,12 @@ public class LoginUser extends AppCompatActivity {
             toast.show();
 
             Intent intent = new Intent(LoginUser.this, UserPage.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
 
         } else {
+
+            progressDialog.dismiss();
 
             LayoutInflater inflater = getLayoutInflater();
             @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);

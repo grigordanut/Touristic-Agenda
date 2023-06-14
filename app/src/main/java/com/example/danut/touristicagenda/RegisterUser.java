@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
+
 import java.util.Objects;
 
 public class RegisterUser extends AppCompatActivity {
@@ -77,6 +79,9 @@ public class RegisterUser extends AppCompatActivity {
                     try {
                         throw Objects.requireNonNull(task.getException());
                     } catch (Exception e) {
+
+                        progressDialog.dismiss();
+
                         LayoutInflater inflater = getLayoutInflater();
                         @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.toast, null);
                         TextView text = layout.findViewById(R.id.tvToast);
@@ -89,8 +94,6 @@ public class RegisterUser extends AppCompatActivity {
                         toast.show();
                     }
                 }
-
-                progressDialog.dismiss();
             });
         }
     }
@@ -108,6 +111,8 @@ public class RegisterUser extends AppCompatActivity {
         databaseReference.child(user_id).child("user_phoneNumber").setValue(phone_reg);
         databaseReference.child(user_id).child("user_emailAddress").setValue(email_reg);
 
+        UIUtil.hideKeyboard(this);
+
         firebaseUser.sendEmailVerification();
 
         LayoutInflater inflater = getLayoutInflater();
@@ -122,7 +127,6 @@ public class RegisterUser extends AppCompatActivity {
         toast.show();
 
         Intent intent = new Intent(RegisterUser.this, LoginUser.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
