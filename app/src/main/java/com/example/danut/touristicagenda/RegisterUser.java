@@ -20,8 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
-
 import java.util.Objects;
 
 public class RegisterUser extends AppCompatActivity {
@@ -110,8 +108,6 @@ public class RegisterUser extends AppCompatActivity {
         databaseReference.child(user_id).child("user_lastName").setValue(lName_reg);
         databaseReference.child(user_id).child("user_phoneNumber").setValue(phone_reg);
         databaseReference.child(user_id).child("user_emailAddress").setValue(email_reg);
-
-        UIUtil.hideKeyboard(this);
 
         firebaseUser.sendEmailVerification();
 

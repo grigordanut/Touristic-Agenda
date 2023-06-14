@@ -22,8 +22,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
-import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
-
 import java.util.Objects;
 
 public class LoginUser extends AppCompatActivity {
@@ -131,8 +129,6 @@ public class LoginUser extends AppCompatActivity {
 
         assert firebaseUser != null;
         if (firebaseUser.isEmailVerified()) {
-
-            UIUtil.hideKeyboard(this);
 
             progressDialog.dismiss();
 
